@@ -3,130 +3,243 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>K播买手开播排期 · 珠宝饰品 5-6月</title>
+<title>K播买手开播排期 · 珠宝饰品</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;background:#f5f2ee;color:#2d2d2d}
-header{background:linear-gradient(135deg,#b8960c 0%,#8b6914 100%);color:white;padding:28px 20px 20px;text-align:center}
-header h1{font-size:22px;font-weight:700;letter-spacing:2px;margin-bottom:6px}
-header p{font-size:13px;opacity:.85;margin-bottom:10px}
-.stats{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:10px}
-.stat{background:rgba(255,255,255,.18);border-radius:20px;padding:4px 14px;font-size:12px}
-.controls{background:white;padding:12px 16px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;position:sticky;top:0;z-index:10;box-shadow:0 2px 8px rgba(0,0,0,.08)}
-.controls input{flex:1;min-width:140px;padding:8px 14px;border:1.5px solid #e0d5c5;border-radius:20px;font-size:14px;outline:none}
-.controls input:focus{border-color:#b8960c}
-.btn{padding:6px 14px;border-radius:20px;border:1.5px solid #e0d5c5;background:white;font-size:12px;cursor:pointer;transition:all .2s;white-space:nowrap}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;background:#f5f2ee;color:#2d2d2d;font-size:14px}
+
+/* 免责声明 */
+.disclaimer{background:#fffbe6;border-bottom:1px solid #f5d87a;padding:10px 16px;text-align:center;font-size:12px;color:#7a6000;line-height:1.7}
+.disclaimer strong{color:#c0392b}
+
+header{background:linear-gradient(135deg,#b8960c 0%,#8b6914 100%);color:white;padding:22px 16px 16px;text-align:center}
+header h1{font-size:20px;font-weight:700;letter-spacing:2px;margin-bottom:4px}
+header p{font-size:12px;opacity:.85}
+.stats{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:10px}
+.stat{background:rgba(255,255,255,.2);border-radius:20px;padding:3px 12px;font-size:12px}
+
+/* 搜索模式切换 */
+.mode-bar{background:white;border-bottom:2px solid #f0e8d8;display:flex}
+.mode-btn{flex:1;padding:12px;text-align:center;font-size:14px;font-weight:600;cursor:pointer;color:#999;border-bottom:3px solid transparent;transition:all .2s}
+.mode-btn.active{color:#b8960c;border-bottom-color:#b8960c}
+
+/* 控制区 */
+.controls{background:white;padding:12px 14px;box-shadow:0 2px 8px rgba(0,0,0,.07);position:sticky;top:0;z-index:20}
+.control-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.control-row + .control-row{margin-top:8px}
+.ctrl-input{flex:1;min-width:160px;padding:8px 14px;border:1.5px solid #e0d5c5;border-radius:20px;font-size:14px;outline:none}
+.ctrl-input:focus{border-color:#b8960c}
+select.ctrl-input{cursor:pointer;background:white}
+.btn{padding:7px 14px;border-radius:20px;border:1.5px solid #e0d5c5;background:white;font-size:12px;cursor:pointer;transition:all .2s;white-space:nowrap}
 .btn.active,.btn:hover{background:#b8960c;color:white;border-color:#b8960c}
-.content{padding:0 12px 24px}
-.day-block{margin-top:16px}
-.day-title{font-size:14px;font-weight:700;color:#7a5c1e;padding:10px 4px 8px;border-bottom:2px solid #e8ddd0;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.btn-clear{background:#f5f2ee;border-color:#ddd;color:#888}
+.btn-clear:hover{background:#e74c3c;border-color:#e74c3c;color:white}
+
+/* 结果 */
+.content{padding:10px 12px 32px}
+.result-hint{background:#fff8e8;border:1px solid #f0d87a;border-radius:8px;padding:10px 14px;margin-bottom:12px;font-size:13px;color:#7a5c00}
+
+.day-block{margin-top:14px}
+.day-title{font-size:14px;font-weight:700;color:#7a5c1e;padding:9px 4px 7px;border-bottom:2px solid #e8ddd0;margin-bottom:8px;display:flex;align-items:center;gap:8px}
 .day-title .cnt{font-size:11px;background:#b8960c;color:white;border-radius:10px;padding:1px 7px;font-weight:400}
-.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px}
-.card{background:white;border-radius:10px;padding:13px;border-left:4px solid #ddd;box-shadow:0 1px 3px rgba(0,0,0,.06);transition:transform .15s,box-shadow .15s}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:8px}
+
+.card{background:white;border-radius:10px;padding:12px 14px;border-left:4px solid #ddd;box-shadow:0 1px 3px rgba(0,0,0,.06);transition:all .15s}
 .card:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,.1)}
-.card-name{font-size:15px;font-weight:700;margin-bottom:6px}
-.card-meta{display:flex;gap:6px;flex-wrap:wrap}
+.card-name{font-size:15px;font-weight:700;margin-bottom:7px}
+.card-meta{display:flex;gap:5px;flex-wrap:wrap}
 .tag{display:inline-block;border-radius:5px;padding:2px 8px;font-size:11px;font-weight:500}
-.empty{text-align:center;padding:48px;color:#bbb;font-size:15px}
-footer{text-align:center;padding:20px;color:#bbb;font-size:11px;background:white;margin-top:8px}
+
+/* 买手视角：显示日期列表 */
+.buyer-card{background:white;border-radius:12px;padding:14px 16px;margin-bottom:10px;box-shadow:0 1px 4px rgba(0,0,0,.07);border-left:4px solid #b8960c}
+.buyer-card-name{font-size:16px;font-weight:700;margin-bottom:8px}
+.date-list{display:flex;flex-wrap:wrap;gap:6px}
+.date-chip{background:#fdf6ed;color:#a0784d;border:1px solid #e8d5b5;border-radius:6px;padding:4px 10px;font-size:12px;font-weight:600}
+
+.empty{text-align:center;padding:48px 24px;color:#bbb;font-size:15px}
+footer{text-align:center;padding:18px;color:#bbb;font-size:11px;background:white;margin-top:8px;border-top:1px solid #eee}
 @media(max-width:480px){.cards{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
+
+<!-- 免责声明 -->
+<div class="disclaimer">
+  ⚠️ <strong>重要提示：</strong>本页面信息<strong>仅供参考</strong>，实际开播情况以买手当日直播为准，可能存在变动。<br>
+  🔒 <strong>信息敏感，请勿对外扩散传播，仅限合作商家内部参考。</strong>
+</div>
+
 <header>
   <h1>💎 K播买手开播排期</h1>
-  <p>珠宝饰品 · 文玩玉翠 · 5-6月全量场次</p>
+  <p>珠宝饰品 · 文玩玉翠 · 5-6月</p>
   <div class="stats">
-    <div class="stat" id="stat-total">加载中...</div>
-    <div class="stat" id="stat-date">更新：2026-05-07</div>
+    <div class="stat" id="stat-total">232场</div>
+    <div class="stat">更新：2026-05-07</div>
   </div>
 </header>
 
-<div class="controls">
-  <input type="text" id="search" placeholder="🔍 搜索买手名称...">
-  <button class="btn active" onclick="setFilter('all',this)">全部</button>
-  <button class="btn" onclick="setFilter('5',this)">5月</button>
-  <button class="btn" onclick="setFilter('6',this)">6月</button>
-  <button class="btn" onclick="setFilter('1000w+',this)">💎 千万+</button>
-  <button class="btn" onclick="setFilter('100-500w',this)">🥈 百万级</button>
+<!-- 模式切换 -->
+<div class="mode-bar">
+  <div class="mode-btn active" id="mode-date-btn" onclick="switchMode('date')">📅 按日期查开播</div>
+  <div class="mode-btn" id="mode-buyer-btn" onclick="switchMode('buyer')">🔍 按买手查排期</div>
+</div>
+
+<!-- 控制区（按日期模式） -->
+<div class="controls" id="ctrl-date">
+  <div class="control-row">
+    <select class="ctrl-input" id="date-select" onchange="render()">
+      <option value="">— 选择日期 —</option>
+      <option value="2026-05-01">5月1日</option> <option value="2026-05-02">5月2日</option> <option value="2026-05-03">5月3日</option> <option value="2026-05-04">5月4日</option> <option value="2026-05-05">5月5日</option> <option value="2026-05-06">5月6日</option> <option value="2026-05-07">5月7日</option> <option value="2026-05-08">5月8日</option> <option value="2026-05-09">5月9日</option> <option value="2026-05-10">5月10日</option> <option value="2026-05-11">5月11日</option> <option value="2026-05-12">5月12日</option> <option value="2026-05-13">5月13日</option> <option value="2026-05-14">5月14日</option> <option value="2026-05-15">5月15日</option> <option value="2026-05-16">5月16日</option> <option value="2026-05-17">5月17日</option> <option value="2026-05-18">5月18日</option> <option value="2026-05-19">5月19日</option> <option value="2026-05-20">5月20日</option> <option value="2026-05-21">5月21日</option> <option value="2026-05-22">5月22日</option> <option value="2026-05-23">5月23日</option> <option value="2026-05-24">5月24日</option> <option value="2026-05-25">5月25日</option> <option value="2026-05-26">5月26日</option> <option value="2026-05-27">5月27日</option> <option value="2026-05-28">5月28日</option> <option value="2026-05-29">5月29日</option> <option value="2026-05-30">5月30日</option> <option value="2026-05-31">5月31日</option>
+    </select>
+    <button class="btn active" id="tier-all" onclick="setTier('all',this)">全部</button>
+    <button class="btn" onclick="setTier('1000w+',this)">💎千万+</button>
+    <button class="btn" onclick="setTier('100-500w',this)">🥈百万级</button>
+    <button class="btn btn-clear" onclick="clearDate()">清除</button>
+  </div>
+</div>
+
+<!-- 控制区（按买手模式） -->
+<div class="controls" id="ctrl-buyer" style="display:none">
+  <div class="control-row">
+    <input type="text" class="ctrl-input" id="buyer-search" placeholder="输入买手名称，如：夜忙症" oninput="renderBuyer()">
+    <button class="btn btn-clear" onclick="document.getElementById('buyer-search').value='';renderBuyer()">清除</button>
+  </div>
 </div>
 
 <div class="content" id="app"></div>
-<footer>数据来源：K播达人开播排期官方导出 · 共232场（珠宝饰品+文玩玉翠）</footer>
+
+<footer>数据来源：K播达人开播排期官方导出 · 仅供内部参考 · 请勿外传</footer>
 
 <script>
 const ALL_DATA = [{"name": "浙江京珍批发珠宝行", "industry": "珠宝饰品", "tier": "10w-", "date": "2026-05-01"}, {"name": "浙江钰华珠宝工厂", "industry": "珠宝饰品", "tier": "50-100w", "date": "2026-05-01"}, {"name": "旧木新谈（文玩银饰）", "industry": "文玩玉翠", "tier": "10-50w", "date": "2026-05-01"}, {"name": "梵心藏珠", "industry": "文玩玉翠", "tier": "10w-", "date": "2026-05-01"}, {"name": "诸暨老朱家实体批发", "industry": "珠宝饰品", "tier": "10-50w", "date": "2026-05-01"}, {"name": "银饰研究所", "industry": "珠宝饰品", "tier": "10-50w", "date": "2026-05-01"}, {"name": "问道老君阁文创-守晴", "industry": "文玩玉翠", "tier": "10-50w", "date": "2026-05-01"}, {"name": "朱朱-珠宝Romantic主理人", "industry": "珠宝饰品", "tier": "100-500w", "date": "2026-05-01"}, {"name": "Chiara Vintage", "industry": "珠宝饰品", "tier": "10-50w", "date": "2026-05-01"}, {"name": "紫绫紫绫", "industry": "珠宝饰品", "tier": "10-50w", "date": "2026-05-01"}, {"name": "邪修刘刘", "industry": "珠宝饰品", "tier": "10w-", "date": "2026-05-01"}, {"name": "浙江诸暨海思诺珠宝", "industry": "珠宝饰品", "tier": "10-50w", "date": "2026-05-01"}, {"name": "夏天Vintage中古首饰", "industry": "珠宝饰品", "tier": "10w-", "date": "2026-05-01"}, {"name": "YAYA CHIC轻奢饰品", "industry": "珠宝饰品", "tier": "10w-", "date": "2026-05-01"}, {"name": "莉大无穷", "industry": "珠宝饰品", "tier": "10-50w", "date": "2026-05-01"}, {"name": "宝藏珠宝-高定买手", "industry": "文玩玉翠", "tier": "10-50w", "date": "2026-05-01"}, {"name": "油润的很", "industry": "文玩玉翠", "tier": "10w-", "date": "2026-05-01"}, {"name": "CC礼兰珠宝副总裁", "industry": "珠宝饰品", "tier": "10-50w", "date": "2026-05-01"}, {"name": "邱黎", "industry": "珠宝饰品", "tier": "10-50w", "date": "2026-05-01"}, {"name": "若非珠宝 RF JEWELRY", "industry": "珠宝饰品", "tier": "10-50w", "date": "2026-05-01"}, {"name": "老君阁-三树", "industry": "文玩玉翠", "tier": "10w-", "date": "2026-05-01"}, {"name": "美饰坊", "industry": "珠宝饰品", "tier": "10w-", "date": "2026-05-01"}, {"name": "浙江钰华珠宝工厂", "industry": "珠宝饰品", "tier": "50-100w", "date": "2026-05-02"}, {"name": "JonnyHi珠宝主理人", "industry": "文玩玉翠", "tier": "1000w+", "date": "2026-05-02"}, {"name": "旧木新谈（文玩银饰）", "industry": "文玩玉翠", "tier": "10-50w", "date": "2026-05-02"}, {"name": "子安", "industry": "文玩玉翠", "tier": "10-50w", "date": "2026-05-02"}, {"name": "梵心藏珠", "industry": "文玩玉翠", "tier": "10w-", "date": "2026-05-02"}, {"name": "lindsay", "industry": "珠宝饰品", "tier": "500w-1000w", "date": "2026-05-02"}, {"name": "小丁的南红", "industry": "文玩玉翠", "tier": "10-50w", "date": "2026-05-02"}, {"name": "lady jewelry蕾迪珠宝", "industry": "珠宝饰品", "tier": "10-50w", "date": "2026-05-02"}, {"name": "银饰研究所", "industry": "珠宝饰品", "tier": "10-50w", "date": "2026-05-02"}, {"name": "问道老君阁文创-守晴", "industry": "文玩玉翠", "tier": "10-50w", "date": "2026-05-02"}, {"name": "朱朱-珠宝Romantic主理人", "industry": "珠宝饰品", "tier": "100-500w", "date": "2026-05-02"}, {"name": "紫绫紫绫", "industry": "珠宝饰品", "tier": "10-50w", "date": "2026-05-02"}, {"name": "邪修刘刘", "industry": "珠宝饰品", "tier": "10w-", "date": "2026-05-02"}, {"name": "董奕杭_", "industry": "文玩玉翠", "tier": "50-100w", "date": "2026-05-02"}, {"name": "少堂主古珠玉", "industry": "文玩玉翠", "tier": "10-50w", "date": "2026-05-02"}, {"name": "夏天Vintage中古首饰", "industry": "珠宝饰品", "tier": "10w-", "date": "2026-05-02"}, {"name": "丙火火", "industry": "珠宝饰品", "tier": "100-500w", "date": "2026-05-02"}, {"name": "安安今年36", "industry": "珠宝饰品", "tier": "100-500w", "date": "2026-05-02"}, {"name": "屋里酥酥", "industry": "珠宝饰品", "tier": "10-50w", "date": "2026-05-02"}, {"name": "YAYA CHIC轻奢饰品", "industry": "珠宝饰品", "tier": "10w-", "date": "2026-05-02"}, {"name": "莉大无穷", "industry": "珠宝饰品", "tier": "10-50w", "date": "2026-05-02"}, {"name": "宝藏珠宝-高定买手", "industry": "文玩玉翠", "tier": "10-50w", "date": "2026-05-02"}, {"name": "CC礼兰珠宝副总裁", "industry": "珠宝饰品", "tier": "10-50w", "date": "2026-05-02"}, {"name": "邱黎", "industry": "珠宝饰品", "tier": "10-50w", "date": "2026-05-02"}, {"name": "若非珠宝 RF JEWELRY", "industry": "珠宝饰品", "tier": "10-50w", "date": "2026-05-02"}, {"name": "梵妮Esme", "industry": "珠宝饰品", "tier": "10w-", "date": "2026-05-03"}, {"name": "浙江钰华珠宝工厂", "industry": "珠宝饰品", "tier": "50-100w", "date": "2026-05-03"}, {"name": "JonnyHi珠宝主理人", "industry": "文玩玉翠", "tier": "1000w+", "date": "2026-05-03"}, {"name": "旧木新谈（文玩银饰）", "industry": "文玩玉翠", "tier": "10-50w", "date": "2026-05-03"}, {"name": "lady jewelry蕾迪珠宝", "industry": "珠宝饰品", "tier": "10-50w", "date": "2026-05-03"}, {"name": "银饰研究所", "industry": "珠宝饰品", "tier": "10-50w", "date": "2026-05-03"}, {"name": "问道老君阁文创-守晴", "industry": "文玩玉翠", "tier": "10-50w", "date": "2026-05-03"}, {"name": "子安", "industry": "文玩玉翠", "tier": "10-50w", "date": "2026-05-03"}, {"name": "MiA", "industry": "珠宝饰品", "tier": "10w-", "date": "2026-05-03"}, {"name": "夏天Vintage中古首饰", "industry": "珠宝饰品", "tier": "10w-", "date": "2026-05-03"}, {"name": "紫绫紫绫", "industry": "珠宝饰品", "tier": "10-50w", "date": "2026-05-03"}, {"name": "爱美的大燕", "industry": "珠宝饰品", "tier": "10w-", "date": "2026-05-03"}, {"name": "少堂主古珠玉", "industry": "文玩玉翠", "tier": "10-50w", "date": "2026-05-03"}, {"name": "邪修刘刘", "industry": "珠宝饰品", "tier": "10w-", "date": "2026-05-03"}, {"name": "安安今年36", "industry": "珠宝饰品", "tier": "100-500w", "date": "2026-05-03"}, {"name": "小丁的南红", "industry": "文玩玉翠", "tier": "10-50w", "date": "2026-05-03"}, {"name": "朱朱-珠宝Romantic主理人", "industry": "珠宝饰品", "tier": "100-500w", "date": "2026-05-03"}, {"name": "美饰坊", "industry": "珠宝饰品", "tier": "10w-", "date": "2026-05-03"}, {"name": "浙江钰华珠宝工厂", "industry": "珠宝饰品", "tier": "50-100w", "date": "2026-05-04"}, {"name": "lindsay", "industry": "珠宝饰品", "tier": "500w-1000w", "date": "2026-05-04"}, {"name": "天天今天戴什么", "industry": "珠宝饰品", "tier": "10w-", "date": "2026-05-04"}, {"name": "问道老君阁文创-守晴", "industry": "文玩玉翠", "tier": "10-50w", "date": "2026-05-04"}, {"name": "朱朱-珠宝Romantic主理人", "industry": "珠宝饰品", "tier": "100-500w", "date": "2026-05-04"}, {"name": "旧木新谈（文玩银饰）", "industry": "文玩玉翠", "tier": "10-50w", "date": "2026-05-04"}, {"name": "银饰研究所", "industry": "珠宝饰品", "tier": "10-50w", "date": "2026-05-04"}, {"name": "屋里酥酥", "industry": "珠宝饰品", "tier": "10-50w", "date": "2026-05-04"}, {"name": "夏天Vintage中古首饰", "industry": "珠宝饰品", "tier": "10w-", "date": "2026-05-04"}, {"name": "莉大无穷", "industry": "珠宝饰品", "tier": "10-50w", "date": "2026-05-04"}, {"name": "宝藏珠宝-高定买手", "industry": "文玩玉翠", "tier": "10-50w", "date": "2026-05-04"}, {"name": "婷呀呀呀的店", "industry": "珠宝饰品", "tier": "50-100w", "date": "2026-05-04"}, {"name": "旧木新谈（文玩银饰）", "industry": "文玩玉翠", "tier": "10-50w", "date": "2026-05-05"}, {"name": "朱朱-珠宝Romantic主理人", "industry": "珠宝饰品", "tier": "100-500w", "date": "2026-05-05"}, {"name": "比尔盖茨喵", "industry": "文玩玉翠", "tier": "10w-", "date": "2026-05-05"}, {"name": "天天今天戴什么", "industry": "珠宝饰品", "tier": "10w-", "date": "2026-05-05"}, {"name": "问道老君阁文创-守晴", "industry": "文玩玉翠", "tier": "10-50w", "date": "2026-05-05"}, {"name": "MiA", "industry": "珠宝饰品", "tier": "10w-", "date": "2026-05-05"}, {"name": "珠宝兄弟嘉骏", "industry": "珠宝饰品", "tier": "100-500w", "date": "2026-05-05"}, {"name": "小博博小", "industry": "珠宝饰品", "tier": "100-500w", "date": "2026-05-05"}, {"name": "银饰研究所", "industry": "珠宝饰品", "tier": "10-50w", "date": "2026-05-05"}, {"name": "宝藏珠宝-高定买手", "industry": "文玩玉翠", "tier": "10-50w", "date": "2026-05-05"}, {"name": "夏天Vintage中古首饰", "industry": "珠宝饰品", "tier": "10w-", "date": "2026-05-05"}, {"name": "CC礼兰珠宝副总裁", "industry": "珠宝饰品", "tier": "10-50w", "date": "2026-05-05"}, {"name": "油润的很", "industry": "文玩玉翠", "tier": "10w-", "date": "2026-05-05"}, {"name": "若非珠宝 RF JEWELRY", "industry": "珠宝饰品", "tier": "10-50w", "date": "2026-05-05"}, {"name": "婷呀呀呀的店", "industry": "珠宝饰品", "tier": "50-100w", "date": "2026-05-05"}, {"name": "美饰坊", "industry": "珠宝饰品", "tier": "10w-", "date": "2026-05-05"}, {"name": "邪修刘刘", "industry": "珠宝饰品", "tier": "10w-", "date": "2026-05-05"}, {"name": "邪修刘刘", "industry": "珠宝饰品", "tier": "10w-", "date": "2026-05-06"}, {"name": "旧木新谈（文玩银饰）", "industry": "文玩玉翠", "tier": "10-50w", "date": "2026-05-06"}, {"name": "lady jewelry蕾迪珠宝", "industry": "珠宝饰品", "tier": "10-50w", "date": "2026-05-06"}, {"name": "银饰研究所", "industry": "珠宝饰品", "tier": "10-50w", "date": "2026-05-06"}, {"name": "天天今天戴什么", "industry": "珠宝饰品", "tier": "10w-", "date": "2026-05-06"}, {"name": "问道老君阁文创-守晴", "industry": "文玩玉翠", "tier": "10-50w", "date": "2026-05-06"}, {"name": "MiA", "industry": "珠宝饰品", "tier": "10w-", "date": "2026-05-06"}, {"name": "辣辣在沙特", "industry": "文玩玉翠", "tier": "10-50w", "date": "2026-05-06"}, {"name": "一张老K", "industry": "珠宝饰品", "tier": "100-500w", "date": "2026-05-06"}, {"name": "紫绫紫绫", "industry": "珠宝饰品", "tier": "10-50w", "date": "2026-05-06"}, {"name": "梵心藏珠", "industry": "文玩玉翠", "tier": "10w-", "date": "2026-05-06"}, {"name": "老君阁-三树", "industry": "文玩玉翠", "tier": "10w-", "date": "2026-05-06"}, {"name": "宇曦同行（ 晚6点50播", "industry": "珠宝饰品", "tier": "100-500w", "date": "2026-05-06"}, {"name": "宝藏珠宝-高定买手", "industry": "文玩玉翠", "tier": "10-50w", "date": "2026-05-06"}, {"name": "小丁的南红", "industry": "文玩玉翠", "tier": "10-50w", "date": "2026-05-06"}, {"name": "肉丝闪亮亮", "industry": "文玩玉翠", "tier": "10w-", "date": "2026-05-06"}, {"name": "油润的很", "industry": "文玩玉翠", "tier": "10w-", "date": "2026-05-06"}, {"name": "蓝精灵大C", "industry": "珠宝饰品", "tier": "10-50w", "date": "2026-05-06"}, {"name": "若非珠宝 RF JEWELRY", "industry": "珠宝饰品", "tier": "10-50w", "date": "2026-05-06"}, {"name": "婷呀呀呀的店", "industry": "珠宝饰品", "tier": "50-100w", "date": "2026-05-06"}, {"name": "美饰坊", "industry": "珠宝饰品", "tier": "10w-", "date": "2026-05-06"}, {"name": "朱朱-珠宝Romantic主理人", "industry": "珠宝饰品", "tier": "100-500w", "date": "2026-05-06"}, {"name": "夏天Vintage中古首饰", "industry": "珠宝饰品", "tier": "10w-", "date": "2026-05-06"}, {"name": "小博博小", "industry": "珠宝饰品", "tier": "100-500w", "date": "2026-05-06"}, {"name": "张萌萌姐", "industry": "珠宝饰品", "tier": "500w-1000w", "date": "2026-05-07"}, {"name": "旧木新谈（文玩银饰）", "industry": "文玩玉翠", "tier": "10-50w", "date": "2026-05-07"}, {"name": "朱朱-珠宝Romantic主理人", "industry": "珠宝饰品", "tier": "100-500w", "date": "2026-05-07"}, {"name": "梵心藏珠", "industry": "文玩玉翠", "tier": "10w-", "date": "2026-05-07"}, {"name": "老爸评测", "industry": "珠宝饰品", "tier": "50-100w", "date": "2026-05-07"}, {"name": "银饰研究所", "industry": "珠宝饰品", "tier": "10-50w", "date": "2026-05-07"}, {"name": "天天今天戴什么", "industry": "珠宝饰品", "tier": "10w-", "date": "2026-05-07"}, {"name": "邱黎", "industry": "珠宝饰品", "tier": "10-50w", "date": "2026-05-07"}, {"name": "夏天Vintage中古首饰", "industry": "珠宝饰品", "tier": "10w-", "date": "2026-05-07"}, {"name": "宝藏珠宝-高定买手", "industry": "文玩玉翠", "tier": "10-50w", "date": "2026-05-07"}, {"name": "一只肉丸", "industry": "文玩玉翠", "tier": "100-500w", "date": "2026-05-07"}, {"name": "王玉说黄金", "industry": "珠宝饰品", "tier": "10-50w", "date": "2026-05-07"}, {"name": "夜忙症", "industry": "珠宝饰品", "tier": "1000w+", "date": "2026-05-08"}, {"name": "宇曦同行（ 晚6点50播", "industry": "珠宝饰品", "tier": "100-500w", "date": "2026-05-08"}, {"name": "宝藏珠宝-高定买手", "industry": "文玩玉翠", "tier": "10-50w", "date": "2026-05-08"}, {"name": "婷呀呀呀的店", "industry": "珠宝饰品", "tier": "50-100w", "date": "2026-05-08"}, {"name": "夏天Vintage中古首饰", "industry": "珠宝饰品", "tier": "10w-", "date": "2026-05-08"}, {"name": "张萌萌姐", "industry": "珠宝饰品", "tier": "500w-1000w", "date": "2026-05-09"}, {"name": "老爸评测", "industry": "珠宝饰品", "tier": "50-100w", "date": "2026-05-09"}, {"name": "王冠", "industry": "文玩玉翠", "tier": "1000w+", "date": "2026-05-09"}, {"name": "珠宝兄弟", "industry": "珠宝饰品", "tier": "50-100w", "date": "2026-05-09"}, {"name": "你们的姐夫", "industry": "珠宝饰品", "tier": "100-500w", "date": "2026-05-09"}, {"name": "宇曦同行（ 晚6点50播", "industry": "珠宝饰品", "tier": "100-500w", "date": "2026-05-09"}, {"name": "宝藏珠宝-高定买手", "industry": "文玩玉翠", "tier": "10-50w", "date": "2026-05-09"}, {"name": "郑大郑", "industry": "珠宝饰品", "tier": "10-50w", "date": "2026-05-10"}, {"name": "安安今年36", "industry": "珠宝饰品", "tier": "100-500w", "date": "2026-05-10"}, {"name": "王玥快跑", "industry": "珠宝饰品", "tier": "100-500w", "date": "2026-05-10"}, {"name": "张芳", "industry": "文玩玉翠", "tier": "10-50w", "date": "2026-05-10"}, {"name": "较真儿的Penny", "industry": "珠宝饰品", "tier": "1000w+", "date": "2026-05-10"}, {"name": "宇曦同行（ 晚6点50播", "industry": "珠宝饰品", "tier": "100-500w", "date": "2026-05-10"}, {"name": "婷呀呀呀的店", "industry": "珠宝饰品", "tier": "50-100w", "date": "2026-05-10"}, {"name": "李不得", "industry": "文玩玉翠", "tier": "10w-", "date": "2026-05-10"}, {"name": "薇霓心选", "industry": "文玩玉翠", "tier": "50-100w", "date": "2026-05-11"}, {"name": "菩悦东方 | 东方云展", "industry": "珠宝饰品", "tier": "10w-", "date": "2026-05-11"}, {"name": "婷呀呀呀的店", "industry": "珠宝饰品", "tier": "50-100w", "date": "2026-05-11"}, {"name": "老爸评测", "industry": "珠宝饰品", "tier": "50-100w", "date": "2026-05-12"}, {"name": "宇曦同行（ 晚6点50播", "industry": "珠宝饰品", "tier": "100-500w", "date": "2026-05-12"}, {"name": "婷呀呀呀的店", "industry": "珠宝饰品", "tier": "50-100w", "date": "2026-05-12"}, {"name": "猛强Yvonne🥕", "industry": "珠宝饰品", "tier": "10w-", "date": "2026-05-13"}, {"name": "薇霓心选", "industry": "文玩玉翠", "tier": "50-100w", "date": "2026-05-13"}, {"name": "宇曦同行（ 晚6点50播", "industry": "珠宝饰品", "tier": "100-500w", "date": "2026-05-13"}, {"name": "蓝精灵大C", "industry": "珠宝饰品", "tier": "10-50w", "date": "2026-05-13"}, {"name": "婷呀呀呀的店", "industry": "珠宝饰品", "tier": "50-100w", "date": "2026-05-13"}, {"name": "薇霓心选", "industry": "文玩玉翠", "tier": "50-100w", "date": "2026-05-14"}, {"name": "婷呀呀呀的店", "industry": "珠宝饰品", "tier": "50-100w", "date": "2026-05-14"}, {"name": "王冠", "industry": "文玩玉翠", "tier": "1000w+", "date": "2026-05-15"}, {"name": "夜忙症", "industry": "珠宝饰品", "tier": "1000w+", "date": "2026-05-15"}, {"name": "吐提古丽热杰", "industry": "文玩玉翠", "tier": "1000w+", "date": "2026-05-15"}, {"name": "宇曦同行（ 晚6点50播", "industry": "珠宝饰品", "tier": "100-500w", "date": "2026-05-15"}, {"name": "薇霓心选", "industry": "文玩玉翠", "tier": "50-100w", "date": "2026-05-15"}, {"name": "婷呀呀呀的店", "industry": "珠宝饰品", "tier": "50-100w", "date": "2026-05-15"}, {"name": "老爸评测", "industry": "珠宝饰品", "tier": "50-100w", "date": "2026-05-16"}, {"name": "lindsay", "industry": "珠宝饰品", "tier": "500w-1000w", "date": "2026-05-16"}, {"name": "较真儿的Penny", "industry": "珠宝饰品", "tier": "1000w+", "date": "2026-05-16"}, {"name": "宇曦同行（ 晚6点50播", "industry": "珠宝饰品", "tier": "100-500w", "date": "2026-05-16"}, {"name": "薇霓心选", "industry": "文玩玉翠", "tier": "50-100w", "date": "2026-05-16"}, {"name": "王冠", "industry": "文玩玉翠", "tier": "1000w+", "date": "2026-05-17"}, {"name": "维米 SONG", "industry": "文玩玉翠", "tier": "100-500w", "date": "2026-05-17"}, {"name": "小博博小", "industry": "珠宝饰品", "tier": "100-500w", "date": "2026-05-17"}, {"name": "较真儿的Penny", "industry": "珠宝饰品", "tier": "1000w+", "date": "2026-05-17"}, {"name": "薇霓心选", "industry": "文玩玉翠", "tier": "50-100w", "date": "2026-05-17"}, {"name": "宇曦同行（ 晚6点50播", "industry": "珠宝饰品", "tier": "100-500w", "date": "2026-05-17"}, {"name": "婷呀呀呀的店", "industry": "珠宝饰品", "tier": "50-100w", "date": "2026-05-17"}, {"name": "lindsay", "industry": "珠宝饰品", "tier": "500w-1000w", "date": "2026-05-18"}, {"name": "杨之楹", "industry": "文玩玉翠", "tier": "500w-1000w", "date": "2026-05-18"}, {"name": "婷呀呀呀的店", "industry": "珠宝饰品", "tier": "50-100w", "date": "2026-05-18"}, {"name": "章龄之", "industry": "文玩玉翠", "tier": "1000w+", "date": "2026-05-19"}, {"name": "王冠", "industry": "文玩玉翠", "tier": "1000w+", "date": "2026-05-19"}, {"name": "一张老K", "industry": "珠宝饰品", "tier": "100-500w", "date": "2026-05-19"}, {"name": "薇霓心选", "industry": "文玩玉翠", "tier": "50-100w", "date": "2026-05-19"}, {"name": "宇曦同行（ 晚6点50播", "industry": "珠宝饰品", "tier": "100-500w", "date": "2026-05-19"}, {"name": "century xie", "industry": "珠宝饰品", "tier": "10-50w", "date": "2026-05-19"}, {"name": "婷呀呀呀的店", "industry": "珠宝饰品", "tier": "50-100w", "date": "2026-05-19"}, {"name": "薇霓心选", "industry": "文玩玉翠", "tier": "50-100w", "date": "2026-05-20"}, {"name": "宇曦同行（ 晚6点50播", "industry": "珠宝饰品", "tier": "100-500w", "date": "2026-05-20"}, {"name": "蓝精灵大C", "industry": "珠宝饰品", "tier": "10-50w", "date": "2026-05-20"}, {"name": "婷呀呀呀的店", "industry": "珠宝饰品", "tier": "50-100w", "date": "2026-05-20"}, {"name": "婷呀呀呀的店", "industry": "珠宝饰品", "tier": "50-100w", "date": "2026-05-21"}, {"name": "章龄之", "industry": "文玩玉翠", "tier": "1000w+", "date": "2026-05-22"}, {"name": "夜忙症", "industry": "珠宝饰品", "tier": "1000w+", "date": "2026-05-22"}, {"name": "采妮Stefanie", "industry": "珠宝饰品", "tier": "100-500w", "date": "2026-05-22"}, {"name": "吐提古丽热杰", "industry": "文玩玉翠", "tier": "1000w+", "date": "2026-05-22"}, {"name": "宇曦同行（ 晚6点50播", "industry": "珠宝饰品", "tier": "100-500w", "date": "2026-05-22"}, {"name": "薇霓心选", "industry": "文玩玉翠", "tier": "50-100w", "date": "2026-05-22"}, {"name": "婷呀呀呀的店", "industry": "珠宝饰品", "tier": "50-100w", "date": "2026-05-22"}, {"name": "楚明ing", "industry": "珠宝饰品", "tier": "100-500w", "date": "2026-05-23"}, {"name": "lindsay", "industry": "珠宝饰品", "tier": "500w-1000w", "date": "2026-05-23"}, {"name": "文怡", "industry": "文玩玉翠", "tier": "500w-1000w", "date": "2026-05-23"}, {"name": "较真儿的Penny", "industry": "珠宝饰品", "tier": "1000w+", "date": "2026-05-23"}, {"name": "宇曦同行（ 晚6点50播", "industry": "珠宝饰品", "tier": "100-500w", "date": "2026-05-23"}, {"name": "维米 SONG", "industry": "文玩玉翠", "tier": "100-500w", "date": "2026-05-24"}, {"name": "杨之楹", "industry": "文玩玉翠", "tier": "500w-1000w", "date": "2026-05-24"}, {"name": "宇曦同行（ 晚6点50播", "industry": "珠宝饰品", "tier": "100-500w", "date": "2026-05-24"}, {"name": "婷呀呀呀的店", "industry": "珠宝饰品", "tier": "50-100w", "date": "2026-05-25"}, {"name": "王冠", "industry": "文玩玉翠", "tier": "1000w+", "date": "2026-05-26"}, {"name": "一张老K", "industry": "珠宝饰品", "tier": "100-500w", "date": "2026-05-26"}, {"name": "宇曦同行（ 晚6点50播", "industry": "珠宝饰品", "tier": "100-500w", "date": "2026-05-26"}, {"name": "宇曦同行（ 晚6点50播", "industry": "珠宝饰品", "tier": "100-500w", "date": "2026-05-27"}, {"name": "蓝精灵大C", "industry": "珠宝饰品", "tier": "10-50w", "date": "2026-05-27"}, {"name": "章龄之", "industry": "文玩玉翠", "tier": "1000w+", "date": "2026-05-28"}, {"name": "文怡", "industry": "文玩玉翠", "tier": "500w-1000w", "date": "2026-05-28"}, {"name": "婷呀呀呀的店", "industry": "珠宝饰品", "tier": "50-100w", "date": "2026-05-28"}, {"name": "王玉说黄金", "industry": "珠宝饰品", "tier": "10-50w", "date": "2026-05-28"}, {"name": "吐提古丽热杰", "industry": "文玩玉翠", "tier": "1000w+", "date": "2026-05-29"}, {"name": "宇曦同行（ 晚6点50播", "industry": "珠宝饰品", "tier": "100-500w", "date": "2026-05-29"}, {"name": "文怡", "industry": "文玩玉翠", "tier": "500w-1000w", "date": "2026-05-29"}, {"name": "lindsay", "industry": "珠宝饰品", "tier": "500w-1000w", "date": "2026-05-30"}, {"name": "较真儿的Penny", "industry": "珠宝饰品", "tier": "1000w+", "date": "2026-05-30"}, {"name": "薇霓心选", "industry": "文玩玉翠", "tier": "50-100w", "date": "2026-05-30"}, {"name": "宇曦同行（ 晚6点50播", "industry": "珠宝饰品", "tier": "100-500w", "date": "2026-05-30"}, {"name": "较真儿的Penny", "industry": "珠宝饰品", "tier": "1000w+", "date": "2026-05-31"}, {"name": "小博博小", "industry": "珠宝饰品", "tier": "100-500w", "date": "2026-05-31"}, {"name": "宇曦同行（ 晚6点50播", "industry": "珠宝饰品", "tier": "100-500w", "date": "2026-05-31"}, {"name": "婷呀呀呀的店", "industry": "珠宝饰品", "tier": "50-100w", "date": "2026-05-31"}];
-
+const ALL_DATES = ["2026-05-01", "2026-05-02", "2026-05-03", "2026-05-04", "2026-05-05", "2026-05-06", "2026-05-07", "2026-05-08", "2026-05-09", "2026-05-10", "2026-05-11", "2026-05-12", "2026-05-13", "2026-05-14", "2026-05-15", "2026-05-16", "2026-05-17", "2026-05-18", "2026-05-19", "2026-05-20", "2026-05-21", "2026-05-22", "2026-05-23", "2026-05-24", "2026-05-25", "2026-05-26", "2026-05-27", "2026-05-28", "2026-05-29", "2026-05-30", "2026-05-31"];
 const TIER_COLOR = {"1000w+": "#c0392b", "500w-1000w": "#e67e22", "100-500w": "#f39c12", "50-100w": "#27ae60", "10-50w": "#2980b9", "10w-": "#95a5a6"};
 const TIER_LABEL = {"1000w+": "💎 1000w+", "500w-1000w": "🥇 500-1000w", "100-500w": "🥈 100-500w", "50-100w": "🥉 50-100w", "10-50w": "📌 10-50w", "10w-": "🔰 10w以下"};
 
-let currentFilter = 'all';
-let searchText = '';
+let currentMode = 'date';
+let currentTier = 'all';
 
-document.getElementById('search').addEventListener('input', function(){
-  searchText = this.value.toLowerCase();
-  render();
-});
+function switchMode(mode) {
+  currentMode = mode;
+  document.getElementById('mode-date-btn').classList.toggle('active', mode==='date');
+  document.getElementById('mode-buyer-btn').classList.toggle('active', mode==='buyer');
+  document.getElementById('ctrl-date').style.display = mode==='date' ? '' : 'none';
+  document.getElementById('ctrl-buyer').style.display = mode==='buyer' ? '' : 'none';
+  if(mode==='date') render(); else renderBuyer();
+}
 
-function setFilter(f, btn){
-  currentFilter = f;
-  document.querySelectorAll('.btn').forEach(b=>b.classList.remove('active'));
+function setTier(t, btn) {
+  currentTier = t;
+  document.querySelectorAll('#ctrl-date .btn:not(.btn-clear)').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
   render();
 }
 
-function getWeekday(dateStr){
-  const days = ['日','一','二','三','四','五','六'];
-  const d = new Date(dateStr);
-  return '周' + days[d.getDay()];
+function clearDate() {
+  document.getElementById('date-select').value = '';
+  render();
 }
 
-function render(){
+function getWeekday(dateStr) {
+  const days = ['日','一','二','三','四','五','六'];
+  return '周' + days[new Date(dateStr).getDay()];
+}
+
+function makeCard(item) {
+  const color = TIER_COLOR[item.tier] || '#95a5a6';
+  const tlabel = TIER_LABEL[item.tier] || item.tier;
+  return `<div class="card" style="border-left-color:${color}">
+    <div class="card-name">${item.name}</div>
+    <div class="card-meta">
+      <span class="tag" style="background:${color}20;color:${color}">${tlabel}</span>
+      <span class="tag" style="background:#f0ebe4;color:#8b6940">${item.industry}</span>
+    </div>
+  </div>`;
+}
+
+function render() {
   let items = ALL_DATA;
+  const selectedDate = document.getElementById('date-select').value;
   
-  if(currentFilter === '5') items = items.filter(i=>i.date.startsWith('2026-05'));
-  else if(currentFilter === '6') items = items.filter(i=>i.date.startsWith('2026-06'));
-  else if(currentFilter !== 'all') items = items.filter(i=>i.tier === currentFilter);
-  
-  if(searchText) items = items.filter(i=>i.name.toLowerCase().includes(searchText));
+  if(selectedDate) items = items.filter(i=>i.date===selectedDate);
+  if(currentTier !== 'all') items = items.filter(i=>i.tier===currentTier);
   
   document.getElementById('stat-total').textContent = `共 ${items.length} 场`;
-  
   const app = document.getElementById('app');
-  if(!items.length){ app.innerHTML='<div class="empty">📭 没有匹配的场次</div>'; return; }
+  
+  if(!items.length) {
+    app.innerHTML = selectedDate 
+      ? `<div class="empty">📭 ${parseInt(selectedDate.slice(5,7))}月${parseInt(selectedDate.slice(8,10))}日 暂无符合条件的开播场次</div>`
+      : '<div class="empty">请选择日期查看开播买手</div>';
+    return;
+  }
   
   // 按日期分组
   const groups = {};
-  items.forEach(item=>{
-    if(!groups[item.date]) groups[item.date]=[];
-    groups[item.date].push(item);
-  });
+  items.forEach(item=>{ if(!groups[item.date]) groups[item.date]=[]; groups[item.date].push(item); });
   
-  let html = '';
+  let hint = selectedDate ? '' : `<div class="result-hint">📋 显示全部 ${items.length} 场，请通过上方选择日期或分层筛选</div>`;
+  let html = hint;
+  
   Object.keys(groups).sort().forEach(date=>{
     const list = groups[date];
-    const [y,m,d] = date.split('-');
-    const label = `${parseInt(m)}月${parseInt(d)}日（${getWeekday(date)}）`;
+    const [,m,d] = date.split('-');
     html += `<div class="day-block">
-      <div class="day-title">📅 ${label} <span class="cnt">${list.length}场</span></div>
-      <div class="cards">`;
-    list.forEach(item=>{
-      const color = TIER_COLOR[item.tier] || '#95a5a6';
-      const label = TIER_LABEL[item.tier] || item.tier;
-      html += `<div class="card" style="border-left-color:${color}">
-        <div class="card-name">${item.name}</div>
-        <div class="card-meta">
-          <span class="tag" style="background:${color}20;color:${color}">${label}</span>
-          <span class="tag" style="background:#f0ebe4;color:#8b6940">${item.industry}</span>
-        </div>
-      </div>`;
-    });
-    html += `</div></div>`;
+      <div class="day-title">📅 ${parseInt(m)}月${parseInt(d)}日（${getWeekday(date)}）<span class="cnt">${list.length}场</span></div>
+      <div class="cards">${list.map(makeCard).join('')}</div>
+    </div>`;
   });
   
   app.innerHTML = html;
 }
 
+function renderBuyer() {
+  const q = document.getElementById('buyer-search').value.trim();
+  const app = document.getElementById('app');
+  
+  if(!q) {
+    app.innerHTML = '<div class="empty">输入买手名称，查看Ta的所有开播日期</div>';
+    return;
+  }
+  
+  // 找到匹配的买手
+  const matched = {};
+  ALL_DATA.filter(i=>i.name.includes(q)).forEach(i=>{
+    if(!matched[i.name]) matched[i.name] = {...i, dates:[]};
+    matched[i.name].dates.push(i.date);
+  });
+  
+  const results = Object.values(matched);
+  document.getElementById('stat-total').textContent = `找到 ${results.length} 位买手`;
+  
+  if(!results.length) {
+    app.innerHTML = `<div class="empty">📭 未找到"${q}"，请检查名称是否正确</div>`;
+    return;
+  }
+  
+  let html = '';
+  results.forEach(item=>{
+    const color = TIER_COLOR[item.tier] || '#95a5a6';
+    const tlabel = TIER_LABEL[item.tier] || item.tier;
+    html += `<div class="buyer-card">
+      <div class="buyer-card-name">${item.name}</div>
+      <div class="card-meta" style="margin-bottom:8px">
+        <span class="tag" style="background:${color}20;color:${color}">${tlabel}</span>
+        <span class="tag" style="background:#f0ebe4;color:#8b6940">${item.industry}</span>
+      </div>
+      <div class="date-list">
+        ${item.dates.sort().map(d=>{
+          const [,m,dd] = d.split('-');
+          return `<span class="date-chip">${parseInt(m)}月${parseInt(dd)}日（${getWeekday(d)}）</span>`;
+        }).join('')}
+      </div>
+    </div>`;
+  });
+  
+  app.innerHTML = html;
+}
+
+// 初始化
 render();
 </script>
 </body>
