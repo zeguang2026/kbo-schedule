@@ -27,6 +27,7 @@ header{background:#FF2442;color:white}
 .mode-bar{display:flex;background:white;padding:10px 14px 8px;gap:6px}
 .msw{flex:1;padding:8px;text-align:center;border-radius:8px;border:1.5px solid #E5E5EA;font-size:13px;font-weight:500;cursor:pointer;color:#8E8E93;transition:all .2s}
 .msw.on{background:#FFF5F7;border-color:#FF2442;color:#FF2442;font-weight:600}
+/* 日历 */
 .cal-wrapper{background:white;padding:10px 14px;position:sticky;top:0;z-index:20;border-bottom:1px solid #F0F0F0}
 .cal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
 .cal-nav button{background:none;border:none;cursor:pointer;color:#8E8E93;font-size:16px;padding:4px 8px;border-radius:4px;transition:all .2s}
@@ -35,23 +36,24 @@ header{background:#FF2442;color:white}
 .cal-range-hint{text-align:center;font-size:11px;color:#8E8E93;margin-bottom:6px;min-height:15px}
 .cal-months{display:flex;gap:0}
 .cal-month{flex:1;min-width:0}
-.cal-month+.cal-month{border-left:1px solid #F0F0F0;padding-left:10px;margin-left:10px}
 .cal-month-title{text-align:center;font-size:11px;font-weight:600;color:#8E8E93;margin-bottom:6px}
 .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:1px}
 .cal-wd{text-align:center;font-size:10px;color:#C7C7CC;padding:2px 0;font-weight:500}
 .cal-wd.weekend{color:#FF244270}
 .cal-day{text-align:center;padding:4px 1px;font-size:12px;cursor:pointer;border-radius:5px;transition:all .12s;position:relative;user-select:none;line-height:1.4}
-.cal-day:hover:not(.out){background:#FFF5F7;color:#FF2442}
+.cal-day:hover:not(.out):not(.no-data){background:#FFF5F7;color:#FF2442}
 .cal-day.out{color:#E5E5EA;cursor:default;pointer-events:none}
-.cal-day.has-data::after{content:'';position:absolute;bottom:1px;left:50%;transform:translateX(-50%);width:3px;height:3px;border-radius:50%;background:#FF2442;opacity:.5}
+.cal-day.no-data{color:#C7C7CC;cursor:default}
+.cal-day.has-data::after{content:'';position:absolute;bottom:1px;left:50%;transform:translateX(-50%);width:3px;height:3px;border-radius:50%;background:#FF2442;opacity:.6}
 .cal-day.selected{background:#FF2442;color:white;font-weight:600}
-.cal-day.selected::after{background:white;opacity:.8}
+.cal-day.selected::after{background:white;opacity:.9}
 .cal-day.in-range{background:#FFF0F2;color:#FF2442}
 .cal-day.range-start{background:#FF2442;color:white;border-radius:5px 0 0 5px}
 .cal-day.range-end{background:#FF2442;color:white;border-radius:0 5px 5px 0}
 .cal-day.range-start.range-end{border-radius:5px}
 .cal-day.today{font-weight:700;color:#FF2442}
 .cal-day.today.selected,.cal-day.today.in-range,.cal-day.today.range-start,.cal-day.today.range-end{color:white}
+/* 筛选栏 */
 .filter-wrap{background:white;border-bottom:1px solid #F0F0F0}
 .filter-row{display:flex;gap:6px;padding:7px 14px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;align-items:center}
 .filter-row::-webkit-scrollbar{display:none}
@@ -61,6 +63,7 @@ header{background:#FF2442;color:white}
 .fbtn:not(.on):hover{border-color:#FF2442;color:#FF2442}
 .fbtn.clr{background:#F8F8F8;font-size:11px}
 .fbtn.clr:hover{background:#FFE0E5;border-color:#FF2442;color:#FF2442}
+/* 买手主营类目 */
 .ind-sel-wrap{padding:6px 14px 8px;background:white;border-bottom:1px solid #F0F0F0}
 .ind-sel-label{font-size:11px;color:#8E8E93;font-weight:500;margin-bottom:5px}
 .ind-chips{display:flex;gap:5px;flex-wrap:wrap}
@@ -68,13 +71,14 @@ header{background:#FF2442;color:white}
 .ind-chip:hover{border-color:#FF2442;color:#FF2442}
 .ind-chip.on{background:#FFF5F7;border-color:#FF2442;color:#FF2442;font-weight:600}
 .ind-chip.all-chip.on{background:#FF2442;color:white;border-color:#FF2442}
+/* 买手搜索 */
 .buyer-bar{display:flex;gap:7px;padding:10px 14px;background:white;border-bottom:1px solid #F0F0F0}
 .sinput{flex:1;padding:8px 14px;border:1.5px solid #E5E5EA;border-radius:20px;font-size:13px;outline:none}
 .sinput:focus{border-color:#FF2442}
 .result-count{font-size:12px;color:#8E8E93;padding:6px 14px;background:white;border-bottom:1px solid #F0F0F0}
 .result-count strong{color:#FF2442}
+/* 内容区 */
 .content{padding:10px 12px 80px}
-.hint{background:#FFF5F7;border:1px solid #FFD6DC;border-radius:8px;padding:9px 13px;margin-bottom:10px;font-size:12px;color:#CC1A30}
 .day-block{margin-top:12px}
 .day-header{display:flex;align-items:center;gap:8px;padding:7px 2px;border-bottom:1.5px solid #F0F0F0;margin-bottom:7px}
 .day-label{font-size:13px;font-weight:700}
@@ -90,16 +94,19 @@ header{background:#FF2442;color:white}
 .buyer-name{font-size:15px;font-weight:700;margin-bottom:7px}
 .dchips{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
 .dtag{background:#FFF5F7;color:#FF2442;border:1px solid #FFD6DC;border-radius:20px;padding:3px 10px;font-size:12px;font-weight:600}
+/* 招商 ctrl */
 .mctrl{background:white;padding:10px 14px;position:sticky;top:0;z-index:20;border-bottom:1px solid #F0F0F0}
-.mctrl-row{display:flex;gap:7px;overflow-x:auto;scrollbar-width:none}
+.mctrl-search{display:flex;gap:7px;margin-bottom:8px}
+.mctrl-search input{flex:1;padding:7px 13px;border:1.5px solid #E5E5EA;border-radius:20px;font-size:13px;outline:none}
+.mctrl-search input:focus{border-color:#FF2442}
+.mctrl-row{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;align-items:center;padding-bottom:2px}
 .mctrl-row::-webkit-scrollbar{display:none}
-.mctrl input{flex:1;min-width:130px;padding:7px 13px;border:1.5px solid #E5E5EA;border-radius:20px;font-size:13px;outline:none}
-.mctrl input:focus{border-color:#FF2442}
-.mctrl-row2{display:flex;gap:7px;margin-top:8px;overflow-x:auto;scrollbar-width:none;align-items:center}
-.mctrl-row2::-webkit-scrollbar{display:none}
-.mctrl-label{font-size:11px;color:#8E8E93;white-space:nowrap;font-weight:500}
-.msel{padding:5px 10px;border:1.5px solid #E5E5EA;border-radius:20px;font-size:12px;outline:none;background:white;color:#1A1A1A;cursor:pointer}
-.msel:focus{border-color:#FF2442}
+.mctrl-label{font-size:11px;color:#8E8E93;white-space:nowrap;font-weight:500;flex-shrink:0}
+/* 招商日期chips（同排期风格）*/
+.m-dchip{flex-shrink:0;padding:5px 10px;border-radius:20px;border:1.5px solid #E5E5EA;background:white;font-size:12px;cursor:pointer;color:#8E8E93;transition:all .2s;white-space:nowrap;font-weight:500}
+.m-dchip:hover{border-color:#FF2442;color:#FF2442}
+.m-dchip.on{background:#FF2442;color:white;border-color:#FF2442;font-weight:600}
+/* 招商卡片 */
 .mcontent{padding:0 0 80px}
 .mcard{background:white;margin:10px 12px 0;border-radius:12px;padding:15px 16px;box-shadow:0 1px 4px rgba(0,0,0,.06);position:relative;overflow:hidden}
 .mcard::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:#FF2442}
@@ -113,29 +120,29 @@ header{background:#FF2442;color:white}
 .mlabel{color:#8E8E93;min-width:58px;flex-shrink:0;font-size:12px;padding-top:1px}
 .mval{color:#3C3C3C;flex:1}
 .mval a{color:#FF2442;text-decoration:none;font-weight:500}
-.fee-tag-pure{display:inline-block;background:#E8F5E9;color:#2E7D32;border-radius:4px;padding:1px 7px;font-size:11px;font-weight:600}
-.fee-tag-paid{display:inline-block;background:#FFF3E0;color:#E65100;border-radius:4px;padding:1px 7px;font-size:11px;font-weight:600}
-.fee-tag-both{display:inline-block;background:#F3E5F5;color:#6A1B9A;border-radius:4px;padding:1px 7px;font-size:11px;font-weight:600}
+.fee-pure{background:#E8F5E9;color:#2E7D32}
+.fee-paid{background:#FFF3E0;color:#E65100}
+.fee-both{background:#F3E5F5;color:#6A1B9A}
+.fee-unk{background:#F2F2F7;color:#636366}
 .submit-btn{display:block;width:100%;margin-top:12px;padding:10px;background:#FF2442;color:white;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;text-align:center;text-decoration:none;transition:opacity .2s}
 .submit-btn:hover{opacity:.88}
+.submit-btn.expired{background:#C7C7CC;cursor:default}
 .contact-hint{margin-top:12px;background:#F8F8F8;border-radius:8px;padding:10px 12px;font-size:12px;color:#636366;text-align:center;line-height:1.6}
 .contact-hint strong{color:#1A1A1A}
 .loading{text-align:center;padding:48px 24px;color:#8E8E93}
-.loading-spin{font-size:30px;animation:spin 1s linear infinite;display:inline-block}
-@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
 .empty{text-align:center;padding:48px 24px;color:#C7C7CC}
 .empty-icon{font-size:40px;margin-bottom:10px}
+.empty a{color:#FF2442;text-decoration:none;font-size:13px}
 footer{text-align:center;padding:14px;color:#C7C7CC;font-size:11px;background:white;border-top:1px solid #F0F0F0}
 @media(max-width:480px){
   .cards{grid-template-columns:repeat(2,1fr)}
   .cal-months{flex-direction:column}
-  .cal-month+.cal-month{border-left:none;border-top:1px solid #F0F0F0;padding-left:0;margin-left:0;padding-top:8px;margin-top:8px}
 }
 </style>
 </head>
 <body>
-
-<div class="page-wrap"><div class="notice">⚠️ <strong>信息仅供参考</strong>，实际开播以当日直播为准 · 🔒 <strong>请勿对外扩散，仅限合作商家内部参考</strong></div>
+<div class="page-wrap">
+<div class="notice">⚠️ <strong>信息仅供参考</strong>，实际开播以当日直播为准 · 🔒 <strong>请勿对外扩散，仅限合作商家内部参考</strong></div>
 
 <header>
   <div class="header-top">
@@ -150,7 +157,7 @@ footer{text-align:center;padding:14px;color:#C7C7CC;font-size:11px;background:wh
     <div class="hstat-div"></div>
     <div class="hstat"><div class="hstat-num" id="h-ind">...</div><div class="hstat-label">覆盖类目</div></div>
     <div class="hstat-div"></div>
-    <div class="hstat"><div class="hstat-num">19</div><div class="hstat-label">招商信息</div></div>
+    <div class="hstat"><div class="hstat-num">10</div><div class="hstat-label">招商信息</div></div>
   </div>
 </header>
 
@@ -159,6 +166,7 @@ footer{text-align:center;padding:14px;color:#C7C7CC;font-size:11px;background:wh
   <div class="tab" onclick="switchTab(1,this)">📋 招商需求</div>
 </div>
 
+<!-- Tab0 排期 -->
 <div class="panel active" id="panel-0">
   <div class="mode-bar">
     <div class="msw on" id="msw-date" onclick="setMode('date')">📅 按日期查开播</div>
@@ -174,7 +182,7 @@ footer{text-align:center;padding:14px;color:#C7C7CC;font-size:11px;background:wh
       <div class="cal-range-hint" id="range-hint">点击选择日期，或点两次选区间</div>
       <div class="cal-months" id="cal-months"></div>
       <div style="text-align:right;padding:4px 0 0">
-        <button class="fbtn clr" onclick="clearRange()" style="font-size:11px;padding:3px 10px">清除</button>
+        <button class="fbtn clr" onclick="clearRange()" style="padding:3px 10px">清除</button>
       </div>
     </div>
     <div class="filter-wrap">
@@ -186,86 +194,85 @@ footer{text-align:center;padding:14px;color:#C7C7CC;font-size:11px;background:wh
         <button class="fbtn" onclick="setTier('100k',this)">📌 十万+</button>
       </div>
       <div class="ind-sel-wrap">
-        <div class="ind-sel-label">选择类目（可多选）</div>
+        <div class="ind-sel-label">买手主营类目（可多选）</div>
         <div class="ind-chips" id="ind-chips"><span style="color:#C7C7CC;font-size:12px">加载中...</span></div>
       </div>
     </div>
   </div>
   <div id="block-buyer" style="display:none">
     <div class="buyer-bar">
-      <input class="sinput" type="text" id="buyer-q" placeholder="🔍 输入买手名称..." oninput="renderSched()">
+      <input class="sinput" type="text" id="buyer-q" placeholder="🔍 输入买手名称，模糊搜索..." oninput="renderSched()">
       <button class="fbtn clr" onclick="document.getElementById('buyer-q').value='';renderSched()">清除</button>
     </div>
   </div>
   <div class="result-count" id="result-count" style="display:none"></div>
-  <div class="content" id="sched-app"><div class="loading"><div class="loading-spin">⏳</div><br><br>数据加载中...</div></div>
+  <div class="content" id="sched-app"><div class="loading">⏳ 数据加载中...</div></div>
 </div>
 
+<!-- Tab1 招商 -->
 <div class="panel" id="panel-1">
   <div class="mctrl">
-    <div class="mctrl-row">
-      <input type="text" id="mq" placeholder="🔍 搜索买手名称..." oninput="renderMerchant()">
+    <div class="mctrl-search">
+      <input type="text" id="mq" placeholder="🔍 搜索买手名称或招商类目..." oninput="renderMerchant()">
     </div>
-    <div class="mctrl-row2">
+    <div class="mctrl-row" style="margin-bottom:6px">
       <span class="mctrl-label">商务条件</span>
       <button class="fbtn on" id="fee-all" onclick="setFee('all',this)">全部</button>
       <button class="fbtn" onclick="setFee('pure',this)">纯佣</button>
       <button class="fbtn" onclick="setFee('paid',this)">付费坑位</button>
       <button class="fbtn" onclick="setFee('both',this)">均可</button>
     </div>
-    <div class="mctrl-row2" style="margin-top:6px">
+    <div class="mctrl-row" style="margin-bottom:6px">
+      <span class="mctrl-label">招商类目</span>
+      <button class="fbtn on" id="mcat-all" onclick="setMCat('all',this)">全部</button>
+      <div id="mcat-chips"></div>
+    </div>
+    <div class="mctrl-row">
       <span class="mctrl-label">直播日期</span>
-      <select class="msel" id="mdate-sel" onchange="renderMerchant()">
-        <option value="">全部日期</option>
-<option value="5-6月">5-6月</option>
-<option value="5-6月（每月2场+618加场）">5-6月（每月2场+618加场）</option>
-<option value="5月10日-6月18日">5月10日-6月18日</option>
-<option value="5月22日">5月22日</option>
-<option value="5月25日">5月25日</option>
-<option value="5月30日">5月30日</option>
-<option value="5月31日 & 6月14日">5月31日 & 6月14日</option>
-<option value="5月9日">5月9日</option>
-<option value="5月底">5月底</option>
-<option value="618期间">618期间</option>
-<option value="6月13日">6月13日</option>
-<option value="6月15日前后">6月15日前后</option>
-<option value="6月15日左右">6月15日左右</option>
-<option value="6月5日">6月5日</option>
-<option value="6月6日">6月6日</option>
-<option value="6月7日 & 6月15日">6月7日 & 6月15日</option>
-<option value="6月初">6月初</option>
-      </select>
-      <button class="fbtn" onclick="setMJewelry()" id="m-jewelry">💎 珠宝</button>
+      <button class="m-dchip on" id="mdate-all" onclick="setMDate('all',this)">全部</button>
+      <div class="m-dchip" data-date="05-09" onclick="setMDate('05-09',this)">5月9日</div>
+<div class="m-dchip" data-date="05-10" onclick="setMDate('05-10',this)">5月10日</div>
+<div class="m-dchip" data-date="05-22" onclick="setMDate('05-22',this)">5月22日</div>
+<div class="m-dchip" data-date="05-25" onclick="setMDate('05-25',this)">5月25日</div>
+<div class="m-dchip" data-date="05-30" onclick="setMDate('05-30',this)">5月30日</div>
+<div class="m-dchip" data-date="05-31" onclick="setMDate('05-31',this)">5月31日</div>
+<div class="m-dchip" data-date="05-bottom" onclick="setMDate('05-bottom',this)">5月底</div>
+<div class="m-dchip" data-date="05-06" onclick="setMDate('05-06',this)">5-6月持续</div>
+
     </div>
   </div>
-  <div class="mcontent" id="merchant-app"><div class="loading"><div class="loading-spin">⏳</div><br><br>加载中...</div></div>
+  <div class="mcontent" id="merchant-app"><div class="loading">⏳ 加载中...</div></div>
 </div>
 
-<footer class="page-footer">排期：K播官方导出 · 招商：BK撮合招商群 · 更新：2026-05-07</footer></div>
+<footer>排期：K播官方导出 · 招商：BK撮合招商群 · 更新：2026-05-07</footer>
+</div>
 
 <script>
-let SCHED=[], MERCH=[], INDS=[];
-const TC={'1000w+':'#FF2442','500w-1000w':'#FF9500','100-500w':'#FF9500','50-100w':'#34C759','10-50w':'#007AFF','10w-':'#8E8E93'};
-const TL={'1000w+':'💎 千万+','500w-1000w':'🥈 百万+','100-500w':'🥈 百万+','50-100w':'📌 十万+','10-50w':'📌 十万+','10w-':'📌 十万+'};
+let SCHED=[], MERCH=[], INDS=[], MCATS=[];
+const TC={"1000w+": "#FF2442", "500w-1000w": "#FF9500", "100-500w": "#FF9500", "50-100w": "#34C759", "10-50w": "#007AFF", "10w-": "#8E8E93"};
+const TL={"1000w+": "💎 千万+", "500w-1000w": "🥈 百万+", "100-500w": "🥈 百万+", "50-100w": "📌 十万+", "10-50w": "📌 十万+", "10w-": "📌 十万+"};
 let DATA_DATES=new Set();
-let schedMode='date',schedTier='all',selInds=new Set();
-let viewYear=2026,viewMonth=5,rangeStart=null,rangeEnd=null;
-let mFee='all',mJewelry=false;
+let schedMode='date', schedTier='all', selInds=new Set();
+let viewYear=2026, viewMonth=5, rangeStart=null, rangeEnd=null;
+let mFee='all', mCat='all', mDateFilter='all';
 let dataLoaded=false;
 
-// 加载数据
 fetch('data.json').then(r=>r.json()).then(d=>{
-  SCHED=d.schedule; MERCH=d.merchant; INDS=d.industries;
+  // 只取5月排期
+  SCHED=d.schedule.filter(i=>i.date.startsWith('2026-05'));
+  MERCH=d.merchant;
+  INDS=d.industries;
   DATA_DATES=new Set(SCHED.map(i=>i.date));
   document.getElementById('h-total').textContent=SCHED.length.toLocaleString();
   document.getElementById('h-ind').textContent=INDS.length;
   dataLoaded=true;
   initIndChips();
+  initMCatChips();
   renderCal();
   renderSched();
   renderMerchant();
-}).catch(e=>{
-  document.getElementById('sched-app').innerHTML='<div class="empty"><div class="empty-icon">❌</div><div>数据加载失败，请刷新页面重试</div></div>';
+}).catch(()=>{
+  document.getElementById('sched-app').innerHTML='<div class="empty"><div class="empty-icon">❌</div><div>数据加载失败，请刷新重试</div></div>';
 });
 
 function switchTab(i,el){
@@ -275,27 +282,45 @@ function switchTab(i,el){
   document.getElementById('panel-'+i).classList.add('active');
 }
 
+// 买手主营类目
 function initIndChips(){
   const wrap=document.getElementById('ind-chips');
   let html='<div class="ind-chip all-chip on" onclick="toggleInd(\'__all__\',this)">全部类目</div>';
-  INDS.forEach(ind=>{
-    html+=`<div class="ind-chip" data-ind="${ind}" onclick="toggleInd('${ind}',this)">${ind}</div>`;
-  });
+  INDS.forEach(ind=>html+=`<div class="ind-chip" data-ind="${ind}" onclick="toggleInd('${ind}',this)">${ind}</div>`);
   wrap.innerHTML=html;
 }
-
 function toggleInd(ind,el){
-  if(ind==='__all__'){
-    selInds.clear();
-    document.querySelectorAll('.ind-chip').forEach(c=>c.classList.remove('on'));
-    el.classList.add('on');
-  }else{
+  if(ind==='__all__'){selInds.clear();document.querySelectorAll('.ind-chip').forEach(c=>c.classList.remove('on'));el.classList.add('on');}
+  else{
     document.querySelector('.all-chip').classList.remove('on');
-    if(selInds.has(ind)){selInds.delete(ind);el.classList.remove('on');}
-    else{selInds.add(ind);el.classList.add('on');}
+    selInds.has(ind)?selInds.delete(ind):selInds.add(ind);
+    el.classList.toggle('on',selInds.has(ind));
     if(selInds.size===0)document.querySelector('.all-chip').classList.add('on');
   }
   renderSched();
+}
+
+// 招商类目chips
+const MCATS_LIST=["亲子母婴", "家居生活", "时尚服饰", "珠宝饰品", "美妆个护", "运动户外", "食品饮料"];
+function initMCatChips(){
+  const wrap=document.getElementById('mcat-chips');
+  wrap.innerHTML=MCATS_LIST.map(t=>`<button class="fbtn" onclick="setMCat('${t}',this)" style="margin-left:5px">${t}</button>`).join('');
+}
+function setMCat(c,btn){
+  mCat=c;
+  document.getElementById('mcat-all').classList.toggle('on',c==='all');
+  document.querySelectorAll('#mcat-chips .fbtn').forEach(b=>b.classList.remove('on'));
+  if(btn&&c!=='all')btn.classList.add('on');
+  renderMerchant();
+}
+
+// 招商日期chips
+function setMDate(d,el){
+  mDateFilter=d;
+  document.querySelectorAll('.m-dchip').forEach(c=>c.classList.remove('on'));
+  document.getElementById('mdate-all').classList.toggle('on',d==='all');
+  if(el&&d!=='all')el.classList.add('on');
+  renderMerchant();
 }
 
 function setMode(m){
@@ -314,6 +339,7 @@ function setTier(t,btn){
   renderSched();
 }
 
+// 日历
 function prevMonth(){viewMonth--;if(viewMonth<1){viewMonth=12;viewYear--;}renderCal();}
 function nextMonth(){viewMonth++;if(viewMonth>12){viewMonth=1;viewYear++;}renderCal();}
 function dateStr(y,m,d){return `${y}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`;}
@@ -331,6 +357,7 @@ function updateRangeHint(){
 }
 
 function onDayClick(ds){
+  if(!DATA_DATES.has(ds))return;
   if(!rangeStart||rangeEnd){rangeStart=ds;rangeEnd=null;}
   else{
     if(ds===rangeStart)rangeStart=null;
@@ -342,34 +369,31 @@ function onDayClick(ds){
 
 function renderCal(){
   const WDS=['一','二','三','四','五','六','日'];
-  const months=[{y:viewYear,m:viewMonth}];
-  let{y,m}=months[0];m++;if(m>12){m=1;y++;}months.push({y,m});
-  document.getElementById('cal-title').textContent=`${viewYear}年 ${viewMonth}月 - ${months[1].m}月`;
-  let html='';
-  months.forEach(({y:my,m:mm})=>{
-    html+=`<div class="cal-month"><div class="cal-month-title">${my}年${mm}月</div><div class="cal-grid">`;
-    WDS.forEach((w,i)=>html+=`<div class="cal-wd${i>=5?' weekend':''}">${w}</div>`);
-    const first=new Date(my,mm-1,1).getDay();
-    const offset=first===0?6:first-1;
-    const days=new Date(my,mm,0).getDate();
-    const prevDays=new Date(my,mm-1,0).getDate();
-    for(let i=0;i<offset;i++)html+=`<div class="cal-day out">${prevDays-offset+1+i}</div>`;
-    for(let d=1;d<=days;d++){
-      const ds=dateStr(my,mm,d);
-      let cls='cal-day';
-      if(ds===dateStr(2026,5,7))cls+=' today';
-      if(DATA_DATES.has(ds))cls+=' has-data';
-      if(rangeStart&&rangeEnd){
-        const lo=rangeStart<rangeEnd?rangeStart:rangeEnd,hi=rangeStart<rangeEnd?rangeEnd:rangeStart;
-        if(ds===lo&&ds===hi)cls+=' selected range-start range-end';
-        else if(ds===lo)cls+=' range-start';
-        else if(ds===hi)cls+=' range-end';
-        else if(ds>lo&&ds<hi)cls+=' in-range';
-      }else if(rangeStart&&ds===rangeStart)cls+=' selected';
-      html+=`<div class="${cls}" onclick="onDayClick('${ds}')">${d}</div>`;
-    }
-    html+='</div></div>';
-  });
+  // 只显示单月（5月）
+  const my=viewYear,mm=viewMonth;
+  document.getElementById('cal-title').textContent=`${my}年 ${mm}月`;
+  let html=`<div class="cal-month" style="flex:none;width:100%"><div class="cal-grid">`;
+  WDS.forEach((w,i)=>html+=`<div class="cal-wd${i>=5?' weekend':''}">${w}</div>`);
+  const first=new Date(my,mm-1,1).getDay();
+  const offset=first===0?6:first-1;
+  const days=new Date(my,mm,0).getDate();
+  const prevDays=new Date(my,mm-1,0).getDate();
+  for(let i=0;i<offset;i++)html+=`<div class="cal-day out">${prevDays-offset+1+i}</div>`;
+  for(let d=1;d<=days;d++){
+    const ds=dateStr(my,mm,d);
+    const hasData=DATA_DATES.has(ds);
+    let cls='cal-day'+(hasData?' has-data':' no-data');
+    if(ds===dateStr(2026,5,7))cls+=' today';
+    if(rangeStart&&rangeEnd){
+      const lo=rangeStart<rangeEnd?rangeStart:rangeEnd,hi=rangeStart<rangeEnd?rangeEnd:rangeStart;
+      if(ds===lo&&ds===hi)cls+=' selected range-start range-end';
+      else if(ds===lo)cls+=' range-start';
+      else if(ds===hi)cls+=' range-end';
+      else if(ds>lo&&ds<hi)cls+=' in-range';
+    }else if(rangeStart&&ds===rangeStart)cls+=' selected';
+    html+=`<div class="${cls}" onclick="onDayClick('${ds}')">${d}</div>`;
+  }
+  html+='</div></div>';
   document.getElementById('cal-months').innerHTML=html;
 }
 
@@ -392,15 +416,14 @@ function renderSched(){
     if(selInds.size>0)items=items.filter(i=>selInds.has(i.industry));
     if(!items.length){
       countEl.style.display='none';
-      app.innerHTML=rangeStart?'<div class="empty"><div class="empty-icon">📭</div><div>所选条件下暂无场次</div></div>'
-        :'<div class="empty"><div class="empty-icon">👆</div><div>在上方日历选择日期<br>或选择类目快速筛选</div></div>';
+      app.innerHTML=rangeStart?`<div class="empty"><div class="empty-icon">📭</div><div>所选条件下暂无场次<br><a href="#" onclick="clearRange();return false">清除日期选择</a></div></div>`
+        :'<div class="empty"><div class="empty-icon">👆</div><div>在上方日历选择日期<br>或选择买手主营类目快速筛选</div></div>';
       return;
     }
     const groups={};items.forEach(i=>{if(!groups[i.date])groups[i.date]=[];groups[i.date].push(i);});
-    const dayCount=Object.keys(groups).length;
     countEl.style.display='block';
-    countEl.innerHTML=`筛选结果：<strong>${items.length}</strong> 场 · <strong>${dayCount}</strong> 天`;
-    let html=!rangeStart?'<div class="hint">👆 选择日期或类目快速筛选</div>':'';
+    countEl.innerHTML=`筛选结果：<strong>${items.length}</strong> 场 · <strong>${Object.keys(groups).length}</strong> 天`;
+    let html='';
     Object.keys(groups).sort().forEach(date=>{
       const list=groups[date],[,m,dd]=date.split('-');
       const isWknd=[0,6].includes(new Date(date).getDay());
@@ -416,8 +439,7 @@ function renderSched(){
           <span class="stag" style="background:${color}18;color:${color}">${TL[item.tier]||item.tier}</span>
           <span class="stag ind-tag">${item.industry}</span>
         </div>`;
-      }).join('')}${more>0?`<div class="scard" style="border-top-color:#E5E5EA;background:#F8F8F8;display:flex;align-items:center;justify-content:center;color:#8E8E93;font-size:12px">+${more} 位</div>`:''}
-      </div></div>`;
+      }).join('')}${more>0?`<div class="scard" style="border-top-color:#E5E5EA;background:#F8F8F8;display:flex;align-items:center;justify-content:center;color:#8E8E93;font-size:12px">+${more}位</div>`:''}</div></div>`;
     });
     app.innerHTML=html;
   }else{
@@ -430,8 +452,7 @@ function renderSched(){
     if(!results.length){app.innerHTML=`<div class="empty"><div class="empty-icon">😕</div><div>未找到"${q}"</div></div>`;return;}
     app.innerHTML='<div style="padding:10px 12px 0">'+results.slice(0,50).map(item=>{
       const color=TC[item.tier]||'#8E8E93';
-      return `<div class="buyer-card">
-        <div class="buyer-name">${item.name}</div>
+      return `<div class="buyer-card"><div class="buyer-name">${item.name}</div>
         <div><span class="stag" style="background:${color}18;color:${color}">${TL[item.tier]||item.tier}</span><span class="stag ind-tag">${item.industry}</span></div>
         <div class="dchips">${item.dates.sort().map(d=>{const[,m,dd]=d.split('-');return`<span class="dtag">${parseInt(m)}月${parseInt(dd)}日（${wd(d)}）</span>`;}).join('')}</div>
       </div>`;
@@ -439,52 +460,65 @@ function renderSched(){
   }
 }
 
+// 招商
 function setFee(f,btn){
   mFee=f;
-  document.querySelectorAll('.mctrl-row2 .fbtn:not(#m-jewelry)').forEach(b=>b.classList.remove('on'));
+  document.querySelectorAll('.mctrl-row:nth-child(2) .fbtn').forEach(b=>b.classList.remove('on'));
   btn.classList.add('on');
   renderMerchant();
 }
-function setMJewelry(){
-  mJewelry=!mJewelry;
-  document.getElementById('m-jewelry').classList.toggle('on',mJewelry);
-  renderMerchant();
-}
+
 const FEE_LABEL={'pure':'纯佣合作','paid':'付费坑位','both':'纯佣/坑位均可','unknown':'待确认'};
-const FEE_CLS={'pure':'fee-tag-pure','paid':'fee-tag-paid','both':'fee-tag-both','unknown':'ind-tag'};
+const FEE_CLS={'pure':'fee-pure','paid':'fee-paid','both':'fee-both','unknown':'fee-unk'};
 
 function renderMerchant(){
   if(!dataLoaded)return;
   const q=document.getElementById('mq').value.toLowerCase();
-  const dateFilter=document.getElementById('mdate-sel').value;
-  let items=MERCH;
+  let items=MERCH.filter(m=>m.may_dates&&m.may_dates.length>0);
   if(mFee!=='all')items=items.filter(i=>i.fee_type===mFee);
-  if(dateFilter)items=items.filter(i=>i.date===dateFilter);
-  if(mJewelry)items=items.filter(i=>i.jewelry);
+  if(mCat!=='all')items=items.filter(i=>i.category_tags&&i.category_tags.includes(mCat));
+  if(mDateFilter!=='all')items=items.filter(i=>i.may_dates&&i.may_dates.includes(mDateFilter));
   if(q)items=items.filter(i=>i.name.toLowerCase().includes(q)||(i.category||'').toLowerCase().includes(q));
   const app=document.getElementById('merchant-app');
-  if(!items.length){app.innerHTML='<div class="empty"><div class="empty-icon">📭</div><div>没有匹配的招商信息</div></div>';return;}
+  if(!items.length){
+    app.innerHTML='<div class="empty"><div class="empty-icon">📭</div><div>没有匹配的招商信息<br><a href="#" onclick="resetMFilters();return false" style="color:#FF2442;font-size:13px">清除筛选条件</a></div></div>';
+    return;
+  }
   app.innerHTML=items.map(item=>{
     const feeLabel=FEE_LABEL[item.fee_type||'unknown'];
     const feeCls=FEE_CLS[item.fee_type||'unknown'];
+    const isExpired=item.ddl&&item.ddl.includes('已过');
     const submitBlock=item.link
-      ?`<a class="submit-btn" href="${item.link}" target="_blank">📝 立即提报</a>`
+      ?(isExpired
+        ?`<a class="submit-btn expired" onclick="return false">已过提报期 · 联系AM确认</a>`
+        :`<a class="submit-btn" href="${item.link}" target="_blank">📝 立即提报</a>`)
       :`<div class="contact-hint">💬 <strong>如需合作</strong>，请联系您的<strong>商家对接 AM</strong> 提交商品信息</div>`;
-    return `<div class="mcard ${item.jewelry?'jewelry':''}">
+    const catTags=(item.category_tags||[]).map(t=>`<span class="mtag" style="background:#F2F2F7;color:#636366">${t}</span>`).join('');
+    return `<div class="mcard ${item.has_jewelry?'jewelry':''}">
       <div class="mcard-header"><div class="mcard-name">${item.name}</div>${item.date?`<div class="mdate">${item.date}</div>`:''}
       </div>
       <div class="mtags">
         <span class="mtag ${feeCls}">${feeLabel}</span>
         <span class="mtag" style="background:#F2F2F7;color:#636366">粉丝 ${item.fans}</span>
-        ${item.jewelry?'<span class="mtag" style="background:#FFF8E7;color:#B8860B">💎 珠宝相关</span>':''}
+        ${catTags}
       </div>
       <div class="mrow"><span class="mlabel">粉丝画像</span><span class="mval">${item.audience}</span></div>
       <div class="mrow"><span class="mlabel">招商类目</span><span class="mval">${item.category}</span></div>
       <div class="mrow"><span class="mlabel">合作条件</span><span class="mval">${item.condition}</span></div>
-      ${item.ddl?`<div class="mrow"><span class="mlabel">提报截止</span><span class="mval" style="color:${item.ddl.includes('已过')?'#FF3B30':'#34C759'};font-weight:600">${item.ddl}</span></div>`:''}
+      ${item.ddl?`<div class="mrow"><span class="mlabel">提报截止</span><span class="mval" style="color:${isExpired?'#FF3B30':'#34C759'};font-weight:600">${item.ddl}</span></div>`:''}
       ${submitBlock}
     </div>`;
   }).join('');
+}
+
+function resetMFilters(){
+  mFee='all';mCat='all';mDateFilter='all';
+  document.getElementById('mq').value='';
+  document.querySelectorAll('.mctrl .fbtn,.m-dchip').forEach(b=>b.classList.remove('on'));
+  document.getElementById('fee-all').classList.add('on');
+  document.getElementById('mcat-all').classList.add('on');
+  document.getElementById('mdate-all').classList.add('on');
+  renderMerchant();
 }
 
 renderCal();
