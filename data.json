@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-05-08 16:02",
+  "updatedAt": "2026-05-08 17:10",
   "updateNote": "2026-05-08 更新：新增66周年庆明星直播排期20场，招商数据打标（明星/买手），共47条",
   "recruitment": [
     {
@@ -25,7 +25,8 @@
       ],
       "month": "5",
       "source_chat": "BK撮合招商直通车",
-      "type": "买手"
+      "type": "买手",
+      "sendDate": "2026-05-01"
     },
     {
       "name": "阿希哥（杭州千颂伊主理人）",
@@ -50,7 +51,8 @@
       ],
       "month": "5",
       "source_chat": "BK撮合招商直通车",
-      "type": "买手"
+      "type": "买手",
+      "sendDate": "2026-05-01"
     },
     {
       "name": "李施嬅（演员）",
@@ -75,7 +77,8 @@
       "may_dates": [],
       "month": "6",
       "source_chat": "BK撮合招商直通车",
-      "type": "明星"
+      "type": "明星",
+      "sendDate": "2026-05-01"
     },
     {
       "name": "VikkiDai",
@@ -97,7 +100,8 @@
       ],
       "month": "5",
       "source_chat": "BK撮合招商直通车",
-      "type": "买手"
+      "type": "买手",
+      "sendDate": "2026-05-01"
     },
     {
       "name": "悦然yue",
@@ -119,7 +123,8 @@
       "may_dates": [],
       "month": "6",
       "source_chat": "BK撮合招商直通车",
-      "type": "买手"
+      "type": "买手",
+      "sendDate": "2026-05-01"
     },
     {
       "name": "GALIGALI×张骏×潮座联播",
@@ -139,7 +144,8 @@
       "may_dates": [],
       "month": "6",
       "source_chat": "BK撮合招商直通车",
-      "type": "买手"
+      "type": "买手",
+      "sendDate": "2026-05-01"
     },
     {
       "name": "张俪618",
@@ -166,7 +172,8 @@
       ],
       "month": "5",
       "source_chat": "BK撮合招商直通车",
-      "type": "明星"
+      "type": "明星",
+      "sendDate": "2026-05-01"
     },
     {
       "name": "明道",
@@ -190,7 +197,8 @@
       ],
       "month": "5",
       "source_chat": "BK撮合招商直通车",
-      "type": "明星"
+      "type": "明星",
+      "sendDate": "2026-05-01"
     },
     {
       "name": "菜盟主",
@@ -213,7 +221,8 @@
       "may_dates": [],
       "month": "6",
       "source_chat": "BK撮合招商直通车",
-      "type": "买手"
+      "type": "买手",
+      "sendDate": "2026-05-01"
     },
     {
       "name": "徐听雨",
@@ -235,7 +244,8 @@
       "may_dates": [],
       "month": "6",
       "source_chat": "BK撮合招商直通车",
-      "type": "买手"
+      "type": "买手",
+      "sendDate": "2026-05-01"
     },
     {
       "name": "刘嘟嘟（郑思维妻子）",
@@ -259,7 +269,8 @@
       "may_dates": [],
       "month": "6",
       "source_chat": "BK撮合招商直通车",
-      "type": "明星"
+      "type": "明星",
+      "sendDate": "2026-05-01"
     },
     {
       "name": "大湾区粤语博主（618全品类）",
@@ -282,7 +293,8 @@
       "may_dates": [],
       "month": "6",
       "source_chat": "BK撮合招商直通车",
-      "type": "买手"
+      "type": "买手",
+      "sendDate": "2026-05-01"
     },
     {
       "name": "新商Vodkaelves",
@@ -302,7 +314,8 @@
       "may_dates": [],
       "month": "6",
       "source_chat": "BK撮合招商直通车",
-      "type": "买手"
+      "type": "买手",
+      "sendDate": "2026-05-01"
     },
     {
       "name": "蔡文静",
@@ -324,7 +337,8 @@
       ],
       "month": "5",
       "source_chat": "BK撮合招商直通车",
-      "type": "明星"
+      "type": "明星",
+      "sendDate": "2026-05-08"
     },
     {
       "name": "大睿睿",
@@ -345,7 +359,8 @@
       "may_dates": [],
       "month": "6",
       "source_chat": "BK撮合招商直通车",
-      "type": "买手"
+      "type": "买手",
+      "sendDate": "2026-05-01"
     },
     {
       "name": "steph",
@@ -367,7 +382,8 @@
       "may_dates": [],
       "month": "6",
       "source_chat": "BK撮合招商直通车",
-      "type": "买手"
+      "type": "买手",
+      "sendDate": "2026-05-01"
     },
     {
       "name": "朱孝天",
@@ -390,7 +406,8 @@
       ],
       "month": "5",
       "source_chat": "BK撮合招商直通车",
-      "type": "明星"
+      "type": "明星",
+      "sendDate": "2026-05-01"
     },
     {
       "name": "你们的姐夫",
@@ -416,7 +433,8 @@
       ],
       "month": "5",
       "source_chat": "BK撮合招商直通车",
-      "type": "买手"
+      "type": "买手",
+      "sendDate": "2026-05-01"
     },
     {
       "name": "徐洁儿（演员）",
@@ -438,7 +456,8 @@
       "may_dates": [],
       "month": "6",
       "source_chat": "BK撮合招商直通车",
-      "type": "明星"
+      "type": "明星",
+      "sendDate": "2026-05-01"
     },
     {
       "name": "单眼皮的妮可",
@@ -461,7 +480,8 @@
       ],
       "month": "5",
       "source_chat": "BK撮合招商直通车",
-      "type": "买手"
+      "type": "买手",
+      "sendDate": "2026-05-01"
     },
     {
       "name": "小甄妮Elizabeth",
@@ -485,7 +505,8 @@
       "may_dates": [],
       "month": "6",
       "source_chat": "大时尚买手X行业拉手",
-      "type": "买手"
+      "type": "买手",
+      "sendDate": "2026-05-01"
     },
     {
       "name": "陈大事",
@@ -507,7 +528,8 @@
       "may_dates": [],
       "month": "6",
       "source_chat": "文玩/生鲜/休食x买手协同群",
-      "type": "买手"
+      "type": "买手",
+      "sendDate": "2026-05-01"
     },
     {
       "name": "是辰不是晨ii",
@@ -531,7 +553,8 @@
       ],
       "month": "5",
       "source_chat": "文玩/生鲜/休食x买手协同群",
-      "type": "买手"
+      "type": "买手",
+      "sendDate": "2026-05-01"
     },
     {
       "name": "詹青云",
@@ -553,7 +576,8 @@
       "may_dates": [],
       "month": "6",
       "source_chat": "文玩/生鲜/休食x买手协同群",
-      "type": "明星"
+      "type": "明星",
+      "sendDate": "2026-05-01"
     },
     {
       "name": "董洁（全品类场）",
@@ -580,7 +604,8 @@
       ],
       "month": "5",
       "source_chat": "文玩/生鲜/休食x买手协同群",
-      "type": "明星"
+      "type": "明星",
+      "sendDate": "2026-05-08"
     },
     {
       "name": "洪永城",
@@ -600,7 +625,8 @@
       "may_dates": [],
       "month": "6",
       "source_chat": "文玩/生鲜/休食x买手协同群",
-      "type": "明星"
+      "type": "明星",
+      "sendDate": "2026-05-01"
     },
     {
       "name": "蔡文静（5.16快闪直播）",
@@ -622,7 +648,8 @@
       ],
       "month": "5",
       "source_chat": "文玩/生鲜/休食x买手协同群",
-      "type": "明星"
+      "type": "明星",
+      "sendDate": "2026-05-08"
     },
     {
       "name": "朱匀天Z（首播·美食）",
@@ -646,7 +673,8 @@
       ],
       "month": "5",
       "source_chat": "文玩/生鲜/休食x买手协同群",
-      "type": "买手"
+      "type": "买手",
+      "sendDate": "2026-05-01"
     },
     {
       "name": "郑恺",
@@ -656,7 +684,8 @@
       "category": "美妆",
       "conditions": "单场规模1000万",
       "deadline": null,
-      "links": []
+      "links": [],
+      "sendDate": "2026-05-08"
     },
     {
       "name": "董洁",
@@ -666,7 +695,8 @@
       "category": "美妆",
       "conditions": "单场规模6000万",
       "deadline": null,
-      "links": []
+      "links": [],
+      "sendDate": "2026-05-08"
     },
     {
       "name": "章龄之",
@@ -676,7 +706,8 @@
       "category": "美妆",
       "conditions": "单场规模300-400万",
       "deadline": null,
-      "links": []
+      "links": [],
+      "sendDate": "2026-05-08"
     },
     {
       "name": "沈梦辰",
@@ -686,7 +717,8 @@
       "category": "美妆",
       "conditions": "单场规模800万",
       "deadline": null,
-      "links": []
+      "links": [],
+      "sendDate": "2026-05-08"
     },
     {
       "name": "吴昕",
@@ -696,7 +728,8 @@
       "category": "美妆",
       "conditions": "单场规模3500万",
       "deadline": null,
-      "links": []
+      "links": [],
+      "sendDate": "2026-05-08"
     },
     {
       "name": "李嗲",
@@ -706,7 +739,8 @@
       "category": "美妆",
       "conditions": "单场规模2000万",
       "deadline": null,
-      "links": []
+      "links": [],
+      "sendDate": "2026-05-08"
     },
     {
       "name": "黄奕",
@@ -716,7 +750,8 @@
       "category": "美妆",
       "conditions": "单场规模1000-3000万",
       "deadline": null,
-      "links": []
+      "links": [],
+      "sendDate": "2026-05-08"
     },
     {
       "name": "章小蕙",
@@ -726,7 +761,8 @@
       "category": "美妆",
       "conditions": "单场规模5000万",
       "deadline": null,
-      "links": []
+      "links": [],
+      "sendDate": "2026-05-08"
     },
     {
       "name": "李施嬅",
@@ -736,7 +772,8 @@
       "category": "美护",
       "conditions": "单场规模500万",
       "deadline": null,
-      "links": []
+      "links": [],
+      "sendDate": "2026-05-01"
     },
     {
       "name": "吴千语",
@@ -746,7 +783,8 @@
       "category": "时尚",
       "conditions": "单场规模5000万",
       "deadline": null,
-      "links": []
+      "links": [],
+      "sendDate": "2026-05-08"
     },
     {
       "name": "王蔷×吴艳妮",
@@ -756,7 +794,8 @@
       "category": "运动户外",
       "conditions": "单场规模1000万",
       "deadline": null,
-      "links": []
+      "links": [],
+      "sendDate": "2026-05-08"
     },
     {
       "name": "赵奕欢",
@@ -766,7 +805,8 @@
       "category": "运动户外",
       "conditions": "单场规模1000万",
       "deadline": null,
-      "links": []
+      "links": [],
+      "sendDate": "2026-05-08"
     },
     {
       "name": "国产收音机",
@@ -776,7 +816,8 @@
       "category": "运动户外",
       "conditions": "单场规模1000万",
       "deadline": null,
-      "links": []
+      "links": [],
+      "sendDate": "2026-05-08"
     },
     {
       "name": "钳钳妈阿曼达",
@@ -786,7 +827,8 @@
       "category": "运动户外",
       "conditions": "单场规模1000万",
       "deadline": null,
-      "links": []
+      "links": [],
+      "sendDate": "2026-05-08"
     },
     {
       "name": "寇克船长",
@@ -796,7 +838,8 @@
       "category": "运动户外",
       "conditions": "单场规模100万",
       "deadline": null,
-      "links": []
+      "links": [],
+      "sendDate": "2026-05-08"
     },
     {
       "name": "奥地利的小胡",
@@ -806,7 +849,8 @@
       "category": "兴趣爱好",
       "conditions": "单场规模100万",
       "deadline": null,
-      "links": []
+      "links": [],
+      "sendDate": "2026-05-08"
     },
     {
       "name": "袁弘",
@@ -816,7 +860,8 @@
       "category": "家生活",
       "conditions": "单场规模300万",
       "deadline": null,
-      "links": []
+      "links": [],
+      "sendDate": "2026-05-08"
     },
     {
       "name": "包文婧",
@@ -826,7 +871,8 @@
       "category": "文玩珠宝",
       "conditions": "单场规模1000万",
       "deadline": null,
-      "links": []
+      "links": [],
+      "sendDate": "2026-05-08"
     },
     {
       "name": "马剑越等",
@@ -836,7 +882,8 @@
       "category": "生鲜休食",
       "conditions": "单场规模150万",
       "deadline": null,
-      "links": []
+      "links": [],
+      "sendDate": "2026-05-08"
     }
   ],
   "schedule": []
