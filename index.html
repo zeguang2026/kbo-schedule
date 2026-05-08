@@ -231,6 +231,12 @@ footer{text-align:center;padding:14px;color:#C7C7CC;font-size:11px;background:wh
       <button class="fbtn" onclick="setFee('both',this)">均可</button>
     </div>
     <div class="mctrl-row" style="margin-bottom:6px">
+      <span class="mctrl-label">更新日期</span>
+      <button class="fbtn on" id="msdate-all" onclick="setMSDate('all',this)">全部</button>
+      <button class="fbtn" id="msdate-today" onclick="setMSDate('today',this)">今日新增</button>
+      <button class="fbtn" id="msdate-week" onclick="setMSDate('week',this)">本周</button>
+    </div>
+    <div class="mctrl-row" style="margin-bottom:6px">
       <span class="mctrl-label">招商类目</span>
       <button class="fbtn on" id="mcat-all" onclick="setMCat('all',this)">全部</button>
       <div id="mcat-chips"></div>
@@ -288,7 +294,7 @@ const TL={"1000w+": "💎 千万+", "500w-1000w": "🥈 百万+", "100-500w": "�
 let DATA_DATES=new Set();
 let schedMode='date', schedTier='all', selInds=new Set();
 let viewYear=2026, viewMonth=5, rangeStart=null, rangeEnd=null;
-let mFee='all', mCat='all', mDateFilter='all', mType='all';
+let mFee='all', mCat='all', mDateFilter='all', mType='all', mSDate='all';
 let dataLoaded=false;
 
 fetch('data.json').then(r=>r.json()).then(d=>{
@@ -518,6 +524,24 @@ function setMType(v,el){
   renderMerchant();
 }
 
+function setMSDate(v,el){
+  mSDate=v;
+  document.querySelectorAll('#msdate-all,#msdate-today,#msdate-week').forEach(b=>b.classList.remove('on'));
+  el.classList.add('on');
+  renderMerchant();
+}
+
+function isSameDay(dateStr, refStr){
+  return dateStr && dateStr.slice(0,10)===refStr;
+}
+
+function isThisWeek(dateStr){
+  if(!dateStr) return false;
+  const d=new Date(dateStr), now=new Date();
+  const mon=new Date(now); mon.setDate(now.getDate()-now.getDay()+1); mon.setHours(0,0,0,0);
+  return d>=mon;
+}
+
 function renderMerchant(){
   if(!dataLoaded)return;
   const q=document.getElementById('mq').value.toLowerCase();
@@ -526,8 +550,12 @@ function renderMerchant(){
   // 新版：优先用 RECRUITMENT 数据
   if(window.RECRUITMENT&&window.RECRUITMENT.length>0){
     let items=window.RECRUITMENT;
+    const todayStr=new Date().toISOString().slice(0,10);
     // 类型筛选
     if(mType!=='all')items=items.filter(i=>(i.type||'买手')===mType);
+    // 更新日期筛选
+    if(mSDate==='today')items=items.filter(i=>isSameDay(i.sendDate,todayStr));
+    else if(mSDate==='week')items=items.filter(i=>isThisWeek(i.sendDate));
     // 关键词搜索
     if(q)items=items.filter(i=>(i.name||'').toLowerCase().includes(q)||(i.category||'').toLowerCase().includes(q));
     if(!items.length){
@@ -543,6 +571,7 @@ function renderMerchant(){
       const submitBlock=links.length>0
         ?`<a class="submit-btn" href="${links[0]}" target="_blank">📝 立即提报</a>`
         :`<div class="contact-hint">💬 <strong>如需合作</strong>，请联系您的<strong>商家对接 AM</strong> 提交商品信息</div>`;
+      const sendDateStr=item.sendDate?`<span style="font-size:11px;color:#AEAEB2">🕐 ${item.sendDate.slice(5,7).replace(/^0/,'')}月${item.sendDate.slice(8,10).replace(/^0/,'')}日发布</span>`:'';
       return `<div class="mcard">
         <div class="mcard-header">
           <div class="mcard-name">${item.name||''}</div>
@@ -551,6 +580,7 @@ function renderMerchant(){
         <div class="mtags">
           ${typeTag}
           ${item.fans?`<span class="mtag" style="background:#F2F2F7;color:#636366">粉丝 ${item.fans}</span>`:''}
+          ${sendDateStr}
         </div>
         ${item.category?`<div class="mrow"><span class="mlabel">招商类目</span><span class="mval">${item.category}</span></div>`:''}
         ${item.conditions?`<div class="mrow"><span class="mlabel">商务条件</span><span class="mval">${item.conditions}</span></div>`:''}
@@ -589,13 +619,14 @@ function renderMerchant(){
 }
 
 function resetMFilters(){
-  mFee='all';mCat='all';mDateFilter='all';mType='all';
+  mFee='all';mCat='all';mDateFilter='all';mType='all';mSDate='all';
   document.getElementById('mq').value='';
   document.querySelectorAll('.mctrl .fbtn,.m-dchip').forEach(b=>b.classList.remove('on'));
   document.getElementById('fee-all').classList.add('on');
   document.getElementById('mcat-all').classList.add('on');
   if(document.getElementById('mdate-all'))document.getElementById('mdate-all').classList.add('on');
   document.getElementById('mtype-all').classList.add('on');
+  document.getElementById('msdate-all').classList.add('on');
   renderMerchant();
 }
 
