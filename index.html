@@ -230,11 +230,10 @@ footer{text-align:center;padding:14px;color:#C7C7CC;font-size:11px;background:wh
       <button class="fbtn" onclick="setFee('paid',this)">付费坑位</button>
       <button class="fbtn" onclick="setFee('both',this)">均可</button>
     </div>
-    <div class="mctrl-row" style="margin-bottom:6px">
-      <span class="mctrl-label">更新日期</span>
+    <div class="mctrl-row" style="margin-bottom:6px;flex-wrap:wrap;gap:4px">
+      <span class="mctrl-label">发布日期</span>
       <button class="fbtn on" id="msdate-all" onclick="setMSDate('all',this)">全部</button>
-      <button class="fbtn" id="msdate-today" onclick="setMSDate('today',this)">今日新增</button>
-      <button class="fbtn" id="msdate-week" onclick="setMSDate('week',this)">本周</button>
+      <div id="msdate-chips" style="display:inline-flex;gap:4px;flex-wrap:wrap"></div>
     </div>
     <div class="mctrl-row" style="margin-bottom:6px">
       <span class="mctrl-label">招商类目</span>
@@ -306,6 +305,7 @@ fetch('data.json').then(r=>r.json()).then(d=>{
   // 加载新版recruitment数据（明星+买手）
   if(d.recruitment&&d.recruitment.length>0){
     window.RECRUITMENT=d.recruitment;
+    initMSDateChips();
   }
   INDS=d.industries;
   DATA_DATES=new Set(SCHED.map(i=>i.date));
@@ -524,22 +524,22 @@ function setMType(v,el){
   renderMerchant();
 }
 
+function initMSDateChips(){
+  if(!window.RECRUITMENT) return;
+  const dates=[...new Set(window.RECRUITMENT.map(m=>m.sendDate||'').filter(Boolean))].sort((a,b)=>b.localeCompare(a));
+  const container=document.getElementById('msdate-chips');
+  if(!container) return;
+  container.innerHTML=dates.map(d=>{
+    const mo=parseInt(d.slice(5,7)), dy=parseInt(d.slice(8,10));
+    return `<button class="fbtn" data-sdate="${d}" onclick="setMSDate('${d}',this)">${mo}月${dy}日</button>`;
+  }).join('');
+}
+
 function setMSDate(v,el){
   mSDate=v;
-  document.querySelectorAll('#msdate-all,#msdate-today,#msdate-week').forEach(b=>b.classList.remove('on'));
+  document.querySelectorAll('#msdate-all,[data-sdate]').forEach(b=>b.classList.remove('on'));
   el.classList.add('on');
   renderMerchant();
-}
-
-function isSameDay(dateStr, refStr){
-  return dateStr && dateStr.slice(0,10)===refStr;
-}
-
-function isThisWeek(dateStr){
-  if(!dateStr) return false;
-  const d=new Date(dateStr), now=new Date();
-  const mon=new Date(now); mon.setDate(now.getDate()-now.getDay()+1); mon.setHours(0,0,0,0);
-  return d>=mon;
 }
 
 function renderMerchant(){
@@ -549,13 +549,12 @@ function renderMerchant(){
 
   // 新版：优先用 RECRUITMENT 数据
   if(window.RECRUITMENT&&window.RECRUITMENT.length>0){
-    let items=window.RECRUITMENT;
-    const todayStr=new Date().toISOString().slice(0,10);
+    // 默认按发布日期倒序（最新在前）
+    let items=[...window.RECRUITMENT].sort((a,b)=>(b.sendDate||'').localeCompare(a.sendDate||''));
     // 类型筛选
     if(mType!=='all')items=items.filter(i=>(i.type||'买手')===mType);
-    // 更新日期筛选
-    if(mSDate==='today')items=items.filter(i=>isSameDay(i.sendDate,todayStr));
-    else if(mSDate==='week')items=items.filter(i=>isThisWeek(i.sendDate));
+    // 发布日期筛选
+    if(mSDate!=='all')items=items.filter(i=>(i.sendDate||'')===mSDate);
     // 关键词搜索
     if(q)items=items.filter(i=>(i.name||'').toLowerCase().includes(q)||(i.category||'').toLowerCase().includes(q));
     if(!items.length){
@@ -627,6 +626,7 @@ function resetMFilters(){
   if(document.getElementById('mdate-all'))document.getElementById('mdate-all').classList.add('on');
   document.getElementById('mtype-all').classList.add('on');
   document.getElementById('msdate-all').classList.add('on');
+  document.querySelectorAll('[data-sdate]').forEach(b=>b.classList.remove('on'));
   renderMerchant();
 }
 
