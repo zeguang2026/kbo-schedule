@@ -299,7 +299,7 @@ let dataLoaded=false;
 fetch('data.json').then(r=>r.json()).then(d=>{
   // 只取5月排期
   SCHED=d.schedule.filter(i=>i.date.startsWith('2026-05'));
-  MERCH=d.merchant;
+  MERCH=d.merchant||[];
   // 显示更新时间
   if(d.updatedAt){document.getElementById('update-time').textContent=d.updatedAt;}
   // 加载新版recruitment数据（明星+买手）
