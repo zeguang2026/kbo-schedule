@@ -547,6 +547,7 @@ function initMOverview(){
   const directLink=all.filter(m=>m.links&&m.links.length>0).length;
   const needAm=total-directLink;
 
+  const unknown=all.filter(m=>!m.fee_type||m.fee_type==='unknown').length;
   const items=[
     {label:'招商总数', val:`${total}个`, color:'#FF2442'},
     {label:'明星专场', val:`${stars}个`, color:'#FF6B00'},
@@ -554,6 +555,7 @@ function initMOverview(){
     {label:'纯佣合作', val:`${pure}个`, color:'#34C759'},
     {label:'付费坑位', val:`${paid}个`, color:'#FF9500'},
     {label:'佣金+坑位均可', val:`${both}个`, color:'#AF52DE'},
+    {label:'条件待定', val:`${unknown}个`, color:'#C7C7CC'},
     {label:'可直接提报', val:`${directLink}个`, color:'#30B0C7'},
     {label:'需联系AM', val:`${needAm}个`, color:'#8E8E93'},
   ];
