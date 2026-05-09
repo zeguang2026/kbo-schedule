@@ -158,7 +158,7 @@ footer{text-align:center;padding:14px;color:#C7C7CC;font-size:11px;background:wh
     <div class="hstat-div"></div>
     <div class="hstat"><div class="hstat-num" id="h-ind">...</div><div class="hstat-label">覆盖类目</div></div>
     <div class="hstat-div"></div>
-    <div class="hstat"><div class="hstat-num">10</div><div class="hstat-label">招商信息</div></div>
+    <div class="hstat"><div class="hstat-num" id="h-merch">...</div><div class="hstat-label">招商信息</div></div>
   </div>
 </header>
 
@@ -322,6 +322,7 @@ fetch('data.json').then(r=>r.json()).then(d=>{
   DATA_DATES=new Set(SCHED.map(i=>i.date));
   document.getElementById('h-total').textContent=SCHED.length.toLocaleString();
   document.getElementById('h-ind').textContent=INDS.length;
+  if(document.getElementById('h-merch')) document.getElementById('h-merch').textContent=(d.recruitment||[]).length;
   dataLoaded=true;
   initIndChips();
   initMCatChips();
