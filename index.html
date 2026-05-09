@@ -236,6 +236,12 @@ footer{text-align:center;padding:14px;color:#C7C7CC;font-size:11px;background:wh
       <div id="msdate-chips" style="display:inline-flex;gap:4px;flex-wrap:wrap"></div>
     </div>
     <div class="mctrl-row" style="margin-bottom:6px">
+      <span class="mctrl-label">提报方式</span>
+      <button class="fbtn on" id="mlink-all" onclick="setMLink('all',this)">全部</button>
+      <button class="fbtn" id="mlink-direct" onclick="setMLink('direct',this)">📝 可直接提报</button>
+      <button class="fbtn" id="mlink-am" onclick="setMLink('am',this)">💬 联系AM</button>
+    </div>
+    <div class="mctrl-row" style="margin-bottom:6px">
       <span class="mctrl-label">招商类目</span>
       <button class="fbtn on" id="mcat-all" onclick="setMCat('all',this)">全部</button>
       <div id="mcat-chips"></div>
@@ -293,7 +299,7 @@ const TL={"1000w+": "💎 千万+", "500w-1000w": "🥈 百万+", "100-500w": "�
 let DATA_DATES=new Set();
 let schedMode='date', schedTier='all', selInds=new Set();
 let viewYear=2026, viewMonth=5, rangeStart=null, rangeEnd=null;
-let mFee='all', mCat='all', mDateFilter='all', mType='all', mSDate='all';
+let mFee='all', mCat='all', mDateFilter='all', mType='all', mSDate='all', mLink='all';
 let dataLoaded=false;
 
 fetch('data.json').then(r=>r.json()).then(d=>{
@@ -535,6 +541,13 @@ function initMSDateChips(){
   }).join('');
 }
 
+function setMLink(v,el){
+  mLink=v;
+  document.querySelectorAll('#mlink-all,#mlink-direct,#mlink-am').forEach(b=>b.classList.remove('on'));
+  el.classList.add('on');
+  renderMerchant();
+}
+
 function setMSDate(v,el){
   mSDate=v;
   document.querySelectorAll('#msdate-all,[data-sdate]').forEach(b=>b.classList.remove('on'));
@@ -555,6 +568,9 @@ function renderMerchant(){
     if(mType!=='all')items=items.filter(i=>(i.type||'买手')===mType);
     // 发布日期筛选
     if(mSDate!=='all')items=items.filter(i=>(i.sendDate||'')===mSDate);
+    // 提报方式筛选
+    if(mLink==='direct')items=items.filter(i=>i.links&&i.links.length>0);
+    else if(mLink==='am')items=items.filter(i=>!i.links||i.links.length===0);
     // 关键词搜索
     if(q)items=items.filter(i=>(i.name||'').toLowerCase().includes(q)||(i.category||'').toLowerCase().includes(q));
     if(!items.length){
@@ -618,7 +634,7 @@ function renderMerchant(){
 }
 
 function resetMFilters(){
-  mFee='all';mCat='all';mDateFilter='all';mType='all';mSDate='all';
+  mFee='all';mCat='all';mDateFilter='all';mType='all';mSDate='all';mLink='all';
   document.getElementById('mq').value='';
   document.querySelectorAll('.mctrl .fbtn,.m-dchip').forEach(b=>b.classList.remove('on'));
   document.getElementById('fee-all').classList.add('on');
@@ -626,6 +642,7 @@ function resetMFilters(){
   if(document.getElementById('mdate-all'))document.getElementById('mdate-all').classList.add('on');
   document.getElementById('mtype-all').classList.add('on');
   document.getElementById('msdate-all').classList.add('on');
+  document.getElementById('mlink-all').classList.add('on');
   document.querySelectorAll('[data-sdate]').forEach(b=>b.classList.remove('on'));
   renderMerchant();
 }
