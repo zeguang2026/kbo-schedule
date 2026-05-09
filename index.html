@@ -213,6 +213,10 @@ footer{text-align:center;padding:14px;color:#C7C7CC;font-size:11px;background:wh
 
 <!-- Tab1 招商 -->
 <div class="panel" id="panel-1">
+  <div id="m-overview" style="background:#FFF5F6;border-bottom:1px solid #FFE0E5;padding:10px 16px;font-size:12px;color:#636366;display:none">
+    <div style="font-weight:600;color:#FF2442;margin-bottom:6px;font-size:13px">📊 招商数据概览</div>
+    <div id="m-overview-content" style="display:flex;flex-wrap:wrap;gap:8px 16px"></div>
+  </div>
   <div class="mctrl">
     <div class="mctrl-search">
       <input type="text" id="mq" placeholder="🔍 搜索买手/明星名称或招商类目..." oninput="renderMerchant()">
@@ -312,6 +316,7 @@ fetch('data.json').then(r=>r.json()).then(d=>{
   if(d.recruitment&&d.recruitment.length>0){
     window.RECRUITMENT=d.recruitment;
     initMSDateChips();
+    initMOverview();
   }
   INDS=d.industries;
   DATA_DATES=new Set(SCHED.map(i=>i.date));
@@ -528,6 +533,39 @@ function setMType(v,el){
   document.querySelectorAll('#mtype-all,#mtype-star,#mtype-buyer').forEach(b=>b.classList.remove('on'));
   el.classList.add('on');
   renderMerchant();
+}
+
+function initMOverview(){
+  if(!window.RECRUITMENT) return;
+  const all=window.RECRUITMENT;
+  const total=all.length;
+  const stars=all.filter(m=>m.type==='明星').length;
+  const buyers=all.filter(m=>m.type!=='明星').length;
+  const pure=all.filter(m=>m.fee_type==='pure').length;
+  const paid=all.filter(m=>m.fee_type==='paid'||m.fee_type==='fee').length;
+  const both=all.filter(m=>m.fee_type==='both').length;
+  const directLink=all.filter(m=>m.links&&m.links.length>0).length;
+  const needAm=total-directLink;
+
+  const items=[
+    {label:'招商总数', val:`${total}个`, color:'#FF2442'},
+    {label:'明星专场', val:`${stars}个`, color:'#FF6B00'},
+    {label:'买手直播', val:`${buyers}个`, color:'#007AFF'},
+    {label:'纯佣合作', val:`${pure}个`, color:'#34C759'},
+    {label:'付费坑位', val:`${paid}个`, color:'#FF9500'},
+    {label:'佣金+坑位均可', val:`${both}个`, color:'#AF52DE'},
+    {label:'可直接提报', val:`${directLink}个`, color:'#30B0C7'},
+    {label:'需联系AM', val:`${needAm}个`, color:'#8E8E93'},
+  ];
+
+  const el=document.getElementById('m-overview-content');
+  const ov=document.getElementById('m-overview');
+  if(!el||!ov) return;
+  el.innerHTML=items.map(i=>`<div style="min-width:80px">
+    <div style="font-size:16px;font-weight:700;color:${i.color}">${i.val}</div>
+    <div style="font-size:11px;color:#8E8E93;margin-top:1px">${i.label}</div>
+  </div>`).join('');
+  ov.style.display='block';
 }
 
 function initMSDateChips(){
