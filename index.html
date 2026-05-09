@@ -581,6 +581,15 @@ function initMSDateChips(){
   }).join('');
 }
 
+function cleanCategory(cat){
+  if(!cat) return '';
+  // 如果含"招商类目："，只取该部分之后的内容
+  const idx=cat.indexOf('招商类目：');
+  if(idx>=0) return cat.slice(idx+'招商类目：'.length).split('/')[0].trim();
+  // 如果含"粉丝画像："开头，去掉整个粉丝画像段
+  return cat.replace(/粉丝画像[：:][^/]+\/?/g,'').replace(/^\s*\/\s*/,'').trim() || cat;
+}
+
 function setMLink(v,el){
   mLink=v;
   document.querySelectorAll('#mlink-all,#mlink-direct,#mlink-am').forEach(b=>b.classList.remove('on'));
@@ -637,7 +646,7 @@ function renderMerchant(){
           ${item.fans?`<span class="mtag" style="background:#F2F2F7;color:#636366">粉丝 ${item.fans}</span>`:''}
           ${sendDateStr}
         </div>
-        ${item.category?`<div class="mrow"><span class="mlabel">招商类目</span><span class="mval">${item.category}</span></div>`:''}
+        ${item.category?`<div class="mrow"><span class="mlabel">招商类目</span><span class="mval">${cleanCategory(item.category)}</span></div>`:''}
         ${item.conditions?`<div class="mrow"><span class="mlabel">商务条件</span><span class="mval">${item.conditions}</span></div>`:''}
         ${item.deadline?`<div class="mrow"><span class="mlabel">截止日期</span><span class="mval">${item.deadline}</span></div>`:''}
         ${submitBlock}
