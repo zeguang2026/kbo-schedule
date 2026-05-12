@@ -95,8 +95,8 @@ header{background:#FF2442;color:white}
 .dchips{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
 .dtag{background:#FFF5F7;color:#FF2442;border:1px solid #FFD6DC;border-radius:20px;padding:3px 10px;font-size:12px;font-weight:600}
 /* 招商 ctrl */
-.mctrl{background:white;padding:10px 14px;position:sticky;top:0;z-index:20;border-bottom:1px solid #F0F0F0}
-.mctrl-search{display:flex;gap:7px;margin-bottom:8px}
+.mctrl{background:white;padding:8px 14px;position:sticky;top:0;z-index:20;border-bottom:1px solid #F0F0F0}
+.mctrl-search{display:flex;gap:7px;margin-bottom:6px}
 .mctrl-search input{flex:1;padding:7px 13px;border:1.5px solid #E5E5EA;border-radius:20px;font-size:13px;outline:none}
 .mctrl-search input:focus{border-color:#FF2442}
 .mctrl-row{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;align-items:center;padding-bottom:2px}
@@ -214,12 +214,13 @@ footer{text-align:center;padding:14px;color:#C7C7CC;font-size:11px;background:wh
 <!-- Tab1 招商 -->
 <div class="panel" id="panel-1">
   <div class="mctrl">
-    <div id="m-overview" style="background:#FFF5F6;border:1px solid #FFE0E5;border-radius:10px;padding:10px 12px;margin-bottom:10px;display:none">
+    <div id="m-overview" style="background:#FFF5F6;border:1px solid #FFE0E5;border-radius:10px;padding:10px 12px;margin-bottom:8px;display:none">
       <div style="font-weight:600;color:#FF2442;margin-bottom:8px;font-size:13px">📊 招商数据概览</div>
       <div id="m-overview-content" style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px"></div>
     </div>
-    <div class="mctrl-search">
+    <div class="mctrl-search" style="margin-bottom:6px">
       <input type="text" id="mq" placeholder="🔍 搜索买手/明星名称或招商类目..." oninput="renderMerchant()">
+      <button onclick="(function(){var o=document.getElementById('m-overview');var btn=document.getElementById('m-overview-btn');if(o.style.display==='none'){o.style.display='block';btn.textContent='📊 收起'}else{o.style.display='none';btn.textContent='📊 概览'}})()" id="m-overview-btn" style="flex-shrink:0;padding:7px 11px;border-radius:20px;border:1.5px solid #FFD6DC;background:#FFF5F7;color:#FF2442;font-size:12px;cursor:pointer;white-space:nowrap;font-weight:500">📊 概览</button>
     </div>
     <div class="mctrl-row" style="margin-bottom:6px">
       <span class="mctrl-label">类型</span>
@@ -234,10 +235,10 @@ footer{text-align:center;padding:14px;color:#C7C7CC;font-size:11px;background:wh
       <button class="fbtn" onclick="setFee('paid',this)">付费坑位</button>
       <button class="fbtn" onclick="setFee('both',this)">均可</button>
     </div>
-    <div class="mctrl-row" style="margin-bottom:6px;flex-wrap:wrap;gap:4px">
+    <div class="mctrl-row" style="margin-bottom:6px">
       <span class="mctrl-label">发布日期</span>
       <button class="fbtn on" id="msdate-all" onclick="setMSDate('all',this)">全部</button>
-      <div id="msdate-chips" style="display:inline-flex;gap:4px;flex-wrap:wrap"></div>
+      <div id="msdate-chips" style="display:inline-flex;gap:4px;flex-wrap:nowrap"></div>
     </div>
     <div class="mctrl-row" style="margin-bottom:6px">
       <span class="mctrl-label">提报方式</span>
@@ -248,7 +249,7 @@ footer{text-align:center;padding:14px;color:#C7C7CC;font-size:11px;background:wh
     <div class="mctrl-row" style="margin-bottom:6px">
       <span class="mctrl-label">招商类目</span>
       <button class="fbtn on" id="mcat-all" onclick="setMCat('all',this)">全部</button>
-      <div id="mcat-chips"></div>
+      <div id="mcat-chips" style="display:inline-flex;gap:4px;flex-wrap:nowrap"></div>
     </div>
     <div class="mctrl-row">
       <span class="mctrl-label">直播日期</span>
