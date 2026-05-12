@@ -1,7 +1,31 @@
 {
-  "updatedAt": "2026-05-08 18:03",
-  "updateNote": "2026-05-08 更新：新增招商信息58条，共105条招商，11925条5月排期",
+  "updatedAt": "2026-05-12 16:00",
+  "updateNote": "2026-05-12 修复+补充5/11新增2条，共102条招商，11925条5月排期",
   "recruitment": [
+    {
+      "name": "精致自律小女人-SARA",
+      "type": "买手",
+      "fans": "未披露",
+      "livestreamDate": "待定",
+      "category": "重点招商品类：",
+      "conditions": "详见招商消息",
+      "deadline": null,
+      "links": [],
+      "sendDate": "2026-05-11",
+      "sourceChat": "BK撮合招商直通车"
+    },
+    {
+      "name": "66周年庆马剑越",
+      "type": "买手",
+      "fans": "未披露",
+      "livestreamDate": "待定",
+      "category": "🎯 类目需求——灵活沟通！ / 全品类选手，美妆个护 40%、母婴20%、家生活20%、休闲零食20%",
+      "conditions": "详见招商消息",
+      "deadline": null,
+      "links": [],
+      "sendDate": "2026-05-11",
+      "sourceChat": "BK撮合招商直通车"
+    },
     {
       "name": "叶纸舟",
       "date": "5月25日",
