@@ -1,6 +1,60 @@
 {
   "recruitment": [
     {
+      "name": "董洁",
+      "type": "买手直播",
+      "fans": "知名主持人",
+      "livestreamDate": "2026-06-26",
+      "category": "饰品&服配 / 服饰 / 鞋履 / 箱包",
+      "conditions": "坑位费 4w+30%（2链接）/ 3w+30%（1链接）",
+      "deadline": "2026-05-22",
+      "links": [
+        "https://my.feishu.cn/wiki/VZ9vwe7RNiNQbhkzc1Qc9Q8cnze"
+      ],
+      "sendDate": "2026-05-12",
+      "sourceChat": "BK撮合招商直通车",
+      "contact": "邓雅甜（实习）"
+    },
+    {
+      "name": "李静LiJing",
+      "type": "买手直播",
+      "fans": "近30天活跃64.9万，客单1601元",
+      "livestreamDate": "2026-06-16",
+      "category": "时尚配饰（耳钉、项链、墨镜）/ 美妆个护 / 服饰鞋包",
+      "conditions": "需小红书旗舰店，全平台保价1个月",
+      "deadline": "2026-05-22",
+      "links": [],
+      "sendDate": "2026-05-12",
+      "sourceChat": "大时尚买手X行业拉手",
+      "contact": "铃爱(金玉倩)"
+    },
+    {
+      "name": "靳靳Jinspire",
+      "type": "买手直播",
+      "fans": "81万，精致中年辣妈，客单947元",
+      "livestreamDate": "2026-06-04",
+      "category": "高客单品类，种草转化型",
+      "conditions": "25-40岁成熟女性粉丝，中高消费",
+      "deadline": "",
+      "links": [],
+      "sendDate": "2026-05-12",
+      "sourceChat": "BK撮合招商直通车",
+      "contact": "柯莱(侯相名)"
+    },
+    {
+      "name": "端姐Mom",
+      "type": "买手直播",
+      "fans": "8990+，V3买手，场均GMV 3w+",
+      "livestreamDate": "",
+      "category": "高客单品类，精致妈妈/中产生活",
+      "conditions": "35-40岁女性为主，一线城市，高消费",
+      "deadline": "",
+      "links": [],
+      "sendDate": "2026-05-13",
+      "sourceChat": "一部x时尚买手握手群",
+      "contact": "杨梦蝶"
+    },
+    {
       "name": "端姐Mom｜星火计划圈选",
       "type": "买手",
       "fans": "未披露",
@@ -99,6 +153,6 @@
       "sourceChat": "BK撮合招商直通车"
     }
   ],
-  "updatedAt": "2026-05-13 10:50",
-  "updateNote": "2026-05-13 自动更新：新增1条，合计8条"
+  "updatedAt": "2026-05-13 10:59",
+  "updateNote": "2026-05-13 手动补录：新增4条，合计12条"
 }
