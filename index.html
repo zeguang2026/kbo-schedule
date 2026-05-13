@@ -307,7 +307,7 @@ let viewYear=2026, viewMonth=5, rangeStart=null, rangeEnd=null;
 let mFee='all', mCat='all', mDateFilter='all', mType='all', mSDate='all', mLink='all';
 let dataLoaded=false;
 
-fetch('data.json').then(r=>r.json()).then(d=>{
+fetch('data.json?v='+Date.now()).then(r=>r.json()).then(d=>{
   // 只取5月排期
   SCHED=d.schedule.filter(i=>i.date.startsWith('2026-05'));
   MERCH=d.merchant||[];
