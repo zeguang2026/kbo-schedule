@@ -251,18 +251,10 @@ footer{text-align:center;padding:14px;color:#C7C7CC;font-size:11px;background:wh
       <button class="fbtn on" id="mcat-all" onclick="setMCat('all',this)">全部</button>
       <div id="mcat-chips" style="display:inline-flex;gap:4px;flex-wrap:nowrap"></div>
     </div>
-    <div class="mctrl-row">
+    <div class="mctrl-row" style="margin-bottom:6px">
       <span class="mctrl-label">直播日期</span>
-      <button class="m-dchip on" id="mdate-all" onclick="setMDate('all',this)">全部</button>
-      <div class="m-dchip" data-date="05-09" onclick="setMDate('05-09',this)">5月9日</div>
-<div class="m-dchip" data-date="05-10" onclick="setMDate('05-10',this)">5月10日</div>
-<div class="m-dchip" data-date="05-22" onclick="setMDate('05-22',this)">5月22日</div>
-<div class="m-dchip" data-date="05-25" onclick="setMDate('05-25',this)">5月25日</div>
-<div class="m-dchip" data-date="05-30" onclick="setMDate('05-30',this)">5月30日</div>
-<div class="m-dchip" data-date="05-31" onclick="setMDate('05-31',this)">5月31日</div>
-<div class="m-dchip" data-date="05-bottom" onclick="setMDate('05-bottom',this)">5月底</div>
-<div class="m-dchip" data-date="05-06" onclick="setMDate('05-06',this)">5-6月持续</div>
-
+      <button class="fbtn on" id="mldate-all" onclick="setMLDate('all',this)">全部</button>
+      <div id="mldate-chips" style="display:inline-flex;gap:4px;flex-wrap:nowrap;overflow-x:auto"></div>
     </div>
   </div>
   <div class="mcontent" id="merchant-app"><div class="loading">⏳ 加载中...</div></div>
@@ -317,6 +309,7 @@ fetch('data.json?v='+Date.now()).then(r=>r.json()).then(d=>{
   if(d.recruitment&&d.recruitment.length>0){
     window.RECRUITMENT=d.recruitment;
     initMSDateChips();
+    initMLDateChips();
     initMOverview();
   }
   INDS=d.industries;
@@ -606,6 +599,42 @@ function setMSDate(v,el){
   renderMerchant();
 }
 
+let mLDate='all';
+function initMLDateChips(){
+  if(!window.RECRUITMENT) return;
+  // 收集所有有效的直播日期，标准化为 YYYY-MM-DD
+  const today = new Date().toISOString().slice(0,10);
+  const dates=[...new Set(window.RECRUITMENT.map(m=>{
+    const ld=m.livestreamDate||m.liveDate||'';
+    if(!ld||ld==='待定') return null;
+    // 已是标准格式
+    if(/^\d{4}-\d{2}-\d{2}$/.test(ld)) return ld>=today?ld:null;
+    // X月X日格式
+    const match=ld.match(/(\d{1,2})月(\d{1,2})日/);
+    if(match){
+      const yyyy=new Date().getFullYear();
+      const mm=String(match[1]).padStart(2,'0');
+      const dd=String(match[2]).padStart(2,'0');
+      const full=`${yyyy}-${mm}-${dd}`;
+      return full>=today?full:null;
+    }
+    return null;
+  }).filter(Boolean))].sort();
+  const container=document.getElementById('mldate-chips');
+  if(!container) return;
+  container.innerHTML=dates.map(d=>{
+    const mo=parseInt(d.slice(5,7)), dy=parseInt(d.slice(8,10));
+    return `<button class="fbtn" data-mldate="${d}" onclick="setMLDate('${d}',this)">${mo}月${dy}日</button>`;
+  }).join('');
+}
+
+function setMLDate(v,el){
+  mLDate=v;
+  document.querySelectorAll('#mldate-all,[data-mldate]').forEach(b=>b.classList.remove('on'));
+  el.classList.add('on');
+  renderMerchant();
+}
+
 function renderMerchant(){
   if(!dataLoaded)return;
   const q=document.getElementById('mq').value.toLowerCase();
@@ -619,6 +648,20 @@ function renderMerchant(){
     if(mType!=='all')items=items.filter(i=>(i.type||'买手')===mType);
     // 发布日期筛选
     if(mSDate!=='all')items=items.filter(i=>(i.sendDate||'')===mSDate);
+    // 直播日期筛选（标准化后匹配）
+    if(mLDate!=='all'){
+      items=items.filter(i=>{
+        const ld=i.livestreamDate||i.liveDate||'';
+        if(!ld) return false;
+        if(/^\d{4}-\d{2}-\d{2}$/.test(ld)) return ld===mLDate;
+        const match=ld.match(/(\d{1,2})月(\d{1,2})日/);
+        if(match){
+          const full=`${new Date().getFullYear()}-${String(match[1]).padStart(2,'0')}-${String(match[2]).padStart(2,'0')}`;
+          return full===mLDate;
+        }
+        return false;
+      });
+    }
     // 提报方式筛选
     if(mLink==='direct')items=items.filter(i=>i.links&&i.links.length>0);
     else if(mLink==='am')items=items.filter(i=>!i.links||i.links.length===0);
@@ -685,16 +728,16 @@ function renderMerchant(){
 }
 
 function resetMFilters(){
-  mFee='all';mCat='all';mDateFilter='all';mType='all';mSDate='all';mLink='all';
+  mFee='all';mCat='all';mDateFilter='all';mType='all';mSDate='all';mLink='all';mLDate='all';
   document.getElementById('mq').value='';
   document.querySelectorAll('.mctrl .fbtn,.m-dchip').forEach(b=>b.classList.remove('on'));
   document.getElementById('fee-all').classList.add('on');
   document.getElementById('mcat-all').classList.add('on');
-  if(document.getElementById('mdate-all'))document.getElementById('mdate-all').classList.add('on');
   document.getElementById('mtype-all').classList.add('on');
   document.getElementById('msdate-all').classList.add('on');
   document.getElementById('mlink-all').classList.add('on');
-  document.querySelectorAll('[data-sdate]').forEach(b=>b.classList.remove('on'));
+  document.getElementById('mldate-all').classList.add('on');
+  document.querySelectorAll('[data-sdate],[data-mldate]').forEach(b=>b.classList.remove('on'));
   renderMerchant();
 }
 
