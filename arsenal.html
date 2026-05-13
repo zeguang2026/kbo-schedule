@@ -3,202 +3,288 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>🦞 小龙武器库</title>
+<title>🦞 小龙武器库 · 业务分类版</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;background:#0f0f13;color:#e0e0e0;min-height:100vh}
-.header{background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);padding:24px 32px;border-bottom:1px solid #2a2a3e}
-.header h1{font-size:24px;font-weight:700;color:#fff}
-.header p{color:#aaa;font-size:13px;margin-top:6px}
-.stats{display:flex;gap:16px;margin-top:14px;flex-wrap:wrap}
-.stat{background:rgba(255,255,255,0.06);padding:8px 14px;border-radius:20px;font-size:12px;color:#ccc}
-.stat span{color:#fff;font-weight:600}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue",sans-serif;background:#0d0d14;color:#ddd;min-height:100vh}
 
-.controls{padding:16px 32px;background:#13131a;border-bottom:1px solid #222;display:flex;gap:12px;flex-wrap:wrap;align-items:center}
-.search-box{flex:1;min-width:200px;background:#1e1e2e;border:1px solid #333;border-radius:8px;padding:8px 14px;color:#fff;font-size:14px;outline:none}
-.search-box::placeholder{color:#555}
-.search-box:focus{border-color:#e95f8a}
-.filter-btns{display:flex;gap:6px;flex-wrap:wrap}
-.fbtn{padding:6px 14px;border-radius:16px;border:1.5px solid #333;background:transparent;color:#aaa;font-size:12px;cursor:pointer;transition:all .15s}
-.fbtn:hover{border-color:#e95f8a;color:#fff}
-.fbtn.active{background:#e95f8a;border-color:#e95f8a;color:#fff}
-.fbtn-all.active{background:#6366f1;border-color:#6366f1}
+.header{background:linear-gradient(135deg,#1a1028 0%,#0f1a2e 60%,#0a1f3a 100%);padding:28px 36px 20px;border-bottom:1px solid #1e1e30}
+.header h1{font-size:22px;font-weight:700;color:#fff;letter-spacing:-.3px}
+.header p{color:#888;font-size:13px;margin-top:5px}
+.stats{display:flex;gap:12px;margin-top:16px;flex-wrap:wrap}
+.stat{background:rgba(255,255,255,0.05);border:1px solid #2a2a40;padding:6px 14px;border-radius:20px;font-size:12px;color:#aaa}
+.stat b{color:#fff}
 
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;padding:20px 32px}
+.search-wrap{padding:16px 36px;background:#0f0f1a;border-bottom:1px solid #1a1a28;display:flex;gap:12px;align-items:center;flex-wrap:wrap;position:sticky;top:0;z-index:50}
+.search{flex:1;min-width:220px;background:#1a1a28;border:1.5px solid #2a2a3e;border-radius:8px;padding:9px 14px;color:#fff;font-size:14px;outline:none;transition:border-color .15s}
+.search:focus{border-color:#7c3aed}
+.search::placeholder{color:#444}
+.tag-filters{display:flex;gap:6px;flex-wrap:wrap}
+.tf{padding:5px 13px;border-radius:14px;border:1.5px solid #2a2a3e;background:transparent;color:#888;font-size:12px;cursor:pointer;transition:all .15s;white-space:nowrap}
+.tf:hover{border-color:#7c3aed;color:#fff}
+.tf.on{background:#7c3aed;border-color:#7c3aed;color:#fff}
 
-.card{background:#1a1a27;border:1px solid #2a2a3e;border-radius:12px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
-.card:hover{border-color:#e95f8a;transform:translateY(-2px);box-shadow:0 8px 24px rgba(233,95,138,0.15)}
-.card.selected{border-color:#e95f8a;background:#1e1a2a}
-.card-header{padding:14px 16px 10px}
-.card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
-.card-name{font-size:13px;font-weight:600;color:#fff}
-.card-freq{font-size:11px;padding:2px 8px;border-radius:10px;background:#2a2a3e;color:#aaa}
-.card-freq.hot{background:rgba(233,95,138,0.2);color:#e95f8a}
-.card-freq.used{background:rgba(99,102,241,0.2);color:#818cf8}
-.card-freq.potential{background:rgba(16,185,129,0.2);color:#34d399}
-.card-freq.delete{background:rgba(239,68,68,0.2);color:#f87171}
-.card-tag{font-size:10px;margin-bottom:6px;color:#888}
-.card-desc{font-size:12px;color:#888;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.body{display:flex;min-height:calc(100vh - 130px)}
+.sidebar{width:240px;flex-shrink:0;background:#0d0d14;border-right:1px solid #1a1a28;padding:16px 0;position:sticky;top:130px;height:calc(100vh - 130px);overflow-y:auto}
+.nav-item{display:block;padding:9px 20px;font-size:12px;color:#777;cursor:pointer;border-left:2px solid transparent;transition:all .15s;text-decoration:none}
+.nav-item:hover{color:#bbb;background:rgba(255,255,255,0.03)}
+.nav-item.active{color:#fff;border-left-color:var(--c);background:rgba(255,255,255,0.05)}
+.nav-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--c);margin-right:8px;vertical-align:middle}
+.nav-count{float:right;background:rgba(255,255,255,0.08);padding:1px 7px;border-radius:8px;font-size:10px;color:#666}
 
-.detail-panel{position:fixed;right:0;top:0;height:100vh;width:420px;background:#14141e;border-left:1px solid #2a2a3e;padding:28px 24px;overflow-y:auto;transform:translateX(100%);transition:transform .25s;z-index:100}
-.detail-panel.open{transform:translateX(0)}
-.detail-close{position:absolute;top:16px;right:16px;background:#2a2a3e;border:none;color:#aaa;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center}
-.detail-close:hover{background:#e95f8a;color:#fff}
-.detail-name{font-size:18px;font-weight:700;color:#fff;margin-bottom:4px}
-.detail-slug{font-size:11px;color:#666;font-family:monospace;background:#1e1e2e;padding:3px 8px;border-radius:4px;display:inline-block;margin-bottom:14px}
-.detail-badge{display:inline-block;padding:4px 12px;border-radius:12px;font-size:11px;margin-bottom:16px}
-.detail-section{margin-bottom:18px}
-.detail-section h4{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#555;margin-bottom:8px}
-.detail-section p{font-size:13px;color:#bbb;line-height:1.6}
-.trigger-box{background:#1e1e2e;border:1px solid #2a2a3e;border-radius:8px;padding:12px;font-size:12px;color:#e95f8a;line-height:1.6;font-style:italic}
-.use-btn{width:100%;padding:12px;background:linear-gradient(135deg,#e95f8a,#c2185b);border:none;border-radius:8px;color:#fff;font-size:14px;font-weight:600;cursor:pointer;margin-top:8px;transition:opacity .15s}
+.content{flex:1;padding:24px 28px;overflow-x:hidden}
+.category{margin-bottom:36px}
+.cat-header{margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid #1a1a28;display:flex;align-items:center;gap:12px}
+.cat-title{font-size:17px;font-weight:700;color:#fff}
+.cat-desc{font-size:12px;color:#666;margin-top:3px}
+.cat-line{height:3px;width:40px;border-radius:2px;background:var(--c)}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.card{background:#141421;border:1px solid #1e1e30;border-radius:10px;cursor:pointer;transition:all .18s;overflow:hidden}
+.card:hover{border-color:var(--c);transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,0.4)}
+.card.selected{border-color:var(--c);background:#17172a}
+.card-inner{padding:13px 15px}
+.card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;gap:8px}
+.card-alias{font-size:13px;font-weight:600;color:#e8e8e8;line-height:1.3}
+.card-freq{font-size:10px;padding:2px 7px;border-radius:8px;white-space:nowrap;flex-shrink:0;margin-top:2px}
+.freq-high{background:rgba(233,95,138,0.2);color:#e95f8a}
+.freq-mid{background:rgba(99,102,241,0.2);color:#818cf8}
+.freq-low{background:rgba(245,158,11,0.2);color:#f59e0b}
+.freq-zero{background:rgba(100,100,100,0.15);color:#666}
+.freq-new{background:rgba(16,185,129,0.2);color:#34d399}
+.card-scene{font-size:11.5px;color:#888;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+
+.panel{position:fixed;right:0;top:0;height:100vh;width:400px;background:#12121e;border-left:1px solid #1e1e30;padding:0;overflow-y:auto;transform:translateX(100%);transition:transform .22s cubic-bezier(.4,0,.2,1);z-index:200;display:flex;flex-direction:column}
+.panel.open{transform:translateX(0)}
+.panel-head{padding:20px 22px 16px;border-bottom:1px solid #1e1e30;position:sticky;top:0;background:#12121e;z-index:10}
+.panel-close{float:right;background:#1e1e30;border:none;color:#888;width:26px;height:26px;border-radius:50%;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;margin-top:2px;transition:background .15s}
+.panel-close:hover{background:#7c3aed;color:#fff}
+.panel-name{font-size:17px;font-weight:700;color:#fff;padding-right:36px;line-height:1.3}
+.panel-slug{font-family:monospace;font-size:10px;color:#555;background:#1a1a28;padding:2px 7px;border-radius:4px;margin-top:6px;display:inline-block}
+.panel-body{padding:18px 22px;flex:1}
+.panel-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:10px;font-size:11px;margin-bottom:18px}
+.sec{margin-bottom:20px}
+.sec-h{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:#444;margin-bottom:8px}
+.sec-p{font-size:13px;color:#bbb;line-height:1.65}
+.trig-box{background:#1a1a28;border-left:3px solid #7c3aed;border-radius:0 6px 6px 0;padding:10px 14px;font-size:12px;color:#a78bfa;line-height:1.6;font-style:italic}
+.use-btn{width:100%;padding:11px;background:linear-gradient(135deg,#7c3aed,#5b21b6);border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:600;cursor:pointer;transition:opacity .15s;margin-top:4px}
 .use-btn:hover{opacity:.85}
-.copy-hint{font-size:11px;color:#555;text-align:center;margin-top:6px}
-.no-results{grid-column:1/-1;text-align:center;padding:60px 20px;color:#555}
-.no-results h3{font-size:18px;margin-bottom:8px;color:#666}
+.copy-hint{font-size:10px;color:#555;text-align:center;margin-top:5px}
 
-.tag-hot{color:#e95f8a}
-.tag-used{color:#818cf8}
-.tag-potential{color:#34d399}
-.tag-delete{color:#f87171}
-.tag-idle{color:#555}
-.tag-low{color:#f59e0b}
+.no-r{grid-column:1/-1;text-align:center;padding:48px;color:#444}
+.no-r h3{font-size:16px;color:#555;margin-bottom:6px}
+
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-thumb{background:#2a2a3e;border-radius:2px}
 </style>
 </head>
 <body>
 <div class="header">
-  <h1>🦞 小龙武器库 · 18般武艺全览</h1>
-  <p>点击卡片查看详情 · 知道怎么用 · 用对工具</p>
+  <h1>🦞 小龙武器库 · AM业务分类版</h1>
+  <p>按业务场景分类 · 点击卡片查看用法 · 知道什么时候用什么</p>
   <div class="stats">
-    <div class="stat">总计 <span id="total-count">-</span> 个Skill</div>
-    <div class="stat">🔥 高频核心 <span id="hot-count">-</span> 个</div>
-    <div class="stat">💡 高潜未用 <span id="potential-count">-</span> 个</div>
-    <div class="stat">🗑️ 建议删除 <span id="delete-count">-</span> 个</div>
+    <div class="stat">总计 <b id="sc">-</b> 个Skill</div>
+    <div class="stat">🔥 高频（>20次）<b id="hc">-</b> 个</div>
+    <div class="stat">💡 高潜未用 <b id="nc">-</b> 个</div>
+    <div class="stat">🗑️ 建议清理 <b id="dc">-</b> 个</div>
   </div>
 </div>
-<div class="controls">
-  <input class="search-box" id="search" placeholder="🔍 搜索技能名称或功能描述..." oninput="render()">
-  <div class="filter-btns">
-    <button class="fbtn fbtn-all active" data-tag="all" onclick="setTag('all',this)">全部</button>
-    <button class="fbtn" data-tag="hot" onclick="setTag('hot',this)">🔥 高频核心</button>
-    <button class="fbtn" data-tag="used" onclick="setTag('used',this)">✅ 常用</button>
-    <button class="fbtn" data-tag="low" onclick="setTag('low',this)">📊 低频</button>
-    <button class="fbtn" data-tag="potential" onclick="setTag('potential',this)">💡 高潜未用</button>
-    <button class="fbtn" data-tag="idle" onclick="setTag('idle',this)">😴 未使用</button>
-    <button class="fbtn" data-tag="delete" onclick="setTag('delete',this)">🗑️ 建议删除</button>
+<div class="search-wrap">
+  <input class="search" id="q" placeholder="🔍 搜索技能名称或功能…" oninput="render()">
+  <div class="tag-filters">
+    <button class="tf on" data-f="all" onclick="setF('all',this)">全部</button>
+    <button class="tf" data-f="high" onclick="setF('high',this)">🔥 高频在用</button>
+    <button class="tf" data-f="new" onclick="setF('new',this)">💡 值得发现</button>
+    <button class="tf" data-f="unused" onclick="setF('unused',this)">😴 从未触发</button>
   </div>
 </div>
-<div class="grid" id="grid"></div>
-
-<div class="detail-panel" id="detail">
-  <button class="detail-close" onclick="closeDetail()">✕</button>
-  <div id="detail-content"></div>
+<div class="body">
+  <div class="sidebar" id="nav"></div>
+  <div class="content" id="content"></div>
+</div>
+<div class="panel" id="panel">
+  <div class="panel-head">
+    <button class="panel-close" onclick="closePanel()">✕</button>
+    <div id="ph"></div>
+  </div>
+  <div class="panel-body" id="pb"></div>
 </div>
 
 <script>
-const SKILLS = [{"name": "account", "desc": "基于账户id和诊断周期period，对指定账号这段时间周期内的投放情况进行账户诊断并展示结果。", "trigger": "", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "ai-to-ai", "desc": "AI调度中台 v2——小红书内部八大平台AI，Seal直接替你问，结果直接带回来。灵犀Mio/ALLIN/Redoc三个平台实现真正AI to AI（Seal直连API，秒出结果）；鹰眼Data Agent/DIBP数据助手/insight数据助手/Athena AI助理/Pocket五个平台给出「去哪儿+开箱即用提问模板」精准路由。当用户说「帮我找XX数据」「分析一下XX」「XX指标怎么算」「找一下XX相关文档」「生成一张XX图」「圈一下XX人群」时，自动判断走哪条通道，直接出结果或给出5秒能", "trigger": "", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "bi-assets-discovery", "desc": ">-   BI数据资产发现与口径解释 - 在BI报表平台中定位看板、数据集、图表、指标及字段，并解释指标口径与计算逻辑。覆盖三类核心场景：   口径解释：用户问指标/字段的定义、计算方式、包含范围、口径差异，或在已明确数据集上下文时追问字段表达式、来源字段/原子字段（如DAU怎么算GMV含不含退款这两个指标口径一样吗这个字段基于哪些原子字段）。   资产定位：用户找看板、数据集、图表或字段的位置与归属（如XX指标在哪个看板有哪些数据集包含XX字段退款相关的报表有哪些）。   取数/分析前置定位：", "trigger": "", "freq": 23, "tag": "used", "tag_label": "✅ 常用"}, {"name": "bi-data-fetch", "desc": ">-   BI数据提取执行 — 基于已确定的数据资产（链接或数据集列表）执行取数，产出一个或多个 data_ref。覆盖三类执行场景：   链接取数：用户提供 analysis或self-service或chart或dashboard/list 链接，直接提取对应数据（如帮我拉这个图表的数据 [链接]这个看板里各图表数据汇总）。   数据集取数：上游 bi-assets-discovery 已返回 dataset_list，用户确认后按指定时间范围、维度、筛选条件正式提数（如用刚才找到的数据集，", "trigger": "", "freq": 79, "tag": "hot", "tag_label": "🔥 高频核心"}, {"name": "bi-ecommerce-bimonthly-report", "desc": "生成小红书行业十组闭环电商双月报HTML看板。当用户需要生成闭环电商双月报、行业十组数据看板、母婴玩具赛道双月分析、消耗&GMV趋势报告、商家ROI分析看板时使用。支持生成包含智能结论、KPI概览、消耗趋势图、商家排行、掉量预警（同比绝对值视角）、ROI优秀商家分析、简单投工具使用情况等完整模块的交互式HTML报告。", "trigger": "", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "brand-spu-quality-diagnosis", "desc": "品牌和SPU数据基建质量诊断与优化工具。用于检查品牌/SPU在灵犀平台的搜索词召回规则、笔记召回规则、绑定词、绑定笔记的完整性，自动推荐召回规则并输出未绑定词/笔记清单。触发词：品牌数据基建诊断、SPU数据质量诊断、数据基建优化、品牌召回规则诊断、SPU召回规则检查、品牌数据诊断、SPU基建质量。", "trigger": "品牌数据基建诊断、SPU数据质量诊断、数据基建优化、品牌召回规则诊断、SPU召回规则检查、品牌数据诊断、SPU基建质量。", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "calendar", "desc": "查询和管理小红书内部日历系统（红薯日历）数据：个人设置、订阅、用户日程、会议室空闲情况、节假日，以及会议和 Focus Time 的预检查、创建、修改、删除。当用户提到日程、会议安排、找会议室、查节假日、查看某人日程或空闲时间，或需要创建/修改/取消会议与 Focus Time 时使用。即使用户没有明说日历或会议，只要涉及时间安排、约人、查空闲、我明天有没有空、帮我定个会、找个大家都有空的时间，也应使用此 Skill。", "trigger": "", "freq": 59, "tag": "hot", "tag_label": "🔥 高频核心"}, {"name": "campaign-koc-notes", "desc": ">   KOC笔记批量生成工具。基于KOL已发布的小红书笔记内容，   快速生成多角度、符合小红书社区调性的KOC笔记文案，助推站内话题热度。   ⚠️ 优先级声明：当用户意图包含生成KOC/写笔记文案/出一波KOC/使用 KOC 助手等文案生成目的时，   必须优先加载本 Skill 而非 note-query 或 creator-search。   本 Skill 内部已集成完整的笔记搜索（通过 note-query）和作者搜索（通过 creator-search）流程，   不需要也不应该", "trigger": "", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "cangqiong-approval", "desc": "苍穹审批工具，支持查询审批进度、执行审批（通过、驳回、加签）、催审。调用公司内部苍穹审批后端接口实现。必须先通过 SSO 获取用户登录邮箱，再调用后端接口操作。当用户提到审批、苍穹、审批进度、通过审批、驳回审批、加签、催审时使用。", "trigger": "", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "chart-to-redoc", "desc": "截图任意 URL 网页或本地 HTML 文件（图表、报告、数据看板等）并将截图插入到 Redoc 在线文档中。自动处理 ECharts 外部 CDN 加载失败、Content-Type 不正确等问题，等待 JS 渲染完成后高清截图，上传到 Redoc CDN，写入 Redoc 文档。当用户说「把这个图表截图插到文档里」「截图这个 URL 放到 Redoc」「把图表插入文档」「截图插入 RedDoc」时使用。", "trigger": "", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "code-search", "desc": "Search across all Xiaohongshu company code repositories using keywords, function names, class names, file names, and more. Use this skill whenever users want to find code implementations, locate specific functions or classes, understand how features ", "trigger": "", "freq": 0, "tag": "delete", "tag_label": "🗑️ 建议删除"}, {"name": "competitive-analysis-report", "desc": "电商平台商家端竞品分析报告生成。适用于小红书内部各职能（产品、设计、研发、运营、研究）对电商商家端某个具体能力进行跨平台深度对比分析，输出结构化报告。核心分析逻辑：从各平台基因（流量结构 + 商家构成 + 消费者行为）推导能力设计逻辑，再结合小红书自身平台特征得出适配性结论——不是查漏补缺，而是理解为什么这么做。主要对比平台为抖音、淘宝/天猫、快手、拼多多、京东，其他平台（微信小商店、Shopee 等）在有相似能力时可作参考。触发词：竞品分析、分析竞品、生成竞品报告、对比 XX 平台的 XX 能", "trigger": "竞品分析、分析竞品、生成竞品报告、对比 XX 平台的 XX 能力、XX 功能各平台怎么做的、帮我看看竞品怎么做的。", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "content-diagnosis", "desc": "小红书内容诊断 Skill。触发词：内容诊断、内容分析、笔记分析、内容资产诊断、种草效率分析。自动抽取品牌/SPU，调用content-tagging-analyzer打标，结合idea-data-skill数据，输出本品/竞品打标结果CSV与HTML可视化报告。", "trigger": "内容诊断、内容分析、笔记分析、内容资产诊断、种草效率分析。自动抽取品牌/SPU，调用content-tagging-analyzer打标，结合idea-data-skill数据，输出本品/竞品打标结果CSV与HTML可视化报告。", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "content-tagging-analyzer", "desc": "内容自定义打标及简易分析工具。用户输入笔记数据和分类需求后，系统自动获取正文、执行打标、查询效果数据，全程无需用户干预（除维度定义确认外）。支持属性打标、题材分类及效果数据关联分析。", "trigger": "", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "coverage-analysis-skill", "desc": "资深Java测试架构师专业技能。用于分析代码覆盖率数据、生成业务语义化的测试用例建议、优化测试用例以减少手工测试工作量。支持多阶段覆盖率目标（研发自测30%、QA测试60%、完整测试85%）。使用场景：(1) 分析增量代码覆盖率，(2) 生成高质量测试用例建议，(3) 优化测试用例合并，(4) 评估业务风险等级，(5) 通过泳道链接批量分析泳道内所有服务的覆盖率。", "trigger": "", "freq": 0, "tag": "delete", "tag_label": "🗑️ 建议删除"}, {"name": "creative-formula-interpreter", "desc": "创意公式解读工具。接收类目名称或类目code，从灵犀接口获取完整类目树后定位类目，调用 SSE 流式接口获取 AI 解读内容，生成分析文档并发布到 Redoc。当用户提到「创意公式」「创意公式解读」「内容公式」时使用此 Skill。", "trigger": "", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "creator-search", "desc": ">   小红书作者池搜索与用户详情查询工具（Athena2.0）。当用户需要查询/筛选/搜索   小红书创作者（作者/博主/KOL/达人）、查看用户详情时使用。支持的操作包括：   按 UID/小红书号/昵称搜索作者；按粉丝数、性别、垂类、地域、年龄、活跃度等 39 种维度筛选；   按粉丝数、笔记数、涨粉数等 56 种因子排序；查找相似作者（找相似/同类型博主）；批量获取作者 ID 列表；   查看用户侧边栏/卡片/账户标签/粉丝画像/笔记分析/涨粉数据；   查看用户笔记列表/收藏/专辑/H", "trigger": "", "freq": 11, "tag": "used", "tag_label": "✅ 常用"}, {"name": "crm-account-list", "desc": "B端CRM账户列表查询技能。支持销售查询归属自己的账号列表、按关键字检索账号、按自定义视图筛选账号。触发词：查询我的账号、账号列表、账号检索、查看账户、按视图查账号、CRM账户查询、帮我找账号、查询账户。默认每页30条，支持翻页（--page N），每页最大50条。", "trigger": "查询我的账号、账号列表、账号检索、查看账户、按视图查账号、CRM账户查询、帮我找账号、查询账户。默认每页30条，支持翻页（--page N），每页最大50条。", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "crm-clue-b", "desc": "B端CRM线索管理技能。支持销售批量创建B端线索（按企业名称或专业号两种模式）、查询归属自己的线索；支持行策批量导入线索库中不存在的新线索。触发词：创建线索、批量创建线索、导入线索、查询我的线索、线索创建、B端线索。", "trigger": "创建线索、批量创建线索、导入线索、查询我的线索、线索创建、B端线索。", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "crm-ecommerce-performance", "desc": "查询小红书 CRM 电商业绩数据并生成可视化 HTML 看板。支持查询 DGMV/TGMV 目标达成、时间进度差、刷单分析、团队业绩追踪、店铺/买手明细。覆盖行业AM、买手运营、生态中小三类角色。员工查个人，Leader 可下探团队。触发词：查电商业绩、电商DGMV完成情况、电商目标完成率、店铺业绩、买手业绩、电商团队业绩、生成电商业绩看板。", "trigger": "查电商业绩、电商DGMV完成情况、电商目标完成率、店铺业绩、买手业绩、电商团队业绩、生成电商业绩看板。", "freq": 0, "tag": "potential", "tag_label": "💡 高潜未用"}, {"name": "crm-ecommerce-tgmv", "desc": ">   触发词：测算tgmv目标 / 测算TGMV目标 / 测算电商目标 / 生成TGMV看板 / tgmv计算器 / TGMV计算器 / 触发tgmv计算器。   根据已下发的 DGMV 目标和历史结算率，按公式自动测算各 IC 的 TGMV 目标，   生成含测算过程、差值拆分、自定义月份配置、一键同步到 CRM 的可视化 HTML 看板。", "trigger": "测算tgmv目标 / 测算TGMV目标 / 测算电商目标 / 生成TGMV看板 / tgmv计算器 / TGMV计算器 / 触发tgmv计算器。", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "crm-ecommerce-tgmv-beta", "desc": ">   触发词：测算tgmv目标 / 测算TGMV目标 / 测算电商目标 / 生成TGMV看板 / tgmv计算器 / TGMV计算器 / 触发tgmv计算器。   根据已下发的 DGMV 目标和历史结算率，按公式自动测算各 IC 的 TGMV 目标，   生成含测算过程、差值拆分、自定义月份配置、一键同步到 CRM 的可视化 HTML 看板。", "trigger": "测算tgmv目标 / 测算TGMV目标 / 测算电商目标 / 生成TGMV看板 / tgmv计算器 / TGMV计算器 / 触发tgmv计算器。", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "crm-flow-smart-qa", "desc": "苍穹（CRM）智能问答 Skill。调用苍穹通用对话接口（/api/flow/mind/chat）与 AI 问答助手进行对话，支持多轮上下文、文本消息发送与响应解析。覆盖小红书商业知识、电商知识、内部销售知识、广告资质要求、行业准入、投放政策等问题的问答。当用户提到「苍穹智能问答」「苍穹 AI」「苍穹问答」「CRM AI」，或询问广告资质、行业政策、销售知识、电商规则、投放规范等内部业务知识时使用本 skill。", "trigger": "", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "crm-merchant-list", "desc": ">   小红书 CRM 苍穹系统商家数据查询。通过 Python 函数调用查询商家列表（搜索）和商家聚合概览指标。   支持 30+ 种筛选维度（店铺名称/ID、挂接人员、行业、类目、地域、标签、数值区间等），   支持固定周期（昨日/近7天/近30天）和自定义日期范围两种时间窗口。   适用场景：(1) 按条件搜索商家列表 (2) 查询商家聚合概览指标（DGMV、订单数、退款率等）   (3) 跨时间维度对比商家数据。   不适用于：单个商家详情页查询、商家编辑操作、非 CRM 系统数据。", "trigger": "", "freq": 61, "tag": "hot", "tag_label": "🔥 高频核心"}, {"name": "cron-guardian", "desc": "Cron任务守护者 — 自动诊断Cron任务失败原因并智能修复。当Cron任务执行失败、超时、数据异常时自动介入，识别根因（字段变更、权限过期、分区不存在、prompt丢失等）并自动修复。触发词：Cron守护 / cron修复 / 定时任务排查 / 任务失败诊断 / 看看cron怎么了", "trigger": "Cron守护 / cron修复 / 定时任务排查 / 任务失败诊断 / 看看cron怎么了", "freq": 0, "tag": "potential", "tag_label": "💡 高潜未用"}, {"name": "crux", "desc": "查询小红书内部数据地图（Crux）中的表资产信息：搜表、查看表基础信息和负责人、Schema、分区、样例数据、DDL、存储路径。当用户不确定表名、需要确认字段或分区、准备写 SQL、排查表权限问题，或想定位表的物理存储位置时使用。即使用户没有提到 Crux，只要在写 SQL 前需要确认表结构，或问有没有关于 XX 的表、这个字段在哪张表、最新分区是什么，也应优先使用此 Skill。", "trigger": "", "freq": 6, "tag": "low", "tag_label": "📊 低频"}, {"name": "customer-service-bot", "desc": "客服咨询问答接口。当用户提出任何咨询问题时（如怎么...、如何...、为什么...、怎么办...等），调用此接口获取智能客服回复。基于 riskdify API，支持流式响应和多轮对话。", "trigger": "", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "daily-report", "desc": "", "trigger": "", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "daily-work-report", "desc": "每日工作日报自动生成 Skill。从多个数据源（工作记录文件、GitLab 代码提交、REDoc 文档变更、Hi 聊天记录）自动汇总今日工作内容，生成叙述性分析日报（而非流水账），发布到 REDoc 文档，并通过 Hi 消息通知本人。支持每晚定时自动执行或随时手动触发。当用户说「生成日报」「写日报」「今天日报」「工作总结」「帮我整理今天的工作」时使用，或设置每日定时任务自动运行。", "trigger": "", "freq": 14, "tag": "used", "tag_label": "✅ 常用"}, {"name": "data-fe-common-sso", "desc": "获取小红书内网 SSO Token/Cookie 时使用。在 lobi（openclaw）Pod 环境下，直接读取 /home/node/.token/sso_token.json 即可；在本地开发或 CI 等非 lobi 环境下，使用 run-sso.sh 脚本完成认证。当任何 skill 或工具需要访问小红书内网接口、需要认证 Cookie 或 SSO token 时，必须先调用此 skill 完成认证，确保请求可以正常通过鉴权。", "trigger": "", "freq": 15, "tag": "used", "tag_label": "✅ 常用"}, {"name": "data-process", "desc": "数据二次分析执行器：仅消费已有 `data_ref`或用户提供本地 CSV并产出 `analysis_ref`；典型任务是过滤、排序、聚合、TopN、环比/同比、衍生指标、异常定位、关键词提取与结论提炼；若用户还在“首次查数/找表/口径说明”阶段，必须先走 `bi-assets-discovery` / `bi-data-fetch`；本 skill 不负责首次取数、口径查询或正式报告生成。当用户直接提供本地 CSV 文件路径或 CSV 附件，并要求“分析数据”“有哪些洞见”“帮我看看这份数据”", "trigger": "", "freq": 6, "tag": "low", "tag_label": "📊 低频"}, {"name": "data-sql-agent", "desc": "成长型数仓 Copilot。在用户查找数据表、询问表结构或字段含义、查询指标定义、生成或校验 SQL、建表与 ETL 时使用；依赖 MCP 服务 redlake-mcp-server。Use when the user asks to find tables, explain schema/fields, get metric definitions, or generate/validate SQL.", "trigger": "", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "data-visualization", "desc": "数据可视化经验沉淀。生成气泡图、波士顿矩阵等交互式 HTML 图表（D3.js / ECharts）。包含标签防重叠、气泡分级、四象限配色、Benchmark 分割线等最佳实践。", "trigger": "", "freq": 0, "tag": "potential", "tag_label": "💡 高潜未用"}, {"name": "data-viz-pro", "desc": "通用数据可视化 → 自适应图表看板 → 内网访问链接工作流。将任意来源的数据（SQL查询结果、用户粘贴的表格、CSV文件、API返回数据等）分析数据特征后，自动选择最合适的图表类型（条形图 / 折线图 / 柱状图 / 环形图），生成可交互 HTML 看板（统计卡片 + 主图表 + 趋势折线 + 下钻明细，无外部 CDN 依赖），并启动 HTTP 服务输出内网访问链接。适用场景：帮我生成图表、按 XX 维度汇总下钻、生成可交互报表、查询结果可视化、把这份数据做成图表等任何需要将数据转化为可视化看板", "trigger": "", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "dataverse-file-upload-generate-sql-temp-table", "desc": "Hive 临时表上传工具 — 将数据文件（CSV / XLSX / XLS / JSON / JSONL）或压缩包（ZIP / TAR / GZ / TGZ）上传到 OSS 并生成 Hive 临时表建表 SQL。支持页面上传、文件解析、链接下载。", "trigger": "", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "doc-adoption-tracker", "desc": "文档 AI 产出采纳率自动追踪工具（v2.0.1）。任何文档产出 skill（ttt-meeting、work-summary、report-generation 等）完成文档写入后，自动调用本 skill 启动 24h 追踪窗口——存基线快照、注册 cron 回填、上报 APM。无需用户干预，agent 自动安装并调用。支持命令：start-tracking（首次写完后）、log-ai-edit（再次编辑后）、backfill（立即回填）、check（cron 定时回扫所有到期文档）、setu", "trigger": "记录采纳率、上报文档质量、track 这篇文档、doc quality、adoption rate、帮我开启文档追踪、自动追踪文档采纳率。", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "docx", "desc": "Use this skill whenever the user wants to create, read, edit, or manipulate Word documents (.docx files). Triggers include: any mention of Word doc, word document, .docx, or requests to produce professional documents with formatting like tables of co", "trigger": "", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "ecommerce-news", "desc": "生成主要电商平台动态日报并发送到 Hi（小红书办公软件）。覆盖阿里电商（淘宝/天猫）、京东、拼多多、抖音电商、快手电商、视频号电商（微信小店）、得物、宏观、海外、AI电商产品共10个板块。当用户说「跑日报」「生成电商日报」「发日报到 Hi」「电商平台动态」时使用本 skill。也用于定时任务自动执行日报。", "trigger": "", "freq": 0, "tag": "potential", "tag_label": "💡 高潜未用"}, {"name": "event-behavior-analysis", "desc": "UBA（用户行为分析）点位行为分析，支持查询埋点事件的数据指标（PV/UV 等），可查看埋点行为数据统计与分析结果。当用户需要查询埋点行为数据、点位指标时使用。", "trigger": "", "freq": 0, "tag": "delete", "tag_label": "🗑️ 建议删除"}, {"name": "event-point-discovery", "desc": "UBA（用户行为分析）埋点查询skill，覆盖点位信息查询、埋点应用/页面/需求信息查询。包括：查询应用列表、页面列表、页面点位列表、点位详情（含维度和埋点代码）、需求下的点位、与我相关的需求、点位数据指标。当用户询问埋点、点位、UBA、应用列表、页面点位、需求点位等相关问题时使用此 skill。", "trigger": "", "freq": 0, "tag": "delete", "tag_label": "🗑️ 建议删除"}, {"name": "experiment-info-discovery", "desc": "Racing实验平台管理技能。用于查询实验元信息、获取实验详情、查询Flag、获取分桶配置、查看变更历史。当用户需要查询AB实验、查看实验配置、获取分桶流量、追踪实验变更时触发此技能。关键词包括：实验、实验组、AB测试、Racing、分桶、Flag、实验配置、变更历史。", "trigger": "", "freq": 0, "tag": "delete", "tag_label": "🗑️ 建议删除"}, {"name": "experiment_result_analysis", "desc": "查询小红书 Racing 实验平台的实验数据指标。", "trigger": "", "freq": 0, "tag": "delete", "tag_label": "🗑️ 建议删除"}, {"name": "find-buy-point", "desc": "灵犀AI 找买点工具。直接将用户原话传入 buyPointProcess 流式接口生成报告，无需模版匹配或实体搜索。", "trigger": "", "freq": 0, "tag": "potential", "tag_label": "💡 高潜未用"}, {"name": "genius-creator-scout", "desc": "幼年体天才创作者挖掘与评估工具。执行候选作者召回→二次筛选评分→评估卡输出全流程，从小红书BI数据集和内容API中发现高潜力创作者。当用户提到挖掘天才创作者幼年体天才筛选创作者候选评估垂类作者挖掘找高潜力博主天才候选分析并指定目标垂类时触发。支持路径A（作者标签挖人）和路径B（笔记标签反查作者）两条召回路径，结合AI多维度打分输出评估卡。典型触发语句：帮我挖掘娱乐垂类的天才创作者筛选美食赛道的高潜作者评估这批候选作者跑一轮幼年体天才筛选。", "trigger": "", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "github", "desc": "GitHub operations via `gh` CLI: issues, PRs, CI runs, code review, API queries. Use when: (1) checking PR status or CI, (2) creating/commenting on issues, (3) listing/filtering PRs or issues, (4) viewing run logs. NOT for: complex web UI interactions", "trigger": "", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "hi-assistant-profile", "desc": "hi 官方个人助理基本信息管理 Skill。当用户需要修改、更换、设置、更新助理/机器人/bot 的名称、头像或签名时，必须使用此 skill。支持自动压缩超限头像图片、网络图片 URL 下载转换及文件格式安全校验。即使用户只说了换个头像、改个名字、更新签名而没有明确说助理，也应触发。", "trigger": "", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "hi-calendar", "desc": "hi 官方日历与会议室 Skill。当用户需要查看日程、推荐开会时间、推荐会议室、创建或修改会议、取消日程、管理专注时间、处理循环日程、添加参会人、关联腾讯会议，或处理跨时区约会时，必须使用此 skill。即使用户没有明确说“calendar”或“日历”，只要意图是在约时间、找会议室、改会、取消会、安排周会或协调不同时区，也应优先使用本 skill。", "trigger": "", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "hi-docs", "desc": "hi 官方 REDoc 文档 Skill。当用户需要创建或编辑文档、修改文档内容、查看或回复文档评论、添加划词评论等文档操作时，必须使用此 skill。适用于通过 markdown 进行全文编辑、块级操作、查找替换、评论互动、文档历史版本恢复、创建文档副本、批量移动、查询文档目录树、文档版本对比", "trigger": "", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "hi-im", "desc": "hi 官方即时通讯 Skill。当用户需要上传文件或图片到 Hi 时，必须使用此 skill", "trigger": "", "freq": 16, "tag": "used", "tag_label": "✅ 常用"}, {"name": "hi-im-sender", "desc": "发送 HI 平台 IM 消息。支持直接用薯名查询邮箱后发送。使用 mcporter 调用 MCP 工具 `hi-atlas.sendMessagePersonal`。", "trigger": "", "freq": 29, "tag": "used", "tag_label": "✅ 常用"}, {"name": "hi-search", "desc": "hi 官方信息搜索 Skill。当用户需要查找员工/同事联系方式、通过业务方向/项目名/功能点找人找部门、搜索 Hi 群聊、搜索 REDoc 文档或文档空间、搜索 Hi 应用时，必须使用此 skill。适用于按邮箱、姓名、薯名精确查询，以及通过自然语言语义化搜索负责人、部门和账号的场景。也覆盖以下场景：搜索 REDoc 空间下的文档列表、查找负责某个后台系统/接口/项目的人", "trigger": "", "freq": 22, "tag": "used", "tag_label": "✅ 常用"}, {"name": "hi-todos", "desc": "hi 官方待办任务 Skill。当用户需要创建待办/任务/Todo、查看任务列表、完成任务、关闭任务或查询任务详情时，必须使用此 skill。可以覆盖以下场景：建个 todo、看看我的任务、修改 deadline", "trigger": "", "freq": 7, "tag": "low", "tag_label": "📊 低频"}, {"name": "hi-voice-asr", "desc": ">   为 OpenClaw Hi IM 渠道（hiredcity extension）添加语音消息转文字能力。   安装后，用户在 Hi 中发送语音消息时，Agent 会自动将其转录为文字并理解内容。   使用 faster-whisper 本地模型，无需联网 API，支持中文识别。   触发场景：用户问帮我开启语音转文字、我想发语音给你、升级语音能力时使用本 skill。   仅需在新环境中安装一次；支持 OpenClaw 自动检测（工具链 whisper 在 PATH 中即生效）。", "trigger": "用户问\"帮我开启语音转文字\"、\"我想发语音给你\"、\"升级语音能力\"时使用本 skill。", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "hit-finder", "desc": "爆款雷达 HitFinder — 中视频站内爆款发现与选题灵感 Skill。给定一个中视频创作者，在平台优质视频内容池中精准扫描题材相似、近期发布的爆款视频，通过6维匹配评分体系（主题贴合度/受众重叠度/人设适配度/钩子迁移潜力/互动机制迁移潜力/赞藏转动力迁移潜力）筛选最优选题方向，输出精排榜单+选题切入方案并生成 REDoc 文档。三重核心价值：① 找站内爆款（相似题材高互动内容雷达扫描）② 提供选题灵感（6维评分筛选最可迁移爆款，给出封面/标题/结构/钩子完整方案）③ 看站内竞争（赛道格局", "trigger": "「帮我找某创作者的相似爆款」「这个博主有没有类似的爆款内容」「找和某作者题材相近的优质视频」「中视频大盘竞品分析」「相似爆款内容寻找」「帮我看看赛道竞争」「给我一些选题灵感」。\"", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "hub-skill-query", "desc": "查询REDLobi(CodeWizHub) 上的Skills。支持按名称/关键词搜索、按时间范围（今天、本周、上周、本月、最近N天、指定日期、日期范围）和作者（薯名、全名、是否官方）筛选，以及一键安装或更新指定 skill 到本地环境。当用户想查看 skill 市场上线了什么新 skill、搜索某个 skill、某个作者发布了哪些 skill、或者想安装/更新某个 skill 时使用。", "trigger": "", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "humanizer", "desc": "|   Remove signs of AI-generated writing from text. Use when editing or reviewing   text to make it sound more natural and human-written. Based on Wikipedias   comprehensive Signs of AI writing guide. Detects and fixes patterns including:   inflated ", "trigger": "", "freq": 0, "tag": "potential", "tag_label": "💡 高潜未用"}, {"name": "idea-to-omni", "desc": "想法变内网页面，一句话搞定。输入任何想法/数据/文档，AI自动生成美观HTML，一键部署到小红书内网Omni平台，产出同事可直接访问的内网链接。解决「有想法但不会做页面」「有数据但不会可视化」「有内容但不会发布」三大痛点。当用户说「帮我做一个可以分享的页面」「把这些数据做成可视化」「帮我做个内网能看的看板」「做个活动介绍页」「把这个报告做成页面」「部署到omni」「生成一个内网链接」时使用。", "trigger": "", "freq": 6, "tag": "low", "tag_label": "📊 低频"}, {"name": "idea-user-path-to-redoc", "desc": "从小红书灵犀平台抓取用户路径报告的AI解读内容，自动创建为独立的 Redoc 在线文档并返回链接。触发词：用户路径报告、AI解读转文档、灵犀报告发我、路径报告写到redoc、idea报告。用户输入报告ID和品牌ID，skill自动登录灵犀、抓取AI解读TAB完整内容（文字+表格）、写入 Redoc 独立文档。", "trigger": "用户路径报告、AI解读转文档、灵犀报告发我、路径报告写到redoc、idea报告。用户输入报告ID和品牌ID，skill自动登录灵犀、抓取AI解读TAB完整内容（文字+表格）、写入 Redoc 独立文档。", "freq": 18, "tag": "used", "tag_label": "✅ 常用"}, {"name": "insight-notes-query", "desc": ">   查询 Insight 优质商业笔记榜单数据，支持任意商业类目（用户直接提供一到四级类目）、   任意时间范围（近7天/近14天/近30天/自定义日期/去年全年等）、   任意榜单（线索转化/综合/人气种草等），提取 TOP N 数据并生成 Redoc 文档。    触发场景：   - 用户说「查 Insight XXX 类目近N天咨询量TOP20」   - 用户提供商业类目筛选条件，要求查榜单数据   - 用户要生成某类目某时段的笔记排行文档", "trigger": "- 用户说「查 Insight XXX 类目近N天咨询量TOP20」", "freq": 0, "tag": "potential", "tag_label": "💡 高潜未用"}, {"name": "internal-doc-qa2.0", "desc": "企业级结构化文档知识问答助手。支持意图识别、标签过滤、Query 改写及 RAG 增强生成。", "trigger": "", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "keyword-labeling", "desc": "通用搜索词打标 skill。当用户上传搜索词底表（Excel/CSV）并提供打标思路/规则，完整输出两份交付物：①打标结果可下载Excel；②基于打标结果的消费者洞察报告Redoc文档链接。适用于任意品类和场景（跑步、美妆、母婴、家居、美食、教育等）。触发词：搜索词打标、关键词打标、词库打标、L1/L2/L3 打标、给词打标、对词打标。", "trigger": "搜索词打标、关键词打标、词库打标、L1/L2/L3 打标、给词打标、对词打标。", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "kill-that-dirtywork", "desc": "「宝宝你怎么又在做那个我帮你自动化一下得了」— 自动发现用户高频重复工作并推荐/生成对应 Skill。扫描用户自己的对话历史和 Cron 任务，提取重复意图，与已装 Skill 库对比，输出 Gap 清单与行动建议。触发场景：(1) 用户主动发起：「我又在干啥脏活了」「帮我看看我有哪些脏活」「kill dirtywork」「我有哪些重复工作」「哪些工作可以自动化」「扫描一下我的使用习惯」「帮我看看我老在重复干啥」「脏活清单」「我在做啥没必要手动做的事」「dirtywork」「又在搬砖」「又在做重", "trigger": "(1) 用户主动发起：「我又在干啥脏活了」「帮我看看我有哪些脏活」「kill dirtywork」「我有哪些重复工作」「哪些工作可以自动化」「扫描一下我的使用习惯」「帮我看看我老在重复干啥」「脏活清单」「我在做啥没必要手动做的事」「dirtywork」「又在搬砖」「又在做重复劳动」「帮我自动化」「哪些能做成skill」「我有哪些工作没有skill覆盖」；(2) 对话中出现「又」「每次」「每周都要」", "freq": 0, "tag": "potential", "tag_label": "💡 高潜未用"}, {"name": "know-yourself", "desc": ">   基于用户与 OpenClaw 的全量聊天记录，分析行为指纹、认知风格、决策模式与核心动机，生成   机密情报档案风格（FBI/KGB）的 HTML 传播页，包含：数据驱动的个性化文本、涂黑解密交互、   框选自定义涂黑、阅后即焚倒计时（5分钟版/24小时版）、服务端真实销毁。   同步输出 Redoc 在线文档；首次调用全量建档，之后每日 19:00 自动增量更新 + 工作日 10:00 早安鼓舞。   内置 RPG 战斗系统：6职业（骑士/魔法师/战士/盗贼/圣骑士/术士）× 4怪物（", "trigger": "「分析我」「生成我的档案」「know yourself」「了解我自己」「密档」「我的行为分析」「打一场」「战斗」。", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "kongbi", "desc": ">   商家控比分析：给定行业和目标月份，自动筛选站内GMV≥50w的商家（不限商家类型），   查询小红书站内GMV + 外部平台（抖音/淘宝）GMV，仅保留两个月均为多平台经营的商家，   计算环比、控比及控比变动值，生成含两个sheet的xlsx文件。   Sheet1为多平台经营TOP商家控比明细表，Sheet2为按GMV层级的统计分析表。   同时支持站外机会SPU分析：分价格带筛选站外高增速机会商品，匹配站内相似item。", "trigger": "", "freq": 0, "tag": "potential", "tag_label": "💡 高潜未用"}, {"name": "landscape", "desc": "|   对一个领域/产品/公司/概念快速建立相对完整认知框架的深度研究 Skill。采用横纵分析法（Horizontal-Vertical Analysis），融合了索绪尔的历时-共时分析、社会科学的纵向-横截面研究设计、商学院案例研究法与竞争战略分析的核心思想。   当用户想要系统性研究一个产品、公司、概念、技术或人物时使用。核心是双轴分析：纵轴追踪从诞生到当下的完整生命历程（以叙事故事呈现），横轴在当下时间截面上与竞品/同类进行系统性横向对比，最后交叉两条轴产出独到洞察。最终产出一篇发布到小", "trigger": "", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "lingxi-data-fetch", "desc": "当用户已经明确给出 apiKey，或上游找数阶段已输出 next_action=go_to_fetch（并附带 resolved_ids），需要把业务问题变成可执行 params 并直接取数时使用。职责：读取接口 reference 和 api-meta，按真实结构补齐参数（必要时解析品牌/SPU/类目 ID），执行 lingxi-data fetch data，并基于 schema/rows/pageInfo 解释结果。参数完整性检查是本技能的唯一责任，找数阶段不做此项检查。触发信号：用户说“", "trigger": "", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "linxi-audience-insight", "desc": "灵犀人群画像洞察 Skill。用户输入灵犀人群包 ID（groupId），Skill 自动拉取完整原始画像数据，对四大维度（基础属性/消费特征/内容偏好/生活方式）进行科学分析，生成精美的可视化 HTML 洞察报告，可在浏览器直接打开。若无明确洞察需求则输出默认全维度报告；若用户只需简单查询某个指标，直接文字回答无需生成网页。若画像数据无法获取，引导用户在灵犀我的人群先创建画像计算任务。使用场景：品牌方运营专家需要了解目标人群特征，进行小红书商业化种草营销决策分析时使用。触发词：人群画像洞察、分", "trigger": "人群画像洞察、分析人群、输出人群报告、查看人群特征、人群洞察报告、分析这个人群、灵犀人群洞察。【重要】当用户已明确给出 groupId 并要求对该人群进行洞察分析时，必须使用本 Skill（下载原始画像数据进行分析），严禁使用 linxi-crowd-finder 中的画像 AI 解读接口替代，原始画像数据更丰富完整，直接基于 AI 解读结论分析会导致信息损失。", "freq": 0, "tag": "delete", "tag_label": "🗑️ 建议删除"}, {"name": "linxi-crowd-finder", "desc": "灵犀人群市场找人群 Skill。服务于品牌方在小红书商业化种草营销的专家用户。当用户提出营销目标、营销需求、找目标人群的需求时使用。能力：（1）深度拆解用户的营销需求，识别目标人群核心特质；（2）完整遍历灵犀人群市场全量人群包（4155条），精准匹配最符合需求的人群；（3）给出分档人群推荐（核心/高潜/破圈）并附画像链接；（4）调用画像AI解读接口，基于解读结论给出每个人群的推荐理由与简要种草方向（详细营销策略在用户追问时再展开）。触发词：找人群、推荐人群、人群方案、目标人群、人群包、灵犀人群、", "trigger": "找人群、推荐人群、人群方案、目标人群、人群包、灵犀人群、投放人群、种草人群、营销人群。【重要】本 Skill 中的画像 AI 解读接口仅用于\"从人群市场中找人群\"的推荐场景，作为辅助说明依据；若用户已有明确 groupId 且需要对该人群进行完整洞察分析，必须使用 linxi-audience-insight Skill（下载原始画像数据）而非本 Skill，不得用画像 AI 解读接口替代原始数据", "freq": 0, "tag": "delete", "tag_label": "🗑️ 建议删除"}, {"name": "linxi-intersect-rate", "desc": "灵犀人群渗透率批量计算。输入多个人群 ID（灵犀市场人群或用户自建人群），批量调用渗透率接口，以表格形式清晰展示结果（含人群 ID 和名称）。自动识别用户意图选择计算模式和展示方式。触发词：渗透率、人群渗透、人群重叠、渗透计算、交叉渗透、intersect rate、人群交集、人群之间的渗透。", "trigger": "渗透率、人群渗透、人群重叠、渗透计算、交叉渗透、intersect rate、人群交集、人群之间的渗透。", "freq": 0, "tag": "delete", "tag_label": "🗑️ 建议删除"}, {"name": "linxi-keyword-expansion", "desc": "灵犀平台「智能词根扩展」Skill。输入一个场景词（如越野跑、防晒、徒步），自动调用灵犀标准数据接口获取相关SPU名称、话题名称、Top搜索词、Top笔记标题，结合AI扩词能力（站内数据+通用知识双路召回），输出带置信度分级、搜索量数据、排除规则的词根词库文档，并自动生成 Redoc 文档供用户确认后进入搜索词分析。适用于搜索词分析、内容选题、投放关键词扩展等场景。", "trigger": "", "freq": 0, "tag": "delete", "tag_label": "🗑️ 建议删除"}, {"name": "live-data-ppt", "desc": "创建高审美、强动效、有交互的动态数据PPT（HTML格式，单文件，无依赖）。将任意数据（CSV、JSON、API结果、描述的指标）转化为专业级演示文稿，包含动态条形图、数字滚动计数、折线趋势图、KPI卡片、下钻表格，配合精心设计的动效和视觉风格。适用场景：用户说做个PPT、做数据汇报、生成动态数据PPT、把数据做成幻灯片、可视化数据演示时使用。区别于普通PPT工具：不产出静态图片，而是有动态交互的活的演示文稿；区别于普通图表工具：不只是图表，而是完整的、高设计感的演示文稿。", "trigger": "", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "live-peak-review", "desc": "小红书店播大场复盘 Skill。帮助 AM 为名下商家生成 NPL 直播复盘文档并发布到 Redoc。支持破峰场、爆款场、增长场等多种场次类型。触发词：破峰复盘、直播复盘、出复盘、NPL复盘、破峰了吗、帮我看昨天的直播、帮我做复盘。", "trigger": "破峰复盘、直播复盘、出复盘、NPL复盘、破峰了吗、帮我看昨天的直播、帮我做复盘。", "freq": 6, "tag": "low", "tag_label": "📊 低频"}, {"name": "live-reservation-insight", "desc": "单商家大场预约蓄水分析 Skill。在大场开播前，输入主播直播账号ID和大场开播日期，自动从 RedBI 数据集 9930 拉取该商家为该场大场发出的所有预约笔记数据，分析各入口曝光和转化效率，产出 Top 预约载体明细（含笔记链接）和蓄水建议，写入 Redoc 文档。触发词：「看XX的预约情况」「大场前预约蓄水分析」「预约效率分析」「XX大场蓄水怎么样」「预约笔记效果」「查一下XXX的预约」。", "trigger": "「看XX的预约情况」「大场前预约蓄水分析」「预约效率分析」「XX大场蓄水怎么样」「预约笔记效果」「查一下XXX的预约」。", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "live-review-card", "desc": "店播复盘卡片生成 Skill。读取已有的 Redoc 复盘文档，自动提取关键数据，生成 NPL 三栏可视化复盘卡片，上传 CDN 后发布为新 Redoc 文档链接。触发词：生成卡片、出复盘卡片、做卡片、帮我生成图、复盘图、case图、案例图。", "trigger": "生成卡片、出复盘卡片、做卡片、帮我生成图、复盘图、case图、案例图。", "freq": 6, "tag": "low", "tag_label": "📊 低频"}, {"name": "market-analysis-interpreter", "desc": "市场分析 AI 报告解读工具。接收品牌名称（1个）和类目名称（支持多个），分别查询品牌ID和类目code，调用灵犀 SSE 流式接口获取市场分析解读内容，生成报告并发布到 Redoc。当用户提到「市场分析」「市场报告」「品牌市场分析」时使用此 Skill。", "trigger": "", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "merchant-lookup-general", "desc": "商家快速诊断通用版。给定任意商家标识（店铺名/ID/账号），快速返回完整经营诊断：DGMV趋势、笔记/店播/K播拆分、广告消耗拆分+ROI，并附鹰眼链接。触发词：帮我查一下XX商家、给我看看XX的情况。", "trigger": "帮我查一下XX商家、给我看看XX的情况。", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "merchant-one-click", "desc": "商家一键诊断 — 输入商家ID/店名，自动输出：月销分层+渠道拆解(DGMV/K播/店播/商笔)+增长建议+违规状态+客保判断。触发词：商家诊断 / 一键诊断 / 看看这个商家 / 商家分析 / 这个店怎么样", "trigger": "商家诊断 / 一键诊断 / 看看这个商家 / 商家分析 / 这个店怎么样", "freq": 0, "tag": "potential", "tag_label": "💡 高潜未用"}, {"name": "monthly-report-generator", "desc": ">   品牌月报/周报生成工具。用户说创建/生成/做月报（周报）或给XX品牌出报告时调用。   自动从灵犀平台取数，生成 Excel + 分析报告，最终交付可点击的 Redoc 在线文档链接。   不适用于单指标查询、人群画像或买点分析。   完成标准：Excel 多 Sheet + COS 外链 + Redoc 链接均可访问。", "trigger": "", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "morning-broadcast", "desc": "每日早安播报 Skill。每天9:30（工作日，跳过中国法定节假日）自动触发，包含：可爱早安问好（含用户薯名夸赞）、当地实时天气播报（根据配置城市获取）、国内外互联网大厂最新动态（含新闻配图），发送到 Hi 渠道。", "trigger": "", "freq": 7, "tag": "low", "tag_label": "📊 低频"}, {"name": "nano-pdf", "desc": "Edit PDFs with natural-language instructions using the nano-pdf CLI.", "trigger": "", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "nanobanana-ppt-skills", "desc": "", "trigger": "", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "negative-query", "desc": "小红书笔记和作者负向信息查询。覆盖三类场景：（1）笔记负向查询：查笔记柔性处置标签、流量诊断、打标前后流量变化；（2）作者负向查询：查作者负向回捞状态、明细、拒绝原因、操作日志；（3）负向批量搜索：按状态/粉丝/类目筛选负向笔记/作者。触发词：查笔记负向、看看有没有被处置、柔性标签、流量诊断、作者有没有负向、负向回捞、搜索待回捞笔记/作者。", "trigger": "\"查笔记负向\"、\"看看有没有被处置\"、\"柔性标签\"、\"流量诊断\"、\"作者有没有负向\"、\"负向回捞\"、\"搜索待回捞笔记/作者\"。", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "news-summary", "desc": "This skill should be used when the user asks for news updates, daily briefings, or whats happening in the world. Fetches news from trusted international RSS feeds and can create voice summaries.", "trigger": "", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "note-card-pptx", "desc": "小红书笔记案例分析卡片 PPT 生成器。输入笔记 ID 列表 + 三感六度评分结果，自动取数、整理数据、生成案例卡片 .pptx 文件。触发词：「帮我生成案例卡片」「画案例卡片 PPT」「生成笔记分析卡片」「note card pptx」。", "trigger": "「帮我生成案例卡片」「画案例卡片 PPT」「生成笔记分析卡片」「note card pptx」。", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "note-content-reader", "desc": "小红书笔记内容读取工具。给定笔记链接或ID，自动提取标题、正文文本、评论列表（支持分页），输出结构化内容。支持批量读取。触发词：读一下这篇笔记、提取笔记内容、帮我看看这篇笔记写了什么、笔记标题正文评论、抓取笔记数据。", "trigger": "读一下这篇笔记、提取笔记内容、帮我看看这篇笔记写了什么、笔记标题正文评论、抓取笔记数据。", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "note-content-understanding", "desc": "小红书笔记内容深度理解工具。给定笔记ID，从 Hive 数仓提取视频 ASR（音频转文字）、封面 OCR、视频 OCR 文本，并通过浏览器打开小红书前端截图，用多模态视觉能力分析封面图（构图/配色/文字排版/人物）和标题质量，结合互动数据，输出完整的内容理解、爆款原因分析、封面与标题质量评分及优化建议。适用场景：「分析这篇笔记的内容」「帮我理解这篇笔记在说什么」「这篇笔记的音频/字幕内容是什么」「结合音频和封面分析这篇笔记为什么火」「提取笔记的口播文字」「封面和标题做得怎么样」「封面标题有什么优", "trigger": "", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "note-query", "desc": ">   小红书笔记搜索与查询工具。当用户需要搜索/查询/筛选小红书笔记时使用。   支持的操作包括：按关键词搜索笔记；按标题、内容、作者搜索；   按笔记类型（图文/视频）、分类、时间范围筛选；   按互动数据（点赞数、收藏数、评论数等）排序；   查看笔记评论（一级/二级评论分页）；   查看笔记关联信息（商品、交易订单、POI地点、背景音乐、模板、相似笔记）；   笔记流量诊断（诊断概况、流量详情、投放详情）；   笔记洞察分析（消费趋势、消费画像、消费详情）；   笔记操作记录（发布流程、", "trigger": "", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "npl-daily-report", "desc": "个护品类优质店播达成日报 Skill。每日自动拉取 RedBI 看板数据，生成当月达成汇总、当日开播 Top5、差1步高潜商家、预警掉落商家的结构化报告，更新到 Redoc 文档，并通过 hi 推送简短摘要。覆盖七组（美妆-个护）三个 AM（优莱/乌梅/菱纱）。触发词：个护优质店播日报、优质店播达成、npl日报、店播日报、生成日报、跑日报。", "trigger": "个护优质店播日报、优质店播达成、npl日报、店播日报、生成日报、跑日报。", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "nuwa-skill", "desc": "|   女娲造人：输入人名/主题/甚至只是模糊需求，自动深度调研→思维框架提炼→生成可运行的人物Skill。   两种入口：(1)明确人名→直接蒸馏 (2)模糊需求→诊断推荐→再蒸馏。   触发词：「造skill」「蒸馏XX」「女娲」「造人」「XX的思维方式」「做个XX视角」「更新XX的skill」。   模糊需求也触发：「我想提升决策质量」「有没有一种思维方式能帮我...」「我需要一个思维顾问」。", "trigger": "「造skill」「蒸馏XX」「女娲」「造人」「XX的思维方式」「做个XX视角」「更新XX的skill」。", "freq": 0, "tag": "delete", "tag_label": "🗑️ 建议删除"}, {"name": "one-cmd-fetch", "desc": "一句话取数 — 自然语言直接出结果，自动处理权限/口径/字段问题。比bi-assets-discovery+bi-data-fetch链路更短，用户说查近7天DAU直接返回数据。触发词：查数据 / 帮我拉 / 取数 / 看看XX数据 / 最近XX怎么样", "trigger": "查数据 / 帮我拉 / 取数 / 看看XX数据 / 最近XX怎么样", "freq": 0, "tag": "potential", "tag_label": "💡 高潜未用"}, {"name": "pingcode-query-workitem", "desc": "根据筛选条件查询工作项(需求、缺陷、子任务)。当用户想要查询工作项时使用，例如：查询我最近10天创建的需求、查询我最近7天负责的缺陷、查询普兰最近50天建的工作项。支持按负责人、创建人、日期范围、工作项类型、状态、所属空间等条件筛选。", "trigger": "", "freq": 0, "tag": "delete", "tag_label": "🗑️ 建议删除"}, {"name": "pptx", "desc": "Use this skill any time a .pptx file is involved in any way — as input, output, or both. This includes: creating slide decks, pitch decks, or presentations; reading, parsing, or extracting text from any .pptx file (even if the extracted content will ", "trigger": "", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "prd-to-prototype", "desc": ">-   将 PRD 文档（REDoc 链接或本地 Markdown）转换为可交互的单文件 HTML 产品原型，自动完成图片分析、设计系统生成、Playwright 截图验证与 Omni 内网部署。   当用户提到以下任何场景时必须触发此技能：生成原型、做个原型、产品原型、原型设计、PRD 转原型、可交互页面、HTML 原型、prototype、prd to prototype、mock 页面、快速出个页面、   把 PRD 做成页面、交互稿、可点击的 demo、前端 demo、把文档变成可操作", "trigger": "", "freq": 6, "tag": "low", "tag_label": "📊 低频"}, {"name": "presentation-deck-xhs", "desc": ">   小红书风格的述职/规划/汇报演讲大屏可视化网页生成器。专攻投屏播放场景：1920×1080 单页滚动网页，   含侧边章节导航、入场动画、ECharts 数据图表、模块化卡片版式、4K 高清字体渲染、点击悬浮弹窗、   生成的网页直接 CDN 部署即可投屏。    适用场景关键词：述职、季度复盘、年度规划、战略汇报、OKR 演讲、专项项目复盘、领导汇报、   风控治理汇报、业务规划分享、数据驱动叙事大屏、信息密度高的一镜到底汇报网页。    典型用户输入：「帮我做一个 2026 战略汇报", "trigger": "", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "problem-radar", "desc": "问题雷达 · Problem Radar — 自动扫描用户对话，识别重复出现的工作断点，定期推送「哪些问题值得做成 Skill」的报告，并提供一键 Skill 化引导。当用户说「问题识别」「问题雷达」「发现 Skill 机会」「看看这周有什么问题」「哪些问题值得做成 Skill」时触发。也支持首次安装自动引导（配置范围/频率/场景/渠道）和按用户设定的 cron 自动推送。", "trigger": "", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "project-management", "desc": "|   技术PMO团队开发的项目管理SKILL。前提需要在 https://aipmo.devops.xiaohongshu.com/#/ 配置项目信息。    支持能力：   1. **Hi 消息发送**：发文字/图片/截图到项目群或指定人。Trigger: 发消息到{项目}群、截图发到{项目}群   2. **项目信息查询**：查 RedDoc 地址、Hi 群 chatId、负责人、列出所有项目。Trigger: 查一下{项目}信息、列出所有项目   3. **Todo 完成情况**：读取最", "trigger": "", "freq": 0, "tag": "delete", "tag_label": "🗑️ 建议删除"}, {"name": "quality-live-weekly", "desc": ">-   优质店播分析与店播诊断助手。基于「行业优质供给店铺追踪分日指标」数据集（ID:757530）。   提供六大类能力：   ① 周报分析：生成 HTML 看板（整体进度/MBD达成/达标分桶/预警）   ② Excel/CSV 导出：周报数据下载   ③ MBD 粒度报告：单 MBD 的商家达标分析   ④ 店铺粒度达标报告：单店铺 NPL 优质店播达标情况   ⑤ 店播深度诊断：单店铺多专题分析（核心指标/渠道归因/营销工具/直播预约等）   ⑥ 自由问答：基于 757530 数据集回", "trigger": "", "freq": 76, "tag": "hot", "tag_label": "🔥 高频核心"}, {"name": "read-github", "desc": ">   Read GitHub repos the RIGHT way - via gitmcp.io instead of raw scraping. Why this beats web search:   (1) Semantic search across docs, not just keyword matching, (2) Smart code navigation with accurate   file structure - zero hallucinations on re", "trigger": "", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "redbi-metrics", "desc": "从小红书内部 RedBI 看板中提取指标/维度定义，构建跨看板统一指标注册表，生成可用于 NL-to-SQL 的结构化文档。使用场景：(1) 用户询问某个看板有哪些指标、底表是什么；(2) 需要了解某指标的 SQL 表达式/业务含义；(3) 为 NL-to-SQL 任务准备指标元数据；(4) 用户提供看板 ID 或看板名称，需提取或查看指标体系；(5) 需要构建跨看板的统一指标注册表、查看指标分层（原子/衍生/派生）和依赖关系；(6) 用户意图是获取看板指标数据，需要返回结构化 JSON 结果。", "trigger": "RedBI 看板、看板指标、指标提取、extract-metrics、看板 ID、指标注册表、指标体系、build-metric-registry、查询指标、query-metrics、获取指标。", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "redbi-new-merchant-monitor", "desc": "新开店商家高流量笔记监控。从 RedBI 拉取昨日新开店商家列表，批量查询笔记曝光数据，筛选高曝光（≥1万）商家，生成汇总报告并自动更新到 Redoc 在线文档，最后输出推送摘要。支持通过 OpenClaw Cron 定时自动执行，也支持手动触发。当用户说「跑一下新开店监控」「运行商家监控」「帮我看昨天新开店的」「新开店高曝光」「高流量新商家」时触发。", "trigger": "", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "redbi-report-day-or-week", "desc": "基于小红书 RedBI 看板自动生成并推送日报/周报。适用场景：(1) 为任意 RedBI 看板配置每日定时日报，(2) 配置每周环比对比周报，(3) 手动触发立即生成一份日报或周报，(4) 修改已有报告的推送配置。触发词：「配置日报」「生成周报」「看板推送」「redbi 日报」「自动报告」「定时推送」「每日数据」。", "trigger": "「配置日报」「生成周报」「看板推送」「redbi 日报」「自动报告」「定时推送」「每日数据」。", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "redhot-agent", "desc": "选题系统主控 Agent。协调「站外热点采集 → 站内热度聚合 → 多视角创作方案」三个环节，支持迭代直到产出合格选题，最终写入 OSS 选题库并推送 Top3 方案给运营。触发方式：(1)开始今日热点选题 启动完整流程；(2)今日AI热点/今日热点汇总 只采集热点、不生成选题；(3)我有一个选题 [关键词] 进入单个选题深度分析；(4)推荐一些好的选题/给我几个选题 直接基于最新采集结果输出推荐，不重新采集。", "trigger": "", "freq": 0, "tag": "delete", "tag_label": "🗑️ 建议删除"}, {"name": "redhot-collector", "desc": "站外热点采集工具，面向小红书热点运营场景。从36氪、IT之家、虎扑、同花顺、直播吧、懂球帝等24个平台采集实时热点，LLM打标分类（38个运营品类）+四维价值打分（热度/时效/独特性/受众），去重聚类后输出带链接、热度排名和综合分的 Markdown 文件。触发方式：(1)采集今日热点/帮我看看今天有什么热点/采集热点 手动触发全量采集；(2) 每小时定时自动采集；(3)采集热点后聚合到指定分组。", "trigger": "", "freq": 0, "tag": "delete", "tag_label": "🗑️ 建议删除"}, {"name": "redhot-generator", "desc": "小红书「热点」相关笔记发现 Pipeline。给定热点关键词，自动完成：(1) 小红书搜索笔记 (2) 查询 mmu_embed_v4 向量 (3) LVE 向量召回相似笔记 (4) 去重合并按 avg_score×出现次数排序 (5) 抓取笔记内容并过滤保留「热点」相关笔记。触发词：热点生成、生成热点、热点聚合 全流程。", "trigger": "热点生成、生成热点、热点聚合 全流程。", "freq": 0, "tag": "delete", "tag_label": "🗑️ 建议删除"}, {"name": "redhot-xhs-collector", "desc": "小红书z站内「热点」相关笔记发现 Pipeline。", "trigger": "", "freq": 0, "tag": "delete", "tag_label": "🗑️ 建议删除"}, {"name": "redna-skill-manager", "desc": "RedNA SkillHub Skill 全生命周期管理：创建(create)、编辑、上传(upload)、更新(update)、搜索(search)、下载(download)、查看详情(detail)、发布新版本(publish)。管理 skill 从本地创建到 SkillHub 发布的完整生命周期。同时提供 Skill 编写指南，指导如何编写高质量的 SKILL.md 和组织 skill 目录结构。当用户需要创建新 skill、编辑或改进现有 skill、上传 skill 到 SkillHu", "trigger": "", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "redoc-ppt-studio", "desc": "REDoc PPT Studio — PPT 双场景处理系统。场景一：从 REDdoc 文稿自动生成全新 PPT（H2 标题黑色 32pt 加粗，严格 0.45\\ 页边距，标准间距系统，卡片可视化排版），支持自动抓取 Redoc 文档中的图片并嵌入对应 PPT 页。场景二：使用 pptx-reskin 快速替换已有 PPT 的模板底板。触发词：生成PPT、做PPT、用[红色/绿色/灰色/黄色]模版生成、换模板、换底板、Reskin PPT。支持6套底图：绿色1/2/3、红色、灰色、黄色。", "trigger": "生成PPT、做PPT、用[红色/绿色/灰色/黄色]模版生成、换模板、换底板、Reskin PPT。支持6套底图：绿色1/2/3、红色、灰色、黄色。\"", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "redoc-sheet-tool", "desc": "小红书 REDoc Sheet 表格读写工具。支持导出 REDoc 在线表格为 xlsx 文件，以及将 xlsx 文件导入到 REDoc 创建新表格。使用场景：(1) 读取/导出 REDoc 表格数据，(2) 向 REDoc 导入表格数据，(3) 修改 REDoc 表格内容。触发词：REDoc 表格、redoc sheet、导出表格、导入表格、表格读写。", "trigger": "REDoc 表格、redoc sheet、导出表格、导入表格、表格读写。", "freq": 14, "tag": "used", "tag_label": "✅ 常用"}, {"name": "redoc-writer", "desc": "AI写文档的最后一公里终于通了 🛤️ 说一句「帮我写成文档」，自动处理格式兼容、特殊字符转义，直接调API写入REDoc，30秒拿链接。告别复制粘贴、告别格式全炸、告别分段限制。支持CodeWiz全自动发布。当用户说「帮我写成文档」「生成一份文档」「整理成文档」「新建一个文档」「出一份XXX文档」「帮我写个XXX方案/报告/说明」时触发。**当用户提供了 REDoc 文档链接并要求修改/追加/编辑内容时，也使用此 skill。**", "trigger": "", "freq": 44, "tag": "used", "tag_label": "✅ 常用"}, {"name": "rename-session", "desc": "Rename (relabel) an OpenClaw session in the webchat UI. Use when the user asks to rename, relabel, or change the name of a session/conversation. Runs a Python script to directly update the label field in sessions.json with automatic verification and ", "trigger": "", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "report-generation", "desc": "报告生成执行器：将已有 `analysis_ref` / `data_ref` 组织成可交付文档，产出 `report_ref`；适用于“整理成报告、给老板总结、输出汇报材料”等交付表达场景，重点是复用上游已验证结论与数字证据；若用户还没有输入引用，必须先走 `bi-data-fetch`（取数）或 `data-process`（分析）；本 skill 不负责首次取数，不负责 SQL 生成/改写/排错/执行，也不替代二次分析。", "trigger": "", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "search-path-interpreter", "desc": "搜索路径分析报告解读工具。支持按报告名称搜索报告列表让用户选择，或直接传入报告ID，调用灵犀 AI 解读接口，获取 content 字段内容，生成分析文档并发布到 Redoc。当用户提到「搜索路径报告」「搜索路径分析」「解读搜索路径」时使用此 Skill。", "trigger": "", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "self-improvement", "desc": "Captures learnings, errors, and corrections to enable continuous improvement. Use when: (1) A command or operation fails unexpectedly, (2) User corrects Claude (No, thats wrong..., Actually...), (3) User requests a capability that doesnt exist, (4) A", "trigger": "", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "session-logs", "desc": "Search and analyze your own session logs (older/parent conversations) using jq.", "trigger": "", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "shop-matrix-query", "desc": "查询店铺矩阵号信息，通过 Deimos 服务的 getAccountRelation 接口获取店铺的主子账号关联关系。使用场景：当用户需要查询店铺绑定的矩阵账号、主账号、子账号关系时使用。触发关键词：店铺矩阵号、矩阵账号查询、店铺关联账号、getAccountRelation、主子账号关系。", "trigger": "", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "shop-review-report", "desc": "店铺复盘报告生成器。给定商家ID或店铺名称，自动拉取该店铺的DGMV、订单量、商品数、笔记数、直播场次等核心经营数据，结合类目大盘趋势，生成结构化复盘报告（含数据概览、环比分析、关键发现、改进建议）。支持日/周/月粒度。触发词：帮我复盘XX店铺、XX商家复盘报告、店铺经营分析、商家周报/月报、店铺数据总结。", "trigger": "帮我复盘XX店铺、XX商家复盘报告、店铺经营分析、商家周报/月报、店铺数据总结。", "freq": 0, "tag": "potential", "tag_label": "💡 高潜未用"}, {"name": "skill-creator", "desc": "Create, edit, improve, or audit AgentSkills. Use when creating a new skill from scratch or when asked to improve, review, audit, tidy up, or clean up an existing skill or SKILL.md file. Also use when editing or restructuring a skill directory (moving", "trigger": "", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "skill-radar", "desc": "Skill 洞察雷达 — 自动抓取 CodeWiz Hub 全量 Skill 数据，生成可分享的洞察报告网页（含生态现状/榜单/案例分析/三大结论/方法论），并支持每周自动更新数据重新部署。当用户说「洞察雷达」「Skill Hub 数据」「Builder思维报告」「更新雷达」「生成Skill洞察」时触发。也支持首次安装引导和按设定频率自动刷新网页。", "trigger": "", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "sql-auto-schema", "desc": "SQL自动表结构探测 — 写SQL前自动确认表结构和字段名，避免UNRESOLVED_COLUMN错误。支持：表字段列表查询、相似字段推荐、字段口径解释、跨表字段搜索。触发词：表结构 / 有哪些字段 / 这个表有什么 / 字段确认 / SQL前确认", "trigger": "表结构 / 有哪些字段 / 这个表有什么 / 字段确认 / SQL前确认", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "sql-development", "desc": ">   大数据 SQL 开发全流程助手，覆盖代码生成、解读、纠错、执行四大场景。代码生成（基于已知表写查询、用自然语言描述需求生成 SQL、修改已有代码逻辑——加字段/改口径/换维度/改过滤条件/TopN）、代码解读（粘贴 SQL 解释逻辑和计算口径）、代码纠错（修复报错、语法检查、性能优化建议）、代码执行（运行 SQL、查看结果、下载数据）。当用户说帮我写个SQL、这段SQL什么意思、SQL报错了帮我看看、跑一下这个查询、基于XX表统计一下时触发。当用户在已知表的上下文中提出数据探查类需求（如", "trigger": "", "freq": 147, "tag": "hot", "tag_label": "🔥 高频核心"}, {"name": "sql-drilldown-chart", "desc": "通用数据可视化 → 自适应图表看板 → 内网访问链接工作流。将任意来源的数据（SQL查询结果、用户粘贴的表格、CSV文件、API返回数据等）分析数据特征后，自动选择最合适的图表类型（条形图 / 折线图 / 柱状图 / 环形图），生成可交互 HTML 看板（统计卡片 + 主图表 + 趋势折线 + 下钻明细，无外部 CDN 依赖），并启动 HTTP 服务输出内网访问链接。适用场景：帮我生成图表、按 XX 维度汇总下钻、生成可交互报表、查询结果可视化、把这份数据做成图表等任何需要将数据转化为可视化看板", "trigger": "", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "summarize", "desc": "Summarize or extract text/transcripts from URLs, podcasts, and local files (great fallback for “transcribe this YouTube/video”).", "trigger": "", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "support-task-analysis", "desc": "扶持效果数据分析 Skill v2 —— 包含两大能力：① 一键拉取扶持任务数据并生成日/周维度分析报表发布到 Redoc；② 启动/管理本地看板服务（http://10.40.15.226:8765/support-dashboard），支持多维度筛选、趋势图、整体数据聚合、任务明细（含日维度明细）。触发词：扶持效果分析、扶持任务分析、拉扶持数据、生成扶持报表、扶持消耗分析、扶持 ROI、扶持 GMV、扶持看板、启动看板、查看扶持数据。", "trigger": "扶持效果分析、扶持任务分析、拉扶持数据、生成扶持报表、扶持消耗分析、扶持 ROI、扶持 GMV、扶持看板、启动看板、查看扶持数据。", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "table-discovery", "desc": ">   查询和管理小红书大数据平台数据地图（Crux2）的表资产信息，支持：按关键词/字段/业务语义找表（专题优先+多维排序）、查表 Schema/分区/DDL/数据预览/生产任务、血缘与影响分析、字段口径分析与对比、表适用性评估、表相似度分析、编辑表和字段的元数据信息（中文名、备注、主键、废弃键）。当用户需要查找表、了解表结构、查看血缘、分析字段口径、写 SQL 前做数据调研、修改表或字段信息时使用。", "trigger": "", "freq": 210, "tag": "hot", "tag_label": "🔥 高频核心"}, {"name": "track-insight-internal", "desc": "赛道品类洞察报告生成器（对内版）。支持多品类横向汇总看版或单品类深度分析。当用户说「分析赛道」「做品类洞察」「出XX品类分析」「XX品类竞争格局」时触发。", "trigger": "", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "trade-eco-assistant", "desc": "交易生态数据助手（小红书电商）。覆盖：店铺分(v8)异常排查、品质/履约负反馈分析、交易处置查询、内容生态治理VVR排查、店铺分权益展示查询。支持：自然语言取数+SQL生成、BI看板链接直接解读、ETL辅助（含血缘分析）、批量商家排查。同时具备自成长能力：自动沉淀排查案例、识别用户纠正并更新知识库、支持用户主动培养。触发关键词：店铺分、shop_score、支揽时长、揽签时长、发货及时率、三分钟回复率、cpo、平台介入率、客服满意度、售后拒绝率、预售发货时长、负反馈、品质负反馈、履约负反馈、cc", "trigger": "", "freq": 0, "tag": "potential", "tag_label": "💡 高潜未用"}, {"name": "trade-skill-hub", "desc": "交易电商领域skill工具台，负责路由、安装和管理交易电商相关 skill【满足触发条件时，优先使用本 skill，无需经过 find-skills】。触发条件：(1) 询问有哪些交易/电商相关 skill / 工具 / 能帮做什么；(2) 用户描述了交易电商业务问题——包括：商品搜索排名/透出问题、OneBox店铺卡片、直播卡/呼吸灯/商笔分析、主播粉丝渗透/预约渗透分析、市集推荐、query分析、query类目debug、query类目识别、搜索词类目、query意图分析、query意图识别", "trigger": "", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "trend-mining", "desc": "小红书内容机会挖掘系统，支持三种模式：(1) 单话题内容机会分析——当用户说「帮我分析XX话题的内容机会」「XX话题在小红书有没有内容空间」时触发；(2) 大事件节点策划——当用户说「帮我挖掘五一大事件热点」「帮我分析泼水节内容机会」时触发，支持可预测节点(模式一)、外部热点承接(模式二)、平台自造话题验证(模式三)；三种模式统一完成话题切面拆解 + 雅典娜站内数据查询（含去年同期历史对比）+ 外部热度评估，输出 OPP_SCORE 评分和结构化 Brief 文档。", "trigger": "** 「帮我分析XX话题的内容机会」「XX话题在小红书有没有内容空间」「看看这个热点适不适合小红书」", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "ugc-note-query", "desc": "UGC笔记关键词数据查询。当用户说近X天 某关键词的ugc笔记数据、查一下XX关键词的笔记情况、XX词的笔记曝光/互动、帮我看看含XX的ugc笔记、XX笔记数量和互动时使用。基于小红书活跃笔记增量宽表（insight resourceId=1101391），支持按笔记内容关键词（标题+正文+话题模糊匹配）过滤，返回笔记数量、曝光量、阅读量、互动数、点赞量、评论量及Top笔记明细。", "trigger": "", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "ui-ux-pro-max", "desc": "UI/UX design intelligence. 50 styles, 21 palettes, 50 font pairings, 20 charts, 9 stacks (React, Next.js, Vue, Svelte, SwiftUI, React Native, Flutter, Tailwind, shadcn/ui). Actions: plan, build, create, design, implement, review, fix, improve, optimi", "trigger": "", "freq": 0, "tag": "delete", "tag_label": "🗑️ 建议删除"}, {"name": "user-behavior-trace", "desc": "UBA（用户行为分析）用户行为细查skill，查询单个用户的埋点行为详情。支持：输入用户UID，查询该用户在指定时间范围内的行为流（触发的埋点事件），分析用户关键行为路径。", "trigger": "", "freq": 0, "tag": "delete", "tag_label": "🗑️ 建议删除"}, {"name": "weather", "desc": "Get current weather and forecasts via wttr.in or Open-Meteo. Use when: user asks about weather, temperature, or forecasts for any location. NOT for: historical weather data, severe weather alerts, or detailed meteorological analysis. No API key neede", "trigger": "", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "work-summary", "desc": "当用户要求进行日报、周报、月报、工作汇报，工作总结时使用. 触发词：日报、周报、月报、工作汇报、复盘、效能分析、帮我写总结、今天/这周做了什么。", "trigger": "日报、周报、月报、工作汇报、复盘、效能分析、帮我写总结、今天/这周做了什么。\"", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "xhs-closed-loop-broadcast", "desc": "数据自动播报助手。从任意数据来源（RedBI看板、Excel、截图、表格）提取指标，生成可视化HTML大屏+截图，定时推送到Hi私信或群webhook。适用场景：(1) 每日/每周定时数据播报，(2) 多客户/多指标汇总，(3) 生成图片+文字双格式推送。触发词：自动播报、定时推送、数据播报、生成播报图、Hi群推送。", "trigger": "自动播报、定时推送、数据播报、生成播报图、Hi群推送。", "freq": 6, "tag": "low", "tag_label": "📊 低频"}, {"name": "xhs-content-inspiration", "desc": "小红书商品内容灵感报告生成器。用户输入一个SPU产品名称，执行四步SOP：①联网搜索产品市场定位与用户口碑 ②浏览小红书社区热门内容发现流行趋势 ③采集封面图素材 ④提炼内容切角并产出可视化HTML灵感报告网页。触发词：内容灵感、灵感报告、小红书内容策略、种草内容、软广笔记、内容切角。", "trigger": "内容灵感、灵感报告、小红书内容策略、种草内容、软广笔记、内容切角。", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "xhs-gold-jewelry-weekly-report", "desc": "小红书黄金珠宝/翡翠玉石行业近7天内容趋势洞察周报生成工具。输入近7天搜索词、飙升词、热门笔记等数据，自动生成小红书风格长图HTML周报，涵盖KPI核心数据、行业趋势洞察、热搜词排行、飙升词、内容切角建议等模块（不含单品牌分析）。支持黄金珠宝版（黑金配色）和翡翠玉石文玩版（墨绿配色）两个赛道。适用于黄金珠宝品类客户周度汇报、行业趋势分享、内部复盘。触发词：黄金珠宝周报、珠宝趋势周报、翡翠周报、玉石周报、做周报、生成周报、帮我出周报。", "trigger": "黄金珠宝周报、珠宝趋势周报、翡翠周报、玉石周报、做周报、生成周报、帮我出周报。", "freq": 11, "tag": "used", "tag_label": "✅ 常用"}, {"name": "xhs-industry-research", "desc": "小红书广告策划场景下的行业趋势研究工具。快速消化行业报告并产出趋势发现→对客户的意义→对投放策略的启示三段式洞察，并将趋势映射到 KFS 配比、人群假设、节点感知等具体策略动作。务必在以下场景触发本 Skill：用户提到行业趋势行业研究行业报告提炼行业分析行业洞察行业大盘政策变化节点感知行业机会，或需要为提案/方案准备行业背景分析、需要快速提炼行业报告中的可用洞察时。支持有报告和无报告两种模式。", "trigger": "", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "xhs-one-persona-agent", "desc": "当用户提到「one persona」「用户画像」「persona summary」「用户标签」「画像描述」「生成用户画像」「人群洞察」「人群画像」「人群分析」时使用。支持两种模式：（1）个人画像：给定 user_id，默认走 Hive 表 shequ_algo_ug.user_llm_input_json_for_sft_df（时间加权采样，发布/搜索行为全量保留，消费行为近30天top500+历史分层截断，补充 follow_profile 和 electronic_commerce 维度），", "trigger": "", "freq": 10, "tag": "used", "tag_label": "✅ 常用"}, {"name": "xlsx", "desc": "Use this skill any time a spreadsheet file is the primary input or output. This means any task where the user wants to: open, read, edit, or fix an existing .xlsx, .xlsm, .csv, or .tsv file (e.g., adding columns, computing formulas, formatting, chart", "trigger": "", "freq": 0, "tag": "idle", "tag_label": "😴 未使用"}, {"name": "yunxiao-mr-review", "desc": ">   Manages XHS YunXiao merge requests and PingCode bugs. Handles MR review, creation, approval,   and updates. Creates PingCode bugs with auto field-mapping. Supports MR-bug binding.   Use when user provides YunXiao MR URL, or mentions: 云效/yunxiao, ", "trigger": "", "freq": 0, "tag": "delete", "tag_label": "🗑️ 建议删除"}, {"name": "ze-guang-perspective", "desc": "|   泽光（李传松）的周报写作与分析框架。基于8篇Redoc内部文档（周会、复盘、KO文档、目标拆解）深度提炼。   核心能力：数据陈列后的个人特色分析——做对了什么的方法论提炼 + 不要做什么的避坑指南。   用途：生成周报/复盘/活动总结、商家分析报告、行业分析文档，用泽光的结构习惯、分析逻辑、表达风格来写。   当用户说帮我写周报出复盘用我的风格写泽光模式写分析文档时触发。", "trigger": "", "freq": 0, "tag": "potential", "tag_label": "💡 高潜未用"}, {"name": "中小商家生意跃迁星探V2", "desc": "输入 AM 名字，自动告诉你名下哪些商家最值得跟、怎么跟。先按近30天 DGMV 把商家拆成 B4+（≥10万）和 B3-（<10万）两拨分别分析；B3- 额外标注 2026年1-4月每月均未破10万的🔴重点追踪商家。两拨各自跑好货模型（货品驱动/用户资产/高潜新锐）× 综合能力模型（增长/效率/货盘/经营，≥50分），交叉出三梯队：第一梯队（好货+能力双强，优先1V1）、第二梯队（好货待补强，群组运营）、第三梯队（能力达标货品待挖，先解决货品）。每家商家附带个性化运营动作，退款率对标所在类目均", "trigger": "潜力商家圈选、潜力商家全链路、商家跃迁潜力、潜力商家诊断、潜力商家行动清单、运营动作建议、B3商家跃迁、腰尾部商家潜力识别、哪些商家有潜力、谁最有潜力冲10万、商家打分、潜力评分、B4+潜力、潜力商家识别、找潜力商家、帮我找有潜力的商家、哪个商家值得重点跟进、商家运营动作、这批商家该怎么做、潜力商家缺口诊断、B3潜力分析、生成潜力商家报告、中小商家跃迁、星探、生意跃迁。", "freq": 0, "tag": "potential", "tag_label": "💡 高潜未用"}];
+const CATS = [{"id": "merchant_monitor", "label": "🔍 商家查询与监控", "desc": "查商家现状、找潜力商家、盯违规、看分层", "color": "#e95f8a", "skills": [{"name": "crm-merchant-list", "alias": "苍穹商家列表", "scene": "按30+维度筛选名下商家，看DGMV/订单/退款率聚合数据", "trigger": "", "freq": 61}, {"name": "merchant-one-click", "alias": "商家一键诊断", "scene": "输入店名→自动输出月销分层/渠道拆解(笔记/店播/K播)/违规状态/客保判断", "trigger": "商家诊断 / 一键诊断 / 看看这个商家 / 商家分析 / 这个店怎么样", "freq": 0}, {"name": "shop-review-report", "alias": "店铺复盘报告", "scene": "给商家生成DGMV/商品数/笔记/直播全维度复盘，可直发商家", "trigger": "帮我复盘XX店铺、XX商家复盘报告、店铺经营分析、商家周报/月报、店铺数据总结。", "freq": 0}, {"name": "中小商家生意跃迁星探V2", "alias": "商家跃迁潜力圈选", "scene": "输入AM名字，自动圈B4+/B3-两拨商家，输出最值得跟的清单+运营动作", "trigger": "潜力商家圈选、潜力商家全链路、商家跃迁潜力、潜力商家诊断、潜力商家行动清单、运营动作建议、B3商家跃迁、腰尾部商家潜力识别、哪些商家有潜力、谁最有潜力冲10万、商家打分、潜力评分、B4+潜力、潜力商家识别、找潜力商家、帮我找有潜力的商家、哪个商家值得重点跟进、商家运营动作、这批商家该怎么做、潜力商家缺口诊断、B3潜力分析、生成潜力商家报告、中小商家跃迁、星探", "freq": 0}, {"name": "merchant-lookup-general", "alias": "商家快速经营诊断", "scene": "输入店铺名，快速返回DGMV趋势+广告消耗拆分+ROI+鹰眼链接", "trigger": "帮我查一下XX商家、给我看看XX的情况。", "freq": 0}, {"name": "trade-eco-assistant", "alias": "店铺分&违规诊断", "scene": "店铺分异常排查/品质负反馈分析/交易处置查询/VVR排查", "trigger": "", "freq": 0}, {"name": "kongbi", "alias": "商家控比分析", "scene": "小红书站内GMV对比抖音/淘宝，看商家多平台布局变化", "trigger": "", "freq": 0}, {"name": "crm-ecommerce-performance", "alias": "CRM电商业绩看板", "scene": "查DGMV/TGMV目标达成、时间进度差、刷单分析、买手/店铺明细", "trigger": "查电商业绩、电商DGMV完成情况、电商目标完成率、店铺业绩、买手业绩、电商团队业绩、生成电商业绩看板。", "freq": 0}, {"name": "redbi-new-merchant-monitor", "alias": "新开店高流量监控", "scene": "每日拉新开店商家，筛选高曝光≥1万的，推送Redoc汇总", "trigger": "", "freq": 0}]}, {"id": "data_query", "label": "📊 数据查询与取数", "desc": "从BI/数仓取数、写SQL、找表查字段", "color": "#6366f1", "skills": [{"name": "sql-development", "alias": "SQL开发全套", "scene": "自然语言→写SQL/执行/纠错/解读，最常用的取数工具（147次/60天）", "trigger": "", "freq": 147}, {"name": "table-discovery", "alias": "找表/查表结构", "scene": "按关键词找表、查字段/分区/DDL/血缘，写SQL前必用", "trigger": "", "freq": 210}, {"name": "bi-data-fetch", "alias": "BI看板直接取数", "scene": "粘贴BI链接直接提取数据，不用手动下载Excel", "trigger": "", "freq": 79}, {"name": "bi-assets-discovery", "alias": "BI指标口径查询", "scene": "找看板/数据集，查指标定义（DAU怎么算、GMV含不含退款）", "trigger": "", "freq": 23}, {"name": "one-cmd-fetch", "alias": "一句话取数", "scene": "说「查近7天珠宝GMV」直接出数据，比BI链路短", "trigger": "查数据 / 帮我拉 / 取数 / 看看XX数据 / 最近XX怎么样", "freq": 0}, {"name": "crux", "alias": "Crux数据地图", "scene": "查内部表资产（路径/负责人/样例数据），排查表权限问题", "trigger": "", "freq": 6}, {"name": "data-process", "alias": "数据二次分析", "scene": "对已取到的数据做过滤/排序/环比/TopN/异常定位/结论提炼", "trigger": "", "freq": 6}, {"name": "redbi-report-day-or-week", "alias": "RedBI看板自动日报/周报", "scene": "给任意RedBI看板配置定时推送，每日/每周自动出数据", "trigger": "「配置日报」「生成周报」「看板推送」「redbi 日报」「自动报告」「定时推送」「每日数据」。", "freq": 0}]}, {"id": "note_content", "label": "📝 笔记与内容运营", "desc": "找笔记、分析内容、做选题、生成KOC文案、行业趋势", "color": "#f59e0b", "skills": [{"name": "note-query", "alias": "笔记搜索与查询", "scene": "按关键词/类型/时间/互动数搜索笔记，查评论，笔记流量诊断", "trigger": "", "freq": 0}, {"name": "note-content-reader", "alias": "笔记内容提取", "scene": "给笔记ID，提取标题/正文/评论，支持批量", "trigger": "读一下这篇笔记、提取笔记内容、帮我看看这篇笔记写了什么、笔记标题正文评论、抓取笔记数据。", "freq": 0}, {"name": "ugc-note-query", "alias": "UGC笔记关键词数据", "scene": "查某关键词近X天笔记数/曝光/互动/Top笔记明细", "trigger": "", "freq": 0}, {"name": "campaign-koc-notes", "alias": "KOC笔记批量生成", "scene": "基于KOL笔记快速生成多角度KOC文案，助推话题热度", "trigger": "", "freq": 0}, {"name": "content-diagnosis", "alias": "内容资产诊断", "scene": "自动打标品牌/竞品笔记，分析种草效率，输出可视化报告", "trigger": "内容诊断、内容分析、笔记分析、内容资产诊断、种草效率分析。自动抽取品牌/SPU，调用content-tagging-analyzer打标，结合idea-data-skill数据，输出本品/竞品打标结果CSV与HTML可视化报告。", "freq": 0}, {"name": "insight-notes-query", "alias": "Insight优质笔记榜单", "scene": "查任意类目近X天线索转化/综合/人气种草Top笔记", "trigger": "- 用户说「查 Insight XXX 类目近N天咨询量TOP20」", "freq": 0}, {"name": "keyword-labeling", "alias": "搜索词打标", "scene": "上传搜索词Excel，AI打L1/L2/L3标签+输出消费者洞察报告", "trigger": "搜索词打标、关键词打标、词库打标、L1/L2/L3 打标、给词打标、对词打标。", "freq": 0}, {"name": "xhs-gold-jewelry-weekly-report", "alias": "珠宝行业内容周报", "scene": "生成珠宝/翡翠行业近7天热搜词+飙升词+内容切角HTML周报", "trigger": "黄金珠宝周报、珠宝趋势周报、翡翠周报、玉石周报、做周报、生成周报、帮我出周报。", "freq": 11}, {"name": "xhs-content-inspiration", "alias": "内容灵感报告", "scene": "输入SPU，搜市场口碑+社区热门，输出内容切角方案", "trigger": "内容灵感、灵感报告、小红书内容策略、种草内容、软广笔记、内容切角。", "freq": 0}, {"name": "creative-formula-interpreter", "alias": "创意公式解读", "scene": "输入类目名称，获取灵犀AI解读该类目的创意内容公式", "trigger": "", "freq": 0}, {"name": "find-buy-point", "alias": "灵犀AI找买点", "scene": "输入品类/SPU，直接生成消费者买点报告", "trigger": "", "freq": 0}, {"name": "trend-mining", "alias": "内容机会挖掘", "scene": "分析某话题/大事件在站内的内容空间和切入机会", "trigger": "** 「帮我分析XX话题的内容机会」「XX话题在小红书有没有内容空间」「看看这个热点适不适合小红书」", "freq": 0}]}, {"id": "live_broadcast", "label": "🎙️ 直播运营", "desc": "店播分析、K播日报、NPL达标、大场复盘", "color": "#10b981", "skills": [{"name": "quality-live-weekly", "alias": "NPL优质店播分析", "scene": "周报/商家达标分桶/预警/MBD达成/单店铺深度诊断，最高频直播工具", "trigger": "", "freq": 76}, {"name": "live-peak-review", "alias": "店播大场复盘", "scene": "帮AM生成NPL破峰/爆款/增长场复盘文档，发布到Redoc", "trigger": "破峰复盘、直播复盘、出复盘、NPL复盘、破峰了吗、帮我看昨天的直播、帮我做复盘。", "freq": 6}, {"name": "live-review-card", "alias": "店播复盘卡片", "scene": "读复盘文档，自动生成三栏可视化复盘卡片，上传CDN", "trigger": "生成卡片、出复盘卡片、做卡片、帮我生成图、复盘图、case图、案例图。", "freq": 6}, {"name": "live-reservation-insight", "alias": "大场预约蓄水分析", "scene": "开播前分析该场大场所有预约笔记效率，产出蓄水建议", "trigger": "「看XX的预约情况」「大场前预约蓄水分析」「预约效率分析」「XX大场蓄水怎么样」「预约笔记效果」「查一下XXX的预约」。", "freq": 0}, {"name": "npl-daily-report", "alias": "NPL店播日报", "scene": "每日自动生成当月达成/Top5开播/高潜/预警商家报告（个护）", "trigger": "个护优质店播日报、优质店播达成、npl日报、店播日报、生成日报、跑日报。", "freq": 0}]}, {"id": "pre_sales", "label": "🤝 商家开发与前期工作", "desc": "找创作者/潜力商家、搜人、品牌数据基建", "color": "#8b5cf6", "skills": [{"name": "creator-search", "alias": "KOL/达人搜索", "scene": "按粉丝数/垂类/地域/活跃度筛选作者，39种维度，支持找相似作者", "trigger": "", "freq": 11}, {"name": "genius-creator-scout", "alias": "天才创作者挖掘", "scene": "从BI数据集挖掘高潜力幼年体创作者，6维评分输出评估卡", "trigger": "", "freq": 0}, {"name": "crm-clue-b", "alias": "B端CRM线索创建", "scene": "批量创建CRM线索（按企业名称或专业号两种模式）", "trigger": "创建线索、批量创建线索、导入线索、查询我的线索、线索创建、B端线索。", "freq": 0}, {"name": "crm-account-list", "alias": "CRM账户查询", "scene": "查归属自己的账号列表，按关键字检索或自定义视图筛选", "trigger": "查询我的账号、账号列表、账号检索、查看账户、按视图查账号、CRM账户查询、帮我找账号、查询账户。默认每页30条，支持翻页（--page N），每页最大50条。", "freq": 0}, {"name": "brand-spu-quality-diagnosis", "alias": "品牌数据基建诊断", "scene": "检查品牌在灵犀的召回规则完整性，推荐未绑定词/笔记清单", "trigger": "品牌数据基建诊断、SPU数据质量诊断、数据基建优化、品牌召回规则诊断、SPU召回规则检查、品牌数据诊断、SPU基建质量。", "freq": 0}, {"name": "xhs-one-persona-agent", "alias": "用户画像生成", "scene": "给定user_id，生成该用户完整行为/搜索/消费标签画像", "trigger": "", "freq": 10}, {"name": "know-yourself", "alias": "用户行为档案", "scene": "基于全量聊天记录分析行为指纹，生成FBI风格档案HTML页", "trigger": "「分析我」「生成我的档案」「know yourself」「了解我自己」「密档」「我的行为分析」「打一场」「战斗」。", "freq": 0}]}, {"id": "sales_comms", "label": "💬 日常沟通与销售过程", "desc": "发消息、约会议、CRM审批、外发文案润色", "color": "#ec4899", "skills": [{"name": "calendar", "alias": "日历与会议管理", "scene": "查日程/创建会议/找空闲会议室/Focus Time，跨时区约人", "trigger": "", "freq": 59}, {"name": "hi-im-sender", "alias": "发Hi消息", "scene": "直接给指定同事发Hi消息，薯名/邮箱均可，所有推送走这里", "trigger": "", "freq": 29}, {"name": "hi-todos", "alias": "Hi待办管理", "scene": "创建/查看/完成Hi官方Todo，修改deadline", "trigger": "", "freq": 7}, {"name": "hi-search", "alias": "搜同事/搜文档", "scene": "按姓名/邮箱/业务方向找同事，搜内部文档空间", "trigger": "", "freq": 22}, {"name": "cangqiong-approval", "alias": "苍穹审批", "scene": "查审批进度/通过/驳回/加签/催审（OA流程用）", "trigger": "", "freq": 0}, {"name": "crm-flow-smart-qa", "alias": "苍穹AI智能问答", "scene": "问广告资质/行业政策/电商规则/投放规范等内部业务知识", "trigger": "", "freq": 0}, {"name": "humanizer", "alias": "去AI腔润色", "scene": "把AI写的外发文案改成人话，去除AI感，对商家外发时用", "trigger": "", "freq": 0}]}, {"id": "reporting", "label": "📈 复盘与汇报", "desc": "写日报周报、生成汇报材料、业绩追踪、数据可视化", "color": "#06b6d4", "skills": [{"name": "daily-work-report", "alias": "每日工作日报", "scene": "自动汇总今日工作（Hi记录+Redoc变更），生成叙述性分析日报", "trigger": "", "freq": 14}, {"name": "ze-guang-perspective", "alias": "泽光风格写作框架", "scene": "用你（泽光）的结构/逻辑/表达风格写周报/复盘/商家分析", "trigger": "", "freq": 0}, {"name": "work-summary", "alias": "日报/周报/月报生成", "scene": "日报、周报、月报、复盘、工作汇报通用，帮我写总结", "trigger": "日报、周报、月报、工作汇报、复盘、效能分析、帮我写总结、今天/这周做了什么。\"", "freq": 0}, {"name": "crm-ecommerce-tgmv-beta", "alias": "TGMV目标测算", "scene": "输入DGMV目标+结算率，自动测算各IC的TGMV目标看板", "trigger": "测算tgmv目标 / 测算TGMV目标 / 测算电商目标 / 生成TGMV看板 / tgmv计算器 / TGMV计算器 / 触发tgmv计算器。", "freq": 0}, {"name": "bi-ecommerce-bimonthly-report", "alias": "电商双月报看板", "scene": "行业十组电商双月报，含GMV/消耗/ROI/商家排行交互HTML", "trigger": "", "freq": 0}, {"name": "data-visualization", "alias": "气泡图/波士顿矩阵", "scene": "生成气泡图/四象限图等交互HTML图表，有最佳实践", "trigger": "", "freq": 0}, {"name": "presentation-deck-xhs", "alias": "述职大屏网页", "scene": "生成1920×1080投屏大屏网页，含入场动画+ECharts图表", "trigger": "", "freq": 0}, {"name": "live-data-ppt", "alias": "数据动态PPT", "scene": "把任意数据做成有动效的HTML演示PPT，无需PowerPoint", "trigger": "", "freq": 0}, {"name": "report-generation", "alias": "报告生成器", "scene": "把已有data_ref/分析结论整理成可交付汇报文档", "trigger": "", "freq": 0}]}, {"id": "doc_tools", "label": "📄 文档与知识", "desc": "写文档、读文档、截图插文档、知识问答", "color": "#f97316", "skills": [{"name": "redoc-writer", "alias": "新建Redoc文档", "scene": "说「写成文档」，30秒自动创建Redoc文档返回链接（44次/60天）", "trigger": "", "freq": 44}, {"name": "redoc-enhanced", "alias": "编辑Redoc文档", "scene": "编辑/追加/修改已有Redoc文档，最高频工具（217次/60天）", "trigger": "", "freq": 217}, {"name": "redoc-sheet-tool", "alias": "Redoc表格读写", "scene": "导入/导出Redoc在线表格为xlsx，修改表格内容", "trigger": "REDoc 表格、redoc sheet、导出表格、导入表格、表格读写。", "freq": 14}, {"name": "chart-to-redoc", "alias": "截图插入文档", "scene": "截任意URL/HTML图表，高清截图自动插入Redoc文档", "trigger": "", "freq": 0}, {"name": "idea-user-path-to-redoc", "alias": "灵犀报告转文档", "scene": "抓取灵犀用户路径报告AI解读，自动写入Redoc", "trigger": "用户路径报告、AI解读转文档、灵犀报告发我、路径报告写到redoc、idea报告。用户输入报告ID和品牌ID，skill自动登录灵犀、抓取AI解读TAB完整内容（文字+表格）、写入 Redoc 独立文档。", "freq": 18}, {"name": "redoc-ppt-studio", "alias": "Redoc文档转PPT", "scene": "从Redoc文档自动生成PPT，支持6套底图模板", "trigger": "生成PPT、做PPT、用[红色/绿色/灰色/黄色]模版生成、换模板、换底板、Reskin PPT。支持6套底图：绿色1/2/3、红色、灰色、黄色。\"", "freq": 0}, {"name": "docx", "alias": "Word文档处理", "scene": "创建/读取/编辑.docx文件，做有格式的专业Word文档", "trigger": "", "freq": 0}, {"name": "internal-doc-qa2.0", "alias": "内部文档知识问答", "scene": "从内部文档库RAG检索回答，业务知识、政策、规则查询", "trigger": "", "freq": 0}]}, {"id": "automation", "label": "⚙️ 自动化与效率", "desc": "定时任务、系统维护、小龙自身", "color": "#64748b", "skills": [{"name": "cron-guardian", "alias": "Cron任务自动修复", "scene": "Cron失败时自动诊断根因并修复，说「看看cron怎么了」", "trigger": "Cron守护 / cron修复 / 定时任务排查 / 任务失败诊断 / 看看cron怎么了", "freq": 0}, {"name": "morning-broadcast", "alias": "早安播报", "scene": "每天早安+天气+行业动态，自动发Hi", "trigger": "", "freq": 7}, {"name": "kill-that-dirtywork", "alias": "发现重复脏活", "scene": "扫描对话历史，识别哪些重复工作可以自动化", "trigger": "(1) 用户主动发起：「我又在干啥脏活了」「帮我看看我有哪些脏活」「kill dirtywork」「我有哪些重复工作」「哪些工作可以自动化」「扫描一下我的使用习惯」「帮我看看我老在重复干啥」「脏活清单」「我在做啥没必要手动做的事」「dirtywork」「又在搬砖」「又在做重复劳动」「帮我自动化」「哪些能做成skill」「我有哪些工作没有skill覆盖」；(2", "freq": 0}, {"name": "ecommerce-news", "alias": "电商平台动态日报", "scene": "生成淘宝/抖音/拼多多/京东等10个板块电商动态日报发Hi", "trigger": "", "freq": 0}, {"name": "hub-skill-query", "alias": "查Skill市场", "scene": "搜索/安装/更新Skill Hub上的新技能", "trigger": "", "freq": 0}, {"name": "idea-to-omni", "alias": "想法变内网页面", "scene": "一句话把任何想法/数据做成HTML页面，部署到内网Omni", "trigger": "", "freq": 6}]}, {"id": "irrelevant", "label": "🗑️ 与AM业务无关（可删）", "desc": "研发/产品/设计专用，建议清理", "color": "#4b5563", "skills": [{"name": "coverage-analysis-skill", "alias": "Java测试覆盖率分析", "scene": "研发/QA专用", "trigger": "", "freq": 0}, {"name": "event-point-discovery", "alias": "埋点查询", "scene": "产品/研发专用", "trigger": "", "freq": 0}, {"name": "event-behavior-analysis", "alias": "埋点PV/UV数据", "scene": "产品/研发专用", "trigger": "", "freq": 0}, {"name": "experiment-info-discovery", "alias": "AB实验查询", "scene": "产品/研发专用", "trigger": "", "freq": 0}, {"name": "experiment_result_analysis", "alias": "AB实验数据指标", "scene": "产品/研发专用", "trigger": "", "freq": 0}, {"name": "yunxiao-mr-review", "alias": "云效代码审查", "scene": "研发专用", "trigger": "", "freq": 0}, {"name": "pingcode-query-workitem", "alias": "PingCode工作项", "scene": "项目管理/研发专用", "trigger": "", "freq": 0}, {"name": "ui-ux-pro-max", "alias": "UI/UX设计工具", "scene": "设计专用", "trigger": "", "freq": 0}, {"name": "code-search", "alias": "代码库搜索", "scene": "研发专用", "trigger": "", "freq": 0}, {"name": "user-behavior-trace", "alias": "用户埋点行为细查", "scene": "产品/研发专用", "trigger": "", "freq": 0}, {"name": "project-management", "alias": "技术PMO项目管理", "scene": "PMO专用", "trigger": "", "freq": 0}, {"name": "linxi-audience-insight", "alias": "灵犀人群画像洞察", "scene": "品牌投放专用", "trigger": "人群画像洞察、分析人群、输出人群报告、查看人群特征、人群洞察报告、分析这个人群、灵犀人群洞察。【重要】当用户已明确给出 groupId 并要求对该人群进行洞察分析时，必须使用本 Skill（下载原始画像数据进行分析），严禁使用 linxi-crowd-finder 中的画像 AI 解读接口替代，原始画像数据更丰富完整，直接基于 AI 解读结论分析会导致信息损", "freq": 0}, {"name": "linxi-crowd-finder", "alias": "灵犀找人群", "scene": "品牌投放专用", "trigger": "找人群、推荐人群、人群方案、目标人群、人群包、灵犀人群、投放人群、种草人群、营销人群。【重要】本 Skill 中的画像 AI 解读接口仅用于\"从人群市场中找人群\"的推荐场景，作为辅助说明依据；若用户已有明确 groupId 且需要对该人群进行完整洞察分析，必须使用 linxi-audience-insight Skill（下载原始画像数据）而非本 Skill", "freq": 0}, {"name": "linxi-intersect-rate", "alias": "灵犀人群渗透率", "scene": "品牌投放专用", "trigger": "渗透率、人群渗透、人群重叠、渗透计算、交叉渗透、intersect rate、人群交集、人群之间的渗透。", "freq": 0}, {"name": "linxi-keyword-expansion", "alias": "灵犀词根扩展", "scene": "品牌投放专用", "trigger": "", "freq": 0}, {"name": "nuwa-skill", "alias": "女娲造人（生成Skill）", "scene": "平台能力建设专用，非业务工具", "trigger": "「造skill」「蒸馏XX」「女娲」「造人」「XX的思维方式」「做个XX视角」「更新XX的skill」。", "freq": 0}, {"name": "redhot-agent", "alias": "热点选题系统", "scene": "内容运营专用，非AM业务", "trigger": "", "freq": 0}, {"name": "redhot-collector", "alias": "站外热点采集", "scene": "内容运营专用", "trigger": "", "freq": 0}, {"name": "redhot-generator", "alias": "站内热点笔记发现", "scene": "内容运营专用", "trigger": "热点生成、生成热点、热点聚合 全流程。", "freq": 0}]}];
 
-let currentTag = 'all';
-let currentSearch = '';
+// 高潜未用集合
+const HIGH_POTENTIAL = new Set(['merchant-one-click','shop-review-report','ze-guang-perspective',
+  '中小商家生意跃迁星探V2','crm-ecommerce-performance','trade-eco-assistant','kongbi',
+  'one-cmd-fetch','ecommerce-news','data-visualization','insight-notes-query','cron-guardian',
+  'find-buy-point','kill-that-dirtywork','humanizer','redbi-new-merchant-monitor',
+  'crm-ecommerce-tgmv-beta','data-visualization','live-reservation-insight',
+  'merchant-lookup-general','report-generation','redbi-report-day-or-week']);
 
-function setTag(tag, el) {
-  currentTag = tag;
-  document.querySelectorAll('.fbtn').forEach(b => b.classList.remove('active'));
-  el.classList.add('active');
+let currentF = 'all';
+
+function setF(f, el) {
+  currentF = f;
+  document.querySelectorAll('.tf').forEach(b => b.classList.remove('on'));
+  el.classList.add('on');
   render();
 }
 
+function freqClass(f, name) {
+  if (f >= 20) return 'freq-high';
+  if (f >= 6) return 'freq-mid';
+  if (f > 0) return 'freq-low';
+  if (HIGH_POTENTIAL.has(name)) return 'freq-new';
+  return 'freq-zero';
+}
+function freqLabel(f, name) {
+  if (f >= 20) return `🔥 ${f}次`;
+  if (f >= 6) return `${f}次`;
+  if (f > 0) return `${f}次`;
+  if (HIGH_POTENTIAL.has(name)) return '💡 推荐';
+  return '未使用';
+}
+
+function matchFilter(s) {
+  if (currentF === 'high') return s.freq >= 10;
+  if (currentF === 'new') return s.freq === 0 && HIGH_POTENTIAL.has(s.name);
+  if (currentF === 'unused') return s.freq === 0 && !HIGH_POTENTIAL.has(s.name);
+  return true;
+}
+
 function render() {
-  currentSearch = document.getElementById('search').value.toLowerCase();
-  const grid = document.getElementById('grid');
-  const filtered = SKILLS.filter(s => {
-    if (currentTag !== 'all' && s.tag !== currentTag) return false;
-    if (currentSearch) {
-      const hay = (s.name + s.desc + s.trigger).toLowerCase();
-      if (!hay.includes(currentSearch)) return false;
-    }
-    return true;
-  });
-  
-  if (!filtered.length) {
-    grid.innerHTML = '<div class="no-results"><h3>😕 没找到匹配的技能</h3><p>换个关键词试试</p></div>';
-    return;
-  }
-  
-  grid.innerHTML = filtered.map(s => `
-    <div class="card" onclick="showDetail('${s.name.replace(/'/g,"\\'")}')">
-      <div class="card-header">
-        <div class="card-top">
-          <div class="card-name">${s.name}</div>
-          <div class="card-freq ${s.tag}">${s.freq > 0 ? s.freq+'次' : s.tag === 'potential' ? '待发现' : s.tag === 'delete' ? '建议删' : '未使用'}</div>
+  const q = document.getElementById('q').value.toLowerCase();
+  const nav = document.getElementById('nav');
+  const content = document.getElementById('content');
+  nav.innerHTML = '';
+  content.innerHTML = '';
+
+  CATS.forEach((cat, ci) => {
+    const filtered = cat.skills.filter(s => {
+      if (!matchFilter(s)) return false;
+      if (q) return (s.alias + s.name + s.scene + (s.trigger||'')).toLowerCase().includes(q);
+      return true;
+    });
+    if (!filtered.length) return;
+
+    const navEl = document.createElement('a');
+    navEl.className = 'nav-item';
+    navEl.href = `#cat-${ci}`;
+    navEl.style.setProperty('--c', cat.color);
+    navEl.innerHTML = `<span class="nav-dot"></span>${cat.label.replace(/[🔍📊📝🎙️🤝💬📈📄⚙️🗑️] /,'')} <span class="nav-count">${filtered.length}</span>`;
+    nav.appendChild(navEl);
+
+    const sec = document.createElement('div');
+    sec.className = 'category';
+    sec.id = `cat-${ci}`;
+    sec.style.setProperty('--c', cat.color);
+    sec.innerHTML = `
+      <div class="cat-header">
+        <div class="cat-line"></div>
+        <div>
+          <div class="cat-title">${cat.label}</div>
+          <div class="cat-desc">${cat.desc}</div>
         </div>
-        <div class="card-tag ${s.tag ? 'tag-'+s.tag : ''}">${s.tag_label}</div>
-        <div class="card-desc">${s.desc || '暂无描述'}</div>
       </div>
-    </div>
-  `).join('');
+      <div class="grid">${filtered.map(s => `
+        <div class="card" style="--c:${cat.color}" onclick="showPanel('${s.name.replace(/'/g,"\\'")}','${cat.color}')">
+          <div class="card-inner">
+            <div class="card-top">
+              <div class="card-alias">${s.alias}</div>
+              <div class="card-freq ${freqClass(s.freq,s.name)}">${freqLabel(s.freq,s.name)}</div>
+            </div>
+            <div class="card-scene">${s.scene}</div>
+          </div>
+        </div>`).join('')}
+      </div>`;
+    content.appendChild(sec);
+  });
+
+  if (!content.children.length) {
+    content.innerHTML = '<div class="no-r"><h3>😕 没找到</h3><p>换个关键词试试</p></div>';
+  }
 }
 
-function showDetail(name) {
-  const s = SKILLS.find(x => x.name === name);
-  if (!s) return;
-  
-  const freqText = s.freq > 0 ? `近60天使用 ${s.freq} 次` : '近60天未触发';
+function showPanel(name, color) {
+  let skill = null, cat = null;
+  for (const c of CATS) {
+    const s = c.skills.find(x => x.name === name);
+    if (s) { skill = s; cat = c; break; }
+  }
+  if (!skill) return;
+
+  const fc = freqClass(skill.freq, skill.name);
+  const fl = freqLabel(skill.freq, skill.name);
   const badgeStyle = {
-    hot: 'background:rgba(233,95,138,0.2);color:#e95f8a',
-    used: 'background:rgba(99,102,241,0.2);color:#818cf8',
-    low: 'background:rgba(245,158,11,0.2);color:#f59e0b',
-    potential: 'background:rgba(16,185,129,0.2);color:#34d399',
-    idle: 'background:rgba(100,100,100,0.2);color:#888',
-    delete: 'background:rgba(239,68,68,0.2);color:#f87171',
-  }[s.tag] || '';
-  
-  document.getElementById('detail-content').innerHTML = `
-    <div class="detail-name">${s.name}</div>
-    <div class="detail-slug">${s.name}</div>
-    <div class="detail-badge" style="${badgeStyle}">${s.tag_label} · ${freqText}</div>
-    
-    <div class="detail-section">
-      <h4>📋 能做什么</h4>
-      <p>${s.desc || '暂无描述'}</p>
+    'freq-high':'background:rgba(233,95,138,0.2);color:#e95f8a',
+    'freq-mid':'background:rgba(99,102,241,0.2);color:#818cf8',
+    'freq-low':'background:rgba(245,158,11,0.2);color:#f59e0b',
+    'freq-new':'background:rgba(16,185,129,0.2);color:#34d399',
+    'freq-zero':'background:rgba(100,100,100,0.15);color:#666',
+  }[fc];
+
+  document.getElementById('ph').innerHTML = `
+    <div class="panel-name">${skill.alias}</div>
+    <div class="panel-slug">${skill.name}</div>`;
+
+  document.getElementById('pb').innerHTML = `
+    <div class="panel-badge" style="${badgeStyle}">
+      ${cat.label.split(' ')[0]} ${cat.label.split(' ').slice(1).join(' ')} · ${fl}
     </div>
-    
-    ${s.trigger ? `<div class="detail-section">
-      <h4>💬 怎么触发（直接发给我）</h4>
-      <div class="trigger-box">${s.trigger}</div>
+    <div class="sec">
+      <div class="sec-h">📋 适用场景</div>
+      <div class="sec-p">${skill.scene}</div>
+    </div>
+    ${skill.trigger ? `<div class="sec">
+      <div class="sec-h">💬 怎么触发（直接发给我）</div>
+      <div class="trig-box">${skill.trigger}</div>
     </div>` : ''}
-    
-    <div class="detail-section">
-      <h4>🚀 立即使用</h4>
-      <button class="use-btn" onclick="copyTrigger('${s.name}','${(s.trigger||'').replace(/'/g,"\\'").replace(/\n/g,' ')}')">
-        📋 复制使用提示词
+    <div class="sec">
+      <div class="sec-h">🚀 立即使用</div>
+      <button class="use-btn" onclick="copyIt('${skill.trigger ? skill.trigger.replace(/'/g,"\\'").replace(/\n/g,' ') : skill.alias}')">
+        📋 复制触发词 · 粘贴发给我
       </button>
-      <p class="copy-hint">复制后直接粘贴发给我就能触发</p>
-    </div>
-  `;
-  document.getElementById('detail').classList.add('open');
+      <div class="copy-hint">直接粘贴到对话框发给我就能触发</div>
+    </div>`;
+
+  document.getElementById('panel').classList.add('open');
 }
 
-function copyTrigger(name, trigger) {
-  const text = trigger || name;
+function copyIt(text) {
   navigator.clipboard.writeText(text).then(() => {
     const btn = document.querySelector('.use-btn');
     btn.textContent = '✅ 已复制！';
-    setTimeout(() => btn.textContent = '📋 复制使用提示词', 1500);
+    setTimeout(() => btn.textContent = '📋 复制触发词 · 粘贴发给我', 1500);
   });
 }
 
-function closeDetail() {
-  document.getElementById('detail').classList.remove('open');
+function closePanel() {
+  document.getElementById('panel').classList.remove('open');
 }
 
 // 统计
-document.getElementById('total-count').textContent = SKILLS.length;
-document.getElementById('hot-count').textContent = SKILLS.filter(s=>s.tag==='hot').length;
-document.getElementById('potential-count').textContent = SKILLS.filter(s=>s.tag==='potential').length;
-document.getElementById('delete-count').textContent = SKILLS.filter(s=>s.tag==='delete').length;
+const allSkills = CATS.flatMap(c => c.skills);
+document.getElementById('sc').textContent = allSkills.length;
+document.getElementById('hc').textContent = allSkills.filter(s => s.freq >= 20).length;
+document.getElementById('nc').textContent = allSkills.filter(s => s.freq === 0 && HIGH_POTENTIAL.has(s.name)).length;
+document.getElementById('dc').textContent = (CATS.find(c=>c.id==='irrelevant')?.skills.length||0);
 
 render();
+
+// 滚动高亮导航
+const ob = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const id = e.target.id;
+      document.querySelectorAll('.nav-item').forEach(n => {
+        n.classList.toggle('active', n.getAttribute('href') === '#'+id);
+      });
+    }
+  });
+}, {threshold:.2});
+setTimeout(() => {
+  document.querySelectorAll('.category').forEach(el => ob.observe(el));
+}, 500);
 </script>
 </body>
 </html>
