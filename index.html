@@ -301,7 +301,7 @@ let dataLoaded=false;
 
 fetch('https://cdn.jsdelivr.net/gh/zeguang2026/kbo-schedule@master/data.json?v='+Date.now()).then(r=>r.json()).then(d=>{
   // 只取5月排期
-  SCHED=(d.schedule||[]).filter(i=>i.date.startsWith('2026-05'));
+  SCHED=(d.schedule||[]).filter(i=>i.d.startsWith('2026-05'));
   MERCH=d.merchant||[];
   // 显示更新时间
   if(d.updatedAt){document.getElementById('update-time').textContent=d.updatedAt;}
@@ -313,7 +313,7 @@ fetch('https://cdn.jsdelivr.net/gh/zeguang2026/kbo-schedule@master/data.json?v='
     initMOverview();
   }
   INDS=d.industries||[];
-  DATA_DATES=new Set(SCHED.map(i=>i.date));
+  DATA_DATES=new Set(SCHED.map(i=>i.d));
   document.getElementById('h-total').textContent=SCHED.length.toLocaleString();
   document.getElementById('h-ind').textContent=INDS.length;
   if(document.getElementById('h-merch')) document.getElementById('h-merch').textContent=(d.recruitment||[]).length;
@@ -474,19 +474,19 @@ function renderSched(){
     if(rangeStart){
       const lo=rangeStart<(rangeEnd||rangeStart)?rangeStart:(rangeEnd||rangeStart);
       const hi=rangeStart<(rangeEnd||rangeStart)?(rangeEnd||rangeStart):rangeStart;
-      items=items.filter(i=>i.date>=lo&&i.date<=hi);
+      items=items.filter(i=>i.d>=lo&&i.d<=hi);
     }
-    if(schedTier==='1000w+')items=items.filter(i=>i.tier==='1000w+');
-    else if(schedTier==='million')items=items.filter(i=>['500w-1000w','100-500w'].includes(i.tier));
-    else if(schedTier==='100k')items=items.filter(i=>['50-100w','10-50w'].includes(i.tier));
-    if(selInds.size>0)items=items.filter(i=>selInds.has(i.industry));
+    if(schedTier==='1000w+')items=items.filter(i=>i.t==='1000w+');
+    else if(schedTier==='million')items=items.filter(i=>['500w-1000w','100-500w'].includes(i.t));
+    else if(schedTier==='100k')items=items.filter(i=>['50-100w','10-50w'].includes(i.t));
+    if(selInds.size>0)items=items.filter(i=>selInds.has(i.i));
     if(!items.length){
       countEl.style.display='none';
       app.innerHTML=rangeStart?`<div class="empty"><div class="empty-icon">📭</div><div>所选条件下暂无场次<br><a href="#" onclick="clearRange();return false">清除日期选择</a></div></div>`
         :'<div class="empty"><div class="empty-icon">👆</div><div>在上方日历选择日期<br>或选择买手主营类目快速筛选</div></div>';
       return;
     }
-    const groups={};items.forEach(i=>{if(!groups[i.date])groups[i.date]=[];groups[i.date].push(i);});
+    const groups={};items.forEach(i=>{if(!groups[i.d])groups[i.d]=[];groups[i.d].push(i);});
     countEl.style.display='block';
     countEl.innerHTML=`筛选结果：<strong>${items.length}</strong> 场 · <strong>${Object.keys(groups).length}</strong> 天`;
     let html='';
@@ -499,11 +499,11 @@ function renderSched(){
         <span class="day-sub">${wd(date)}${isWknd?' 🌙':''}</span>
         <span class="day-cnt">${list.length}场</span>
       </div><div class="cards">${show.map(item=>{
-        const color=TC[item.tier]||'#8E8E93';
+        const color=TC[item.t]||'#8E8E93';
         return `<div class="scard" style="border-top-color:${color}">
-          <div class="scard-name">${item.name}</div>
-          <span class="stag" style="background:${color}18;color:${color}">${TL[item.tier]||item.tier}</span>
-          <span class="stag ind-tag">${item.industry}</span>
+          <div class="scard-name">${item.n}</div>
+          <span class="stag" style="background:${color}18;color:${color}">${TL[item.t]||item.t}</span>
+          <span class="stag ind-tag">${item.i}</span>
         </div>`;
       }).join('')}${more>0?`<div class="scard" style="border-top-color:#E5E5EA;background:#F8F8F8;display:flex;align-items:center;justify-content:center;color:#8E8E93;font-size:12px">+${more}位</div>`:''}</div></div>`;
     });
@@ -513,14 +513,14 @@ function renderSched(){
     countEl.style.display='none';
     if(!q){app.innerHTML='<div class="empty"><div class="empty-icon">🔍</div><div>输入买手名称查看Ta的开播日期</div></div>';return;}
     const matched={};
-    SCHED.filter(i=>i.name.includes(q)).forEach(i=>{if(!matched[i.name])matched[i.name]={...i,dates:[]};matched[i.name].dates.push(i.date);});
+    SCHED.filter(i=>i.n.includes(q)).forEach(i=>{if(!matched[i.n])matched[i.n]={...i,dates:[]};matched[i.n].dates.push(i.d);});
     const results=Object.values(matched);
     if(!results.length){app.innerHTML=`<div class="empty"><div class="empty-icon">😕</div><div>未找到"${q}"</div></div>`;return;}
     app.innerHTML='<div style="padding:10px 12px 0">'+results.slice(0,50).map(item=>{
-      const color=TC[item.tier]||'#8E8E93';
-      return `<div class="buyer-card"><div class="buyer-name">${item.name}</div>
-        <div><span class="stag" style="background:${color}18;color:${color}">${TL[item.tier]||item.tier}</span><span class="stag ind-tag">${item.industry}</span></div>
-        <div class="dchips">${item.dates.sort().map(d=>{const[,m,dd]=d.split('-');return`<span class="dtag">${parseInt(m)}月${parseInt(dd)}日（${wd(d)}）</span>`;}).join('')}</div>
+      const color=TC[item.t]||'#8E8E93';
+      return `<div class="buyer-card"><div class="buyer-name">${item.n}</div>
+        <div><span class="stag" style="background:${color}18;color:${color}">${TL[item.t]||item.t}</span><span class="stag ind-tag">${item.i}</span></div>
+        <div class="dchips">${item.ds.sort().map(d=>{const[,m,dd]=d.split('-');return`<span class="dtag">${parseInt(m)}月${parseInt(dd)}日（${wd(d)}）</span>`;}).join('')}</div>
       </div>`;
     }).join('')+'</div>';
   }
@@ -680,7 +680,7 @@ function renderMerchant(){
     if(mLink==='direct')items=items.filter(i=>i.links&&i.links.length>0);
     else if(mLink==='am')items=items.filter(i=>!i.links||i.links.length===0);
     // 关键词搜索
-    if(q)items=items.filter(i=>(i.name||'').toLowerCase().includes(q)||(i.category||'').toLowerCase().includes(q));
+    if(q)items=items.filter(i=>(i.n||'').toLowerCase().includes(q)||(i.category||'').toLowerCase().includes(q));
     if(!items.length){
       app.innerHTML='<div class="empty"><div class="empty-icon">📭</div><div>没有匹配的招商信息<br><a href="#" onclick="resetMFilters();return false" style="color:#FF2442;font-size:13px">清除筛选条件</a></div></div>';
       return;
@@ -697,7 +697,7 @@ function renderMerchant(){
       const sendDateStr=item.sendDate?`<span style="font-size:11px;color:#AEAEB2">🕐 ${item.sendDate.slice(5,7).replace(/^0/,'')}月${item.sendDate.slice(8,10).replace(/^0/,'')}日发布</span>`:'';
       return `<div class="mcard">
         <div class="mcard-header">
-          <div class="mcard-name">${item.name||''}</div>
+          <div class="mcard-name">${item.n||''}</div>
           ${item.livestreamDate?`<div class="mdate">${item.livestreamDate}</div>`:''}
         </div>
         <div class="mtags">
@@ -719,7 +719,7 @@ function renderMerchant(){
   if(mFee!=='all')items=items.filter(i=>i.fee_type===mFee);
   if(mCat!=='all')items=items.filter(i=>i.category_tags&&i.category_tags.includes(mCat));
   if(mDateFilter!=='all')items=items.filter(i=>i.may_dates&&i.may_dates.includes(mDateFilter));
-  if(q)items=items.filter(i=>i.name.toLowerCase().includes(q)||(i.category||'').toLowerCase().includes(q));
+  if(q)items=items.filter(i=>i.n.toLowerCase().includes(q)||(i.category||'').toLowerCase().includes(q));
   if(!items.length){
     app.innerHTML='<div class="empty"><div class="empty-icon">📭</div><div>没有匹配的招商信息<br><a href="#" onclick="resetMFilters();return false" style="color:#FF2442;font-size:13px">清除筛选条件</a></div></div>';
     return;
@@ -732,7 +732,7 @@ function renderMerchant(){
       ?(isExpired?`<a class="submit-btn expired" onclick="return false">已过提报期</a>`:`<a class="submit-btn" href="${item.link}" target="_blank">📝 立即提报</a>`)
       :`<div class="contact-hint">💬 <strong>如需合作</strong>，请联系您的<strong>商家对接 AM</strong> 提交商品信息</div>`;
     return `<div class="mcard ${item.has_jewelry?'jewelry':''}">
-      <div class="mcard-header"><div class="mcard-name">${item.name}</div>${item.date?`<div class="mdate">${item.date}</div>`:''}</div>
+      <div class="mcard-header"><div class="mcard-name">${item.n}</div>${item.d?`<div class="mdate">${item.d}</div>`:''}</div>
       <div class="mtags"><span class="mtag ${feeCls}">${feeLabel}</span><span class="mtag" style="background:#F2F2F7;color:#636366">粉丝 ${item.fans}</span></div>
       <div class="mrow"><span class="mlabel">招商类目</span><span class="mval">${item.category}</span></div>
       <div class="mrow"><span class="mlabel">合作条件</span><span class="mval">${item.condition}</span></div>
