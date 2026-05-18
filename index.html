@@ -301,7 +301,7 @@ let dataLoaded=false;
 
 fetch('data.json?v='+Date.now()).then(r=>r.json()).then(d=>{
   // 只取5月排期
-  SCHED=d.schedule.filter(i=>i.date.startsWith('2026-05'));
+  SCHED=(d.schedule||[]).filter(i=>i.date.startsWith('2026-05'));
   MERCH=d.merchant||[];
   // 显示更新时间
   if(d.updatedAt){document.getElementById('update-time').textContent=d.updatedAt;}
@@ -312,19 +312,33 @@ fetch('data.json?v='+Date.now()).then(r=>r.json()).then(d=>{
     initMLDateChips();
     initMOverview();
   }
-  INDS=d.industries;
+  INDS=d.industries||[];
   DATA_DATES=new Set(SCHED.map(i=>i.date));
   document.getElementById('h-total').textContent=SCHED.length.toLocaleString();
   document.getElementById('h-ind').textContent=INDS.length;
   if(document.getElementById('h-merch')) document.getElementById('h-merch').textContent=(d.recruitment||[]).length;
   dataLoaded=true;
+  // 如果排期数据为空但有招商数据，在排期tab显示提示
+  if(SCHED.length===0&&(d.recruitment||[]).length>0){
+    document.getElementById('sched-app').innerHTML='<div class="empty"><div class="empty-icon">📭</div><div>排期数据暂未同步<br>请切换到"招商需求"tab查看最新招商信息</div></div>';
+  }
   initIndChips();
   initMCatChips();
   renderCal();
   renderSched();
   renderMerchant();
-}).catch(()=>{
-  document.getElementById('sched-app').innerHTML='<div class="empty"><div class="empty-icon">❌</div><div>数据加载失败，请刷新重试</div></div>';
+}).catch(e=>{
+  // 即使fetch失败也要初始化页面，招商需求tab仍可工作
+  console.warn('数据加载异常:', e.message);
+  dataLoaded=true;
+  // 排期tab显示空状态
+  document.getElementById('sched-app').innerHTML='<div class="empty"><div class="empty-icon">📭</div><div>排期数据暂未同步<br>请查看"招商需求"tab获取最新信息</div></div>';
+  document.getElementById('h-total').textContent='0';
+  document.getElementById('h-ind').textContent='0';
+  renderCal();
+  // 招商需求tab正常初始化
+  initMCatChips();
+  renderMerchant();
 });
 
 function switchTab(i,el){
