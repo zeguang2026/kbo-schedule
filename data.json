@@ -1,6 +1,18 @@
 {
   "recruitment": [
     {
+      "name": "讲解时长",
+      "type": "买手",
+      "fans": "未披露",
+      "livestreamDate": "待定",
+      "category": "【合作品类】食品饮料、酒类、图书、家居、服装等全品类（保健品类不考虑）",
+      "conditions": "详见招商消息",
+      "deadline": null,
+      "links": [],
+      "sendDate": "2026-05-19",
+      "sourceChat": "BK撮合招商直通车"
+    },
+    {
       "name": "WinnieTang珠宝",
       "type": "买手",
       "fans": "未披露",
@@ -415,6 +427,6 @@
       "sourceChat": "BK撮合招商直通车"
     }
   ],
-  "updatedAt": "2026-05-18 16:32",
-  "updateNote": "2026-05-18 自动更新：新增32条，合计34条"
+  "updatedAt": "2026-05-19 18:00",
+  "updateNote": "2026-05-19 自动更新：新增1条，合计35条"
 }
