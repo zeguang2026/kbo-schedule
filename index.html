@@ -478,7 +478,7 @@ function renderCal(){
     const ds=dateStr(my,mm,d);
     const hasData=DATA_DATES.has(ds);
     let cls='cal-day'+(hasData?' has-data':' no-data');
-    if(ds===dateStr(2026,5,7))cls+=' today';
+    if(ds===new Date().toLocaleDateString('sv'))cls+=' today';
     if(rangeStart&&rangeEnd){
       const lo=rangeStart<rangeEnd?rangeStart:rangeEnd,hi=rangeStart<rangeEnd?rangeEnd:rangeStart;
       if(ds===lo&&ds===hi)cls+=' selected range-start range-end';
@@ -784,7 +784,7 @@ function resetMFilters(){
   renderMerchant();
 }
 
-renderCal();
+// renderCal() 已在数据加载完成后的 Promise.then 中调用，此处不重复调用
 </script>
 </body>
 </html>
