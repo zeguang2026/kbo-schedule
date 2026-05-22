@@ -330,7 +330,7 @@ Promise.resolve(typeof __EMBEDDED_DATA__!=='undefined'?__EMBEDDED_DATA__:null).t
   d.recruitment=raw.r||raw.recruitment||[];
   // 只取10万+排期（过滤掉10w-档）
   const VALID_TIERS=['10-50w','50-100w','100-500w','500w-1000w','1000w+'];
-  SCHED=d.schedule.filter(i=>VALID_TIERS.includes(i.t));
+  SCHED=d.schedule.filter(i=>VALID_TIERS.includes(i.t)&&i.d.startsWith('2026-05'));
   MERCH=d.merchant||[];
   // 显示更新时间
   if(d.updatedAt){document.getElementById('update-time').textContent=d.updatedAt;}
