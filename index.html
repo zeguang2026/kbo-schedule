@@ -315,9 +315,22 @@ let viewYear=2026, viewMonth=5, rangeStart=null, rangeEnd=null;
 let mFee='all', mCat='all', mDateFilter='all', mType='all', mSDate='all', mLink='all';
 let dataLoaded=false;
 
-fetch('https://cdn.jsdelivr.net/gh/zeguang2026/kbo-schedule@master/data.json?v='+Date.now()).then(r=>r.json()).then(d=>{
-  // 只取5月排期
-  SCHED=(d.schedule||[]).filter(i=>i.d.startsWith('2026-05'));
+Promise.resolve(typeof __EMBEDDED_DATA__!=='undefined'?__EMBEDDED_DATA__:null).then(raw=>{
+  if(!raw){throw new Error('内嵌数据不存在');}
+  // 转换压缩格式 {s:[[date,name,cat,tier],...]} → {schedule:[{d,n,i,t},...]}
+  const d={};
+  if(raw.s&&Array.isArray(raw.s)){
+    d.schedule=raw.s.map(r=>({d:r[0],n:r[1],i:r[2],t:r[3]}));
+  } else {
+    d.schedule=raw.schedule||[];
+  }
+  d.merchant=raw.m||raw.merchant||[];
+  d.industries=raw.i||raw.industries||[];
+  d.updatedAt=raw.u||raw.updatedAt||'';
+  d.recruitment=raw.r||raw.recruitment||[];
+  // 只取10万+排期（过滤掉10w-档）
+  const VALID_TIERS=['10-50w','50-100w','100-500w','500w-1000w','1000w+'];
+  SCHED=d.schedule.filter(i=>VALID_TIERS.includes(i.t));
   MERCH=d.merchant||[];
   // 显示更新时间
   if(d.updatedAt){document.getElementById('update-time').textContent=d.updatedAt;}
