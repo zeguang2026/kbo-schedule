@@ -286,7 +286,7 @@ footer{text-align:center;padding:14px;color:#C7C7CC;font-size:11px;background:wh
   </div>
 </div>
 
-<footer>排期：K播官方导出 · 招商：BK撮合招商群 · 更新：2026-05-07</footer>
+<footer>排期：K播官方导出 · 招商：BK撮合招商群 · 更新：2026-05-26</footer>
 </div>
 
 <script>
@@ -301,7 +301,9 @@ let dataLoaded=false;
 
 fetch('data.json?v='+Date.now()).then(r=>r.json()).then(d=>{
   // 只取5月排期
-  SCHED=(d.schedule||[]).filter(i=>i.date.startsWith('2026-05'));
+  // 动态过滤：只显示今天及以后的日期（取数据中最早的今天之前最多30天，保留未来60天）
+const today=new Date().toISOString().slice(0,10);
+SCHED=(d.schedule||[]).filter(i=>i.date>=today);
   MERCH=d.merchant||[];
   // 显示更新时间
   if(d.updatedAt){document.getElementById('update-time').textContent=d.updatedAt;}
@@ -449,7 +451,10 @@ function renderCal(){
     const ds=dateStr(my,mm,d);
     const hasData=DATA_DATES.has(ds);
     let cls='cal-day'+(hasData?' has-data':' no-data');
-    if(ds===dateStr(2026,5,7))cls+=' today';
+    const todayStr=new Date().toISOString().slice(0,10);
+    if(ds===todayStr)cls+=' today';
+    // 今天之前且无数据的日期，设为 out（不可选）
+    if(ds<todayStr&&!hasData){cls='cal-day out';}
     if(rangeStart&&rangeEnd){
       const lo=rangeStart<rangeEnd?rangeStart:rangeEnd,hi=rangeStart<rangeEnd?rangeEnd:rangeStart;
       if(ds===lo&&ds===hi)cls+=' selected range-start range-end';
@@ -477,8 +482,8 @@ function renderSched(){
       items=items.filter(i=>i.date>=lo&&i.date<=hi);
     }
     if(schedTier==='1000w+')items=items.filter(i=>i.tier==='1000w+');
-    else if(schedTier==='million')items=items.filter(i=>['500w-1000w','100-500w'].includes(i.tier));
-    else if(schedTier==='100k')items=items.filter(i=>['50-100w','10-50w'].includes(i.tier));
+    else if(schedTier==='million')items=items.filter(i=>['500w-1000w','100w-500w'].includes(i.tier));
+    else if(schedTier==='100k')items=items.filter(i=>['500w-1000w','100w-500w','1000w+'].includes(i.tier));
     if(selInds.size>0)items=items.filter(i=>selInds.has(i.industry));
     if(!items.length){
       countEl.style.display='none';
