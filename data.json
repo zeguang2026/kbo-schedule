@@ -1,6 +1,30 @@
 {
   "recruitment": [
     {
+      "name": "再来cue一下这一条，服",
+      "type": "买手",
+      "fans": "未披露",
+      "livestreamDate": "待定",
+      "category": "综合类目",
+      "conditions": "详见招商消息",
+      "deadline": null,
+      "links": [],
+      "sendDate": "2026-05-28",
+      "sourceChat": "BK撮合招商直通车"
+    },
+    {
+      "name": "哈喽哈喽，这个博主可以帮",
+      "type": "买手",
+      "fans": "未披露",
+      "livestreamDate": "待定",
+      "category": "综合类目",
+      "conditions": "详见招商消息",
+      "deadline": null,
+      "links": [],
+      "sendDate": "2026-05-28",
+      "sourceChat": "一部x时尚买手握手群"
+    },
+    {
       "name": "潮玩开箱+女性悦己好物博",
       "type": "买手",
       "fans": "未披露",
@@ -571,6 +595,6 @@
       "sourceChat": "BK撮合招商直通车"
     }
   ],
-  "updatedAt": "2026-05-27 18:00",
-  "updateNote": "2026-05-27 自动更新：新增3条，合计47条"
+  "updatedAt": "2026-05-28 18:00",
+  "updateNote": "2026-05-28 自动更新：新增2条，合计49条"
 }
