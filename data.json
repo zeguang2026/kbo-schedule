@@ -1,6 +1,44 @@
 {
   "recruitment": [
     {
+      "name": "所有人",
+      "type": "买手",
+      "fans": "未披露",
+      "livestreamDate": "待定",
+      "category": "综合类目",
+      "conditions": "详见招商消息",
+      "deadline": null,
+      "links": [],
+      "sendDate": "2026-06-12",
+      "sourceChat": "BK撮合招商直通车"
+    },
+    {
+      "name": "所有人李嗲&付铁寒双11",
+      "type": "买手",
+      "fans": "未披露",
+      "livestreamDate": "待定",
+      "category": "本场辐射核心用户：女性/一线新一线城市/18-30岁区间用户占比60%+，30-35岁区间购买用户占比13%+ / ✅重点类目：美护/家居家电，以及一切有科技/技术含量经得住测评的产品都非常欢迎！保健品类暂不考虑。",
+      "conditions": "详见招商消息",
+      "deadline": null,
+      "links": [],
+      "sendDate": "2026-06-12",
+      "sourceChat": "BK撮合招商直通车"
+    },
+    {
+      "name": "所有人🔥皮草羊绒反季买，",
+      "type": "买手",
+      "fans": "未披露",
+      "livestreamDate": "待定",
+      "category": "综合类目",
+      "conditions": "详见招商消息",
+      "deadline": null,
+      "links": [
+        "https://doc.weixin.qq.com/doc/w3_ADcAiwbFAO0CNLiK5rCuMT02PeGh7?scode=ANAAyQcbAAglMSB06CARsA1gYiAFk"
+      ],
+      "sendDate": "2026-06-12",
+      "sourceChat": "大时尚买手X行业拉手"
+    },
+    {
       "name": "⚽️2026美加墨世界杯",
       "type": "买手",
       "fans": "未披露",
@@ -895,6 +933,6 @@
       "sourceChat": "BK撮合招商直通车"
     }
   ],
-  "updatedAt": "2026-06-11 18:00",
-  "updateNote": "2026-06-11 自动更新：新增2条，合计74条"
+  "updatedAt": "2026-06-12 18:00",
+  "updateNote": "2026-06-12 自动更新：新增3条，合计77条"
 }
